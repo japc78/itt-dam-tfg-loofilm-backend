@@ -13,6 +13,6 @@
 		<class>model.entities.ScenesMedia</class>
 		<class>model.entities.User</class>
 		<class>model.entities.Visited</class>
-		<class>model.entities.VisitedPK</class>
+		<class>model.entities.VisitedPK</class> 
 	</persistence-unit>
 </persistence>

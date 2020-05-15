@@ -18,20 +18,20 @@ public class Address implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	//bi-directional many-to-one association to Country
+	//bi-directional many-to-one association to City
 	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="countryCode")
-	private Country country;
+	@JoinColumn(name="cityId")
+	private City city;
 
 	//bi-directional many-to-one association to County
 	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="countyId")
 	private County county;
 
-	//bi-directional many-to-one association to City
+	//bi-directional many-to-one association to Country
 	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="cityId")
-	private City city;
+	@JoinColumn(name="countryCode")
+	private Country country;
 
 	//bi-directional many-to-one association to Location
 	@OneToMany(mappedBy="address")
@@ -52,12 +52,12 @@ public class Address implements Serializable {
 		this.id = id;
 	}
 
-	public Country getCountry() {
-		return this.country;
+	public City getCity() {
+		return this.city;
 	}
 
-	public void setCountry(Country country) {
-		this.country = country;
+	public void setCity(City city) {
+		this.city = city;
 	}
 
 	public County getCounty() {
@@ -68,12 +68,12 @@ public class Address implements Serializable {
 		this.county = county;
 	}
 
-	public City getCity() {
-		return this.city;
+	public Country getCountry() {
+		return this.country;
 	}
 
-	public void setCity(City city) {
-		this.city = city;
+	public void setCountry(Country country) {
+		this.country = country;
 	}
 
 	public List<Location> getLocations() {

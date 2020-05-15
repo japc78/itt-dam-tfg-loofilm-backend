@@ -25,7 +25,7 @@ public class Production implements Serializable {
 
 	private String cast;
 
-	private Timestamp dateAdd;
+	private Timestamp createDate;
 
 	private String description;
 
@@ -69,12 +69,12 @@ public class Production implements Serializable {
 		this.cast = cast;
 	}
 
-	public Timestamp getDateAdd() {
-		return this.dateAdd;
+	public Timestamp getCreateDate() {
+		return this.createDate;
 	}
 
-	public void setDateAdd(Timestamp dateAdd) {
-		this.dateAdd = dateAdd;
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
 	}
 
 	public String getDescription() {

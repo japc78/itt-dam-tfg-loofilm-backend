@@ -17,17 +17,17 @@ public class Visited implements Serializable {
 	@EmbeddedId
 	private VisitedPK id;
 
-	private Timestamp dateAdd;
-
-	//bi-directional many-to-one association to User
-	@ManyToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="userId")
-	private User user;
+	private Timestamp createDate;
 
 	//bi-directional many-to-one association to Location
 	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="locationId")
 	private Location location;
+
+	//bi-directional many-to-one association to User
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="userId")
+	private User user;
 
 	public Visited() {
 	}
@@ -40,20 +40,12 @@ public class Visited implements Serializable {
 		this.id = id;
 	}
 
-	public Timestamp getDateAdd() {
-		return this.dateAdd;
+	public Timestamp getCreateDate() {
+		return this.createDate;
 	}
 
-	public void setDateAdd(Timestamp dateAdd) {
-		this.dateAdd = dateAdd;
-	}
-
-	public User getUser() {
-		return this.user;
-	}
-
-	public void setUser(User user) {
-		this.user = user;
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
 	}
 
 	public Location getLocation() {
@@ -62,6 +54,14 @@ public class Visited implements Serializable {
 
 	public void setLocation(Location location) {
 		this.location = location;
+	}
+
+	public User getUser() {
+		return this.user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
 	}
 
 }

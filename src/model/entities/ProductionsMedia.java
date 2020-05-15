@@ -19,15 +19,15 @@ public class ProductionsMedia implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private byte active;
+	private Object active;
 
-	private Timestamp dateAdd;
+	private Timestamp createDate;
 
 	private String description;
 
 	private int productionId;
 
-	private byte type;
+	private Object type;
 
 	public ProductionsMedia() {
 	}
@@ -40,20 +40,20 @@ public class ProductionsMedia implements Serializable {
 		this.id = id;
 	}
 
-	public byte getActive() {
+	public Object getActive() {
 		return this.active;
 	}
 
-	public void setActive(byte active) {
+	public void setActive(Object active) {
 		this.active = active;
 	}
 
-	public Timestamp getDateAdd() {
-		return this.dateAdd;
+	public Timestamp getCreateDate() {
+		return this.createDate;
 	}
 
-	public void setDateAdd(Timestamp dateAdd) {
-		this.dateAdd = dateAdd;
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
 	}
 
 	public String getDescription() {
@@ -72,11 +72,11 @@ public class ProductionsMedia implements Serializable {
 		this.productionId = productionId;
 	}
 
-	public byte getType() {
+	public Object getType() {
 		return this.type;
 	}
 
-	public void setType(byte type) {
+	public void setType(Object type) {
 		this.type = type;
 	}
 

@@ -26,10 +26,7 @@ public class User implements Serializable {
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
 
-	@Temporal(TemporalType.DATE)
-	private Date createDate;
-
-	private Timestamp dateAdd;
+	private Timestamp createDate;
 
 	private String lastname;
 
@@ -75,20 +72,12 @@ public class User implements Serializable {
 		this.birthdate = birthdate;
 	}
 
-	public Date getCreateDate() {
+	public Timestamp getCreateDate() {
 		return this.createDate;
 	}
 
-	public void setCreateDate(Date createDate) {
+	public void setCreateDate(Timestamp createDate) {
 		this.createDate = createDate;
-	}
-
-	public Timestamp getDateAdd() {
-		return this.dateAdd;
-	}
-
-	public void setDateAdd(Timestamp dateAdd) {
-		this.dateAdd = dateAdd;
 	}
 
 	public String getLastname() {

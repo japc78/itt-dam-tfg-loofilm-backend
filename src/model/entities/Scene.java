@@ -22,7 +22,7 @@ public class Scene implements Serializable {
 
 	private Object active;
 
-	private Timestamp dateAdd;
+	private Timestamp createDate;
 
 	private String description;
 
@@ -61,12 +61,12 @@ public class Scene implements Serializable {
 		this.active = active;
 	}
 
-	public Timestamp getDateAdd() {
-		return this.dateAdd;
+	public Timestamp getCreateDate() {
+		return this.createDate;
 	}
 
-	public void setDateAdd(Timestamp dateAdd) {
-		this.dateAdd = dateAdd;
+	public void setCreateDate(Timestamp createDate) {
+		this.createDate = createDate;
 	}
 
 	public String getDescription() {
