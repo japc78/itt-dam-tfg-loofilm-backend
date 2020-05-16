@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Loofilm Admin</title>
+  <!-- Tell the browser to be responsive to screen width -->
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
+  <!-- Ionicons -->
+  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="assets/css/adminlte.min.css">
+  <!-- Google Font: Source Sans Pro -->
+  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+  </nav>
+  <!-- /.navbar -->
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="assets/img/loofilm_icon.svg" alt="Loofilm" class="brand-image img-circle elevation-3">
+      <span class="brand-text font-weight-light">LOOFILM</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <!-- Add icons to the links using the .nav-icon class
+               with font-awesome or any other icon font library -->
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link">
+              <i class="nav-icon fas fa-th"></i>
+              <p>
+                Inicio
+              </p>
+            </a>
+          </li>
+          <li class="nav-item has-treeview menu-open">
+            <a href="#" class="nav-link active">
+              <i class="nav-icon fas fa-map-marker-alt"></i>
+              <p>
+                Localización
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="list.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listado</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="add.html" class="nav-link active">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nueva Localizacion</p>
+                </a>
+              </li>
+            </ul>
+		  </li>
+		  <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-video"></i>
+              <p>
+                Producción
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="list.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listado</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="add.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nueva producción</p>
+                </a>
+              </li>
+            </ul>
+		  </li>
+		  <li class="nav-item has-treeview">
+            <a href="#" class="nav-link">
+              <i class="nav-icon fas fa-film"></i>
+              <p>
+                Escenas
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="list.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Listado</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="add.html" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Nueva escena</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
+        </ul>
+      </nav>
+      <!-- /.sidebar-menu -->
+    </div>
+    <!-- /.sidebar -->
+  </aside>
+
+  <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1>Añadir</h1>
+          </div>
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+              <li class="breadcrumb-item active">Añadir Localización</li>
+            </ol>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <div class="col-md-6">
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">General</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="inputName">Nombre <small>max. 180 caracteres</small></label>
+                <input type="text" id="inputName" class="form-control" name="inputName">
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">Descripción <small>(Describe brevemente la localización) máx 320 caracteres.</small></label>
+                <textarea id="inputDescription" class="form-control" rows="4" name="inputDescription"></textarea>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+					<!-- /.card -->
+
+
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Datos de contacto</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="inputName">Web <small>max. 320 caracteres</small></label>
+                <input type="url" id="inputName" class="form-control" name="inputName" placeholder="Ej. https://www.alhambra.com">
+							</div>
+							<div class="form-group">
+								<label for="inputEmail">Email</label>
+								<input type="email" name="inputEmail" class="form-control" id="inputEmail" placeholder="Ej. info@alhambra.com">
+							</div>
+
+							<div class="form-group">
+								<label for="inputEmail">Teléfono <small>(sin espacios)</small></label>
+								<input type="tel" name="inputEmail" class="form-control" id="inputEmail" placeholder="Ej. 999777888">
+							</div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+
+
+        <div class="col-md-6">
+					<!-- Card GPS -->
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Localización</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+							<div class="form-group">
+								<p><b>Busca la dirección</b></p>
+								<div class="map"></div>
+							</div>
+              <div class="form-group">
+              </div>
+              <div class="form-group">
+                <label for="inputGPS">GPS <small>(coordenadas GPS: Latitud,Longitud)</small></label>
+                <input type="text" id="inputGPS" class="form-control" name="inputGPS" disabled>
+                <!-- <small>Haz Click para obtener Ciudad, Provincia o Estado, y País de la Localización.</small>
+                <button type="submit" class="btn btn-primary mt-2">Obtener</button> -->
+              </div>
+            </div>
+					</div>
+
+					<!-- Card Direccion -->
+					<div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Direccíon</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="inputStreet">Dirección <small>(Introduce la calle y el número si no es correcta)</small></label>
+                <input type="text" id="inputStreet" class="form-control" name="inputStreet">
+                <!-- <small>Haz Click para obtener Ciudad, Provincia o Estado, y País de la Localización.</small>
+                <button type="submit" class="btn btn-primary mt-2">Obtener</button> -->
+							</div>
+							<div class="form-group">
+								<label>Previsualización de dirección</label>
+								<textarea id="inputAddressPreview" class="form-control" rows="3" disabled="" name="inputAddressPreview"></textarea>
+							</div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+        </div>
+			</div>
+
+
+			<div class="row">
+				<div class="col-12">
+
+					<div class="card card-info">
+						<div class="card-header">
+              <h3 class="card-title">Media</h3>
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+							<div class="form-group">
+								<form action="" method="post" enctype="multipart/form-data">
+									<label for="exampleInputFile">Imágenes <small>(max. 5 imágenes)</small></label>
+									<div class="input-group">
+										<div class="custom-file">
+											<input type="file" class="custom-file-input" id="exampleInputFile" multiple>
+											<label class="custom-file-label" for="exampleInputFile">Añade las imágenes</label>
+										</div>
+										<div class="input-group-append">
+											<span class="input-group-text" id="">Upload</span>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+      <div class="row mb-3">
+        <div class="col-12 text-right">
+          <a href="#" class="btn btn-secondary mr-2">Cancelar</a>
+          <input type="submit" value="Guardar" class="btn btn-success float-right">
+        </div>
+      </div>
+    </section>
+    <!-- /.content -->
+  </div>
+  <!-- /.content-wrapper -->
+  <footer class="main-footer">
+    <div class="float-right d-none d-sm-block">
+      <b>Version</b> 3.0.4
+    </div>
+    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
+    reserved.
+  </footer>
+
+  <!-- Control Sidebar -->
+  <aside class="control-sidebar control-sidebar-dark">
+    <!-- Control sidebar content goes here -->
+  </aside>
+  <!-- /.control-sidebar -->
+</div>
+<!-- ./wrapper -->
+
+<!-- jQuery -->
+<script src="assets/plugins/jquery/jquery.min.js"></script>
+<!-- Bootstrap 4 -->
+<script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<!-- bs-custom-file-input -->
+<script src="assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
+
+<!-- AdminLTE App -->
+<script src="assets/js/adminlte.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function () {
+  bsCustomFileInput.init();
+});
+</script>
+</body>
+</html>
