@@ -11,10 +11,17 @@
   <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+
+  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/dropzone.min.css"> -->
+
+  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
+
   <!-- Theme style -->
   <link rel="stylesheet" href="assets/css/adminlte.min.css">
+  <link rel="stylesheet" href="assets/css/custom.css">
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -152,60 +159,6 @@
     <section class="content">
       <div class="row">
         <div class="col-md-6">
-          <div class="card card-info">
-            <div class="card-header">
-              <h3 class="card-title">General</h3>
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="inputName">Nombre <small>max. 180 caracteres</small></label>
-                <input type="text" id="inputName" class="form-control" name="inputName">
-              </div>
-              <div class="form-group">
-                <label for="inputDescription">Descripción <small>(Describe brevemente la localización) máx 320 caracteres.</small></label>
-                <textarea id="inputDescription" class="form-control" rows="4" name="inputDescription"></textarea>
-              </div>
-            </div>
-            <!-- /.card-body -->
-          </div>
-					<!-- /.card -->
-
-
-
-          <div class="card card-info">
-            <div class="card-header">
-              <h3 class="card-title">Datos de contacto</h3>
-
-              <div class="card-tools">
-                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                  <i class="fas fa-minus"></i></button>
-              </div>
-            </div>
-            <div class="card-body">
-              <div class="form-group">
-                <label for="inputName">Web <small>max. 320 caracteres</small></label>
-                <input type="url" id="inputName" class="form-control" name="inputName" placeholder="Ej. https://www.alhambra.com">
-							</div>
-							<div class="form-group">
-								<label for="inputEmail">Email</label>
-								<input type="email" name="inputEmail" class="form-control" id="inputEmail" placeholder="Ej. info@alhambra.com">
-							</div>
-
-							<div class="form-group">
-								<label for="inputEmail">Teléfono <small>(sin espacios)</small></label>
-								<input type="tel" name="inputEmail" class="form-control" id="inputEmail" placeholder="Ej. 999777888">
-							</div>
-            </div>
-            <!-- /.card-body -->
-          </div>
-        </div>
-
-
-        <div class="col-md-6">
 					<!-- Card GPS -->
           <div class="card card-info">
             <div class="card-header">
@@ -217,24 +170,36 @@
             </div>
             <div class="card-body">
 							<div class="form-group">
-								<p><b>Busca la dirección</b></p>
-								<div class="map"></div>
+                <input id="pac-input" class="form-control mb-3" type="text" placeholder="Escribe la dirección de la localización">
+								<div id="map" class="map rounded"></div>
 							</div>
               <div class="form-group">
+                <div class=""><ul id="addressPreview" class="infoAddress alert-default-info list-unstyled rounded p-3"></ul></div>
+
+								<!-- <textarea id="inputAddressPreview" class="form-control" rows="3" disabled="" name="inputAddressPreview"></textarea> -->
+                <input type="hidden" id="inputCity" name="locality" value="">
+                <input type="hidden" id="inputPostalCode" name="postal_code" value="">
+                <input type="hidden" id="inputCounty" name="administrative_area_level_2" value="">
+                <input type="hidden" id="inputCountry" name="country" value="">
+                <input type="hidden" id="inputCountryCode" name="countryCode" value="">
+                <input type="hidden" id="inputGps" name="gps" value="">
+                <button type="submit" class="btn btn-primary mt-2">Corregir textos</button>
+
               </div>
-              <div class="form-group">
+              <!-- <div class="form-group">
                 <label for="inputGPS">GPS <small>(coordenadas GPS: Latitud,Longitud)</small></label>
                 <input type="text" id="inputGPS" class="form-control" name="inputGPS" disabled>
-                <!-- <small>Haz Click para obtener Ciudad, Provincia o Estado, y País de la Localización.</small>
-                <button type="submit" class="btn btn-primary mt-2">Obtener</button> -->
-              </div>
+                <small>Haz Click para obtener Ciudad, Provincia o Estado, y País de la Localización.</small>
+                <button type="submit" class="btn btn-primary mt-2">Obtener</button>
+              </div> -->
             </div>
 					</div>
+        </div>
 
-					<!-- Card Direccion -->
-					<div class="card card-info">
+        <div class="col-md-6">
+          <div class="card card-info">
             <div class="card-header">
-              <h3 class="card-title">Direccíon</h3>
+              <h3 class="card-title">General</h3>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                   <i class="fas fa-minus"></i></button>
@@ -242,14 +207,45 @@
             </div>
             <div class="card-body">
               <div class="form-group">
-                <label for="inputStreet">Dirección <small>(Introduce la calle y el número si no es correcta)</small></label>
-                <input type="text" id="inputStreet" class="form-control" name="inputStreet">
-                <!-- <small>Haz Click para obtener Ciudad, Provincia o Estado, y País de la Localización.</small>
-                <button type="submit" class="btn btn-primary mt-2">Obtener</button> -->
+                <label for="inputName">Nombre <small>max. 180 caracteres</small></label>
+                <input type="text" id="inputName" class="form-control" name="name">
+              </div>
+              <div class="form-group">
+                <label for="inputDescription">Descripción <small>máx. 320 caracteres.</small></label>
+                <textarea id="inputDescription" class="form-control" rows="4" name="inputDescription"></textarea>
+              </div>
+            </div>
+            <!-- /.card-body -->
+          </div>
+          <!-- /.card -->
+
+          <div class="card card-info">
+            <div class="card-header">
+              <h3 class="card-title">Info</h3>
+
+              <div class="card-tools">
+                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                  <i class="fas fa-minus"></i></button>
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <label for="inputStreet">Dirección <small>max. 180 caracteres.</small></label>
+                <input type="text" id="inputStreet" class="form-control mb-3" name="inputStreet">
+              </div>
+
+              <div class="form-group">
+                <label for="inputWeb">Web <small>max. 320 caracteres</small></label>
+                <input type="url" id="inputWeb" class="form-control" name="web" placeholder="Ej. https://www.alhambra.com">
 							</div>
 							<div class="form-group">
-								<label>Previsualización de dirección</label>
-								<textarea id="inputAddressPreview" class="form-control" rows="3" disabled="" name="inputAddressPreview"></textarea>
+								<label for="inputEmail">Email</label>
+								<input type="email" name="inputEmail" class="form-control" id="inputEmail" placeholder="Ej. info@alhambra.com">
+							</div>
+
+							<div class="form-group">
+								<label for="inputPhone">Teléfono</label>
+								<input type="text" name="phone" class="form-control" id="inputPhone" placeholder="Ej. 999777888">
 							</div>
             </div>
             <!-- /.card-body -->
@@ -257,22 +253,33 @@
         </div>
 			</div>
 
-
 			<div class="row">
 				<div class="col-12">
 
 					<div class="card card-info">
 						<div class="card-header">
-              <h3 class="card-title">Media</h3>
+              <h3 class="card-title">Imagenes <small>(max. 5 imágenes)</small></h3>
               <div class="card-tools">
                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                   <i class="fas fa-minus"></i></button>
               </div>
             </div>
             <div class="card-body">
-							<div class="form-group">
-								<form action="" method="post" enctype="multipart/form-data">
-									<label for="exampleInputFile">Imágenes <small>(max. 5 imágenes)</small></label>
+
+              <div class="form-group">
+                <div id="formImageUpload"></div>
+
+                <!-- <form action="/file-upload" class="dropzone" id="my-awesome-dropzone">
+                  <div class="fallback">
+                    <input name="file" type="file" multiple />
+                  </div>
+                </form> -->
+
+                <form action="" method="post" enctype="multipart/form-data">
+                    <input type="file" class="imageUpload" name="filepond"/>
+								</form>
+
+                <!-- <form action="" method="post" enctype="multipart/form-data">
 									<div class="input-group">
 										<div class="custom-file">
 											<input type="file" class="custom-file-input" id="exampleInputFile" multiple>
@@ -282,7 +289,7 @@
 											<span class="input-group-text" id="">Upload</span>
 										</div>
 									</div>
-								</form>
+								</form> -->
 							</div>
 						</div>
 					</div>
@@ -317,17 +324,27 @@
 
 <!-- jQuery -->
 <script src="assets/plugins/jquery/jquery.min.js"></script>
+
 <!-- Bootstrap 4 -->
 <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
 <!-- bs-custom-file-input -->
 <script src="assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 
+
+<!-- include FilePond library -->
+<script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
+<script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
+
+<!-- Googole maps -->
+<script src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyAwuYKZVsfo1GUeNQVXkfxu9Nfr3mmdnSo&libraries=places&language=es&callback=initMap" async defer></script>
+
 <!-- AdminLTE App -->
 <script src="assets/js/adminlte.min.js"></script>
-<script type="text/javascript">
-$(document).ready(function () {
-  bsCustomFileInput.init();
-});
-</script>
+
+<!-- Customs -->
+<script src="assets/js/custom.js"></script>
+<script src="assets/js/maps.js"></script>
 </body>
 </html>
