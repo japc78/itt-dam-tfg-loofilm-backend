@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 /**
  * The persistent class for the scenes_media database table.
- * 
+ *
  */
 @Entity
 @Table(name="scenes_media")

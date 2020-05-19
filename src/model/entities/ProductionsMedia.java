@@ -25,9 +25,9 @@ public class ProductionsMedia implements Serializable {
 
 	private String description;
 
-	private int productionId;
+	private Object isFilm;
 
-	private Object type;
+	private int productionId;
 
 	public ProductionsMedia() {
 	}
@@ -64,20 +64,20 @@ public class ProductionsMedia implements Serializable {
 		this.description = description;
 	}
 
+	public Object getIsFilm() {
+		return this.isFilm;
+	}
+
+	public void setIsFilm(Object isFilm) {
+		this.isFilm = isFilm;
+	}
+
 	public int getProductionId() {
 		return this.productionId;
 	}
 
 	public void setProductionId(int productionId) {
 		this.productionId = productionId;
-	}
-
-	public Object getType() {
-		return this.type;
-	}
-
-	public void setType(Object type) {
-		this.type = type;
 	}
 
 }

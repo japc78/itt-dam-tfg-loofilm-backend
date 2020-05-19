@@ -1,5 +1,6 @@
 package model.entities;
 
+import java.awt.Point;
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -28,7 +29,7 @@ public class Location implements Serializable {
 
 	private String email;
 
-	private Object gps;
+	private Point gps;
 
 	private String name;
 
@@ -100,11 +101,11 @@ public class Location implements Serializable {
 		this.email = email;
 	}
 
-	public Object getGps() {
+	public Point getGps() {
 		return this.gps;
 	}
 
-	public void setGps(Object gps) {
+	public void setGps(Point gps) {
 		this.gps = gps;
 	}
 

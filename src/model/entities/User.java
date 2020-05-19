@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * The persistent class for the users database table.
- * 
+ *
  */
 @Entity
 @Table(name="users")
@@ -28,9 +28,13 @@ public class User implements Serializable {
 
 	private Timestamp createDate;
 
+	private String email;
+
 	private String lastname;
 
 	private String name;
+
+	private String pass;
 
 	private int postalcode;
 
@@ -45,7 +49,55 @@ public class User implements Serializable {
 	@OneToMany(mappedBy="user")
 	private List<Visited> visiteds;
 
+	//bi-directional one-to-one association to UsersAdmin
+	@OneToOne(mappedBy="user")
+	private UsersAdmin usersAdmin;
+
 	public User() {
+	}
+
+	/**Constructor de Usuario completo
+	 * @param id
+	 * @param active
+	 * @param birthdate
+	 * @param createDate
+	 * @param email
+	 * @param lastname
+	 * @param name
+	 * @param pass
+	 * @param postalcode
+	 * @param street
+	 * @param address
+	 * @param visiteds
+	 * @param usersAdmin
+	 */
+
+	public User(int id, Object active, Date birthdate, Timestamp createDate, String email, String lastname, String name,
+	String pass, int postalcode, String street, Address address, List<Visited> visiteds,
+	UsersAdmin usersAdmin) {
+		this.id = id;
+		this.active = active;
+		this.birthdate = birthdate;
+		this.createDate = createDate;
+		this.email = email;
+		this.lastname = lastname;
+		this.name = name;
+		this.pass = pass;
+		this.postalcode = postalcode;
+		this.street = street;
+		this.address = address;
+		this.visiteds = visiteds;
+		this.usersAdmin = usersAdmin;
+	}
+
+	/**Constructor de Usuario con dos parametros, para Login
+	 *
+	 * @param email
+	 * @param pass
+	 */
+	public User(String email, String pass) {
+		this.email = email;
+		this.pass = pass;
 	}
 
 	public int getId() {
@@ -80,6 +132,14 @@ public class User implements Serializable {
 		this.createDate = createDate;
 	}
 
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
 	public String getLastname() {
 		return this.lastname;
 	}
@@ -94,6 +154,14 @@ public class User implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getPass() {
+		return this.pass;
+	}
+
+	public void setPass(String pass) {
+		this.pass = pass;
 	}
 
 	public int getPostalcode() {
@@ -142,4 +210,11 @@ public class User implements Serializable {
 		return visited;
 	}
 
+	public UsersAdmin getUsersAdmin() {
+		return this.usersAdmin;
+	}
+
+	public void setUsersAdmin(UsersAdmin usersAdmin) {
+		this.usersAdmin = usersAdmin;
+	}
 }

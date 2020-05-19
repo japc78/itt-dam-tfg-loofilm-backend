@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * The persistent class for the scenes database table.
- * 
+ *
  */
 @Entity
 @Table(name="scenes")
