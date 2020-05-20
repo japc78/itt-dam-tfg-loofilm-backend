@@ -16,7 +16,7 @@
 		<class>model.entities.Visited</class>
 		<class>model.entities.VisitedPK</class>
 			<properties>
-				<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3360/loofilm"/>
+				<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3360/loofilm?useSSL=false"/>
 				<property name="javax.persistence.jdbc.user" value="itt.dam"/>
 				<property name="javax.persistence.jdbc.password" value="ittRW"/>
 				<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>

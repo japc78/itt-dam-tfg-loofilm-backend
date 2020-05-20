@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 /**
  * The persistent class for the productions_media database table.
- * 
+ *
  */
 @Entity
 @Table(name="productions_media")
@@ -19,13 +19,13 @@ public class ProductionsMedia implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private Object active;
+	private Boolean active;
 
 	private Timestamp createDate;
 
 	private String description;
 
-	private Object isFilm;
+	private Boolean isFilm;
 
 	private int productionId;
 
@@ -40,11 +40,11 @@ public class ProductionsMedia implements Serializable {
 		this.id = id;
 	}
 
-	public Object getActive() {
+	public Boolean getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
 
@@ -64,11 +64,11 @@ public class ProductionsMedia implements Serializable {
 		this.description = description;
 	}
 
-	public Object getIsFilm() {
+	public Boolean getIsFilm() {
 		return this.isFilm;
 	}
 
-	public void setIsFilm(Object isFilm) {
+	public void setIsFilm(Boolean isFilm) {
 		this.isFilm = isFilm;
 	}
 

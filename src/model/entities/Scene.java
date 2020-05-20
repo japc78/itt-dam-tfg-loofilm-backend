@@ -20,7 +20,7 @@ public class Scene implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private Object active;
+	private Boolean active;
 
 	private Timestamp createDate;
 
@@ -53,11 +53,11 @@ public class Scene implements Serializable {
 		this.id = id;
 	}
 
-	public Object getActive() {
+	public Boolean getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
 

@@ -7,7 +7,7 @@ import java.sql.Timestamp;
 
 /**
  * The persistent class for the locations_media database table.
- * 
+ *
  */
 @Entity
 @Table(name="locations_media")
@@ -19,13 +19,13 @@ public class LocationsMedia implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private Object active;
+	private Boolean active;
 
 	private Timestamp createDate;
 
 	private String description;
 
-	private Object type;
+	private Boolean type;
 
 	//bi-directional many-to-one association to Location
 	@ManyToOne(cascade={CascadeType.ALL})
@@ -43,11 +43,11 @@ public class LocationsMedia implements Serializable {
 		this.id = id;
 	}
 
-	public Object getActive() {
+	public Boolean getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
 
@@ -67,11 +67,11 @@ public class LocationsMedia implements Serializable {
 		this.description = description;
 	}
 
-	public Object getType() {
+	public Boolean getType() {
 		return this.type;
 	}
 
-	public void setType(Object type) {
+	public void setType(Boolean type) {
 		this.type = type;
 	}
 

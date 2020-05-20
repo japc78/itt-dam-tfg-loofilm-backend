@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * The persistent class for the locations database table.
- * 
+ *
  */
 @Entity
 @Table(name="locations")
@@ -21,7 +21,7 @@ public class Location implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private Object active;
+	private Boolean active;
 
 	private Timestamp createDate;
 
@@ -69,11 +69,11 @@ public class Location implements Serializable {
 		this.id = id;
 	}
 
-	public Object getActive() {
+	public Boolean getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
 

@@ -6,7 +6,7 @@ import javax.persistence.*;
 
 /**
  * The persistent class for the users_admin database table.
- * 
+ *
  */
 @Entity
 @Table(name="users_admin")
@@ -18,11 +18,11 @@ public class UsersAdmin implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int userId;
 
-	private byte isSuper;
+	private boolean isSuper;
 
 	//bi-directional one-to-one association to User
 	@OneToOne(cascade={CascadeType.ALL})
-	@JoinColumn(name="userId")
+	@PrimaryKeyJoinColumn (name="userId")
 	private User user;
 
 	public UsersAdmin() {
@@ -36,11 +36,11 @@ public class UsersAdmin implements Serializable {
 		this.userId = userId;
 	}
 
-	public byte getIsSuper() {
+	public boolean getIsSuper() {
 		return this.isSuper;
 	}
 
-	public void setIsSuper(byte isSuper) {
+	public void setIsSuper(boolean isSuper) {
 		this.isSuper = isSuper;
 	}
 

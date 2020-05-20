@@ -21,7 +21,7 @@ public class User implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private Object active;
+	private boolean active;
 
 	@Temporal(TemporalType.DATE)
 	private Date birthdate;
@@ -72,7 +72,7 @@ public class User implements Serializable {
 	 * @param usersAdmin
 	 */
 
-	public User(int id, Object active, Date birthdate, Timestamp createDate, String email, String lastname, String name,
+	public User(int id, Boolean active, Date birthdate, Timestamp createDate, String email, String lastname, String name,
 	String pass, int postalcode, String street, Address address, List<Visited> visiteds,
 	UsersAdmin usersAdmin) {
 		this.id = id;
@@ -108,11 +108,11 @@ public class User implements Serializable {
 		this.id = id;
 	}
 
-	public Object getActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 

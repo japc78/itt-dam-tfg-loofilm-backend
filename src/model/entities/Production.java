@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * The persistent class for the productions database table.
- * 
+ *
  */
 @Entity
 @Table(name="productions")
@@ -21,7 +21,7 @@ public class Production implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private Object active;
+	private Boolean active;
 
 	private String cast;
 
@@ -31,7 +31,7 @@ public class Production implements Serializable {
 
 	private String name;
 
-	private Object type;
+	private Boolean type;
 
 	private String web;
 
@@ -53,11 +53,11 @@ public class Production implements Serializable {
 		this.id = id;
 	}
 
-	public Object getActive() {
+	public Boolean getActive() {
 		return this.active;
 	}
 
-	public void setActive(Object active) {
+	public void setActive(Boolean active) {
 		this.active = active;
 	}
 
@@ -93,11 +93,11 @@ public class Production implements Serializable {
 		this.name = name;
 	}
 
-	public Object getType() {
+	public Boolean getType() {
 		return this.type;
 	}
 
-	public void setType(Object type) {
+	public void setType(Boolean type) {
 		this.type = type;
 	}
 
