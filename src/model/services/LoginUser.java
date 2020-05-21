@@ -7,7 +7,7 @@ import model.entities.User;
 import model.persistence.daoImpl.UserDaoImpl;
 
 /**
- * Gestor de Login.
+ * Gestor de Login [ara administradores.
  */
 
 public class LoginUser  {
@@ -21,15 +21,18 @@ public class LoginUser  {
 	 * @throws NoSuchAlgorithmException
 	 */
 
-	public String login(User user, String pass) throws NoSuchAlgorithmException {
-		System.out.println("Codigo: " + user.getId());
-		if (userDao.exists(user) != null) {
-			return "ok-01";
-			// if (hashPass(pass).equals(user.getPass())) {
-			// 	return "ok-01";
-			// } else {
-			// 	return "er-02";
-			// }
+	public String loginAdmin(User user, String pass) throws NoSuchAlgorithmException {
+		System.out.println("LUA Email: " + user.getEmail());
+		System.out.println("LUA Pass: " + pass);
+		System.out.println("LUA HashPass: " + hashPass(pass));
+		System.out.println("LUA UserPass: " + userDao.loginAdmin(user).getPass());
+
+		if (userDao.loginAdmin(user) != null) {
+			if (hashPass(pass).equals(userDao.loginAdmin(user).getPass())) {
+				return "ok-01";
+			} else {
+				return "er-02";
+			}
 		} else {
 			return "er-01";
 		}

@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.entities.User;
-import model.services.LoginUserAdmin;
+import model.services.LoginUser;
 
 /**
  * Servlet implementation class login
@@ -40,7 +40,7 @@ public class ServletLoginAdmin extends HttpServlet {
 
 
 		// Se instancia el gestor de Login
-		LoginUserAdmin lu = new LoginUserAdmin();
+		LoginUser lu = new LoginUser();
 
 		// Se recoge la respusesta
 		String result;
