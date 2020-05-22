@@ -1,143 +1,5 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Loofilm Admin</title>
-  <!-- Tell the browser to be responsive to screen width -->
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="assets/plugins/fontawesome-free/css/all.min.css">
-  <!-- Ionicons -->
-  <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
-  <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.7.0/dropzone.min.css"> -->
-
-  <link href="https://unpkg.com/filepond/dist/filepond.css" rel="stylesheet">
-
-  <!-- Theme style -->
-  <link rel="stylesheet" href="assets/css/adminlte.min.css">
-  <link rel="stylesheet" href="assets/css/custom.css">
-  <!-- Google Font: Source Sans Pro -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-
-</head>
-<body class="hold-transition sidebar-mini">
-<div class="wrapper">
-  <!-- Navbar -->
-  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
-    <!-- Left navbar links -->
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
-      </li>
-    </ul>
-  </nav>
-  <!-- /.navbar -->
-
-  <!-- Main Sidebar Container -->
-  <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="assets/img/loofilm_icon.svg" alt="Loofilm" class="brand-image img-circle elevation-3">
-      <span class="brand-text font-weight-light">LOOFILM</span>
-    </a>
-
-    <!-- Sidebar -->
-    <div class="sidebar">
-      <!-- Sidebar Menu -->
-      <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-          <!-- Add icons to the links using the .nav-icon class
-               with font-awesome or any other icon font library -->
-          <li class="nav-item">
-            <a href="dashboard.html" class="nav-link">
-              <i class="nav-icon fas fa-th"></i>
-              <p>
-                Inicio
-              </p>
-            </a>
-          </li>
-          <li class="nav-item has-treeview menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-map-marker-alt"></i>
-              <p>
-                Localización
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="list.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listado</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="add.html" class="nav-link active">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Nueva Localizacion</p>
-                </a>
-              </li>
-            </ul>
-		  </li>
-		  <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-video"></i>
-              <p>
-                Producción
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="list.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listado</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="add.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Nueva producción</p>
-                </a>
-              </li>
-            </ul>
-		  </li>
-		  <li class="nav-item has-treeview">
-            <a href="#" class="nav-link">
-              <i class="nav-icon fas fa-film"></i>
-              <p>
-                Escenas
-                <i class="fas fa-angle-left right"></i>
-              </p>
-            </a>
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="list.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Listado</p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="add.html" class="nav-link">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Nueva escena</p>
-                </a>
-              </li>
-            </ul>
-          </li>
-
-        </ul>
-      </nav>
-      <!-- /.sidebar-menu -->
-    </div>
-    <!-- /.sidebar -->
-  </aside>
-
-  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@include file="../template/top.jsp"%>
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
@@ -277,7 +139,7 @@
 
                 <form action="" method="post" enctype="multipart/form-data">
                     <input type="file" class="imageUpload" name="filepond"/>
-								</form>
+				</form>
 
                 <!-- <form action="" method="post" enctype="multipart/form-data">
 									<div class="input-group">
@@ -296,7 +158,7 @@
 				</div>
 			</div>
 
-      <div class="row mb-3">
+      <div class="row pb-3">
         <div class="col-12 text-right">
           <a href="#" class="btn btn-secondary mr-2">Cancelar</a>
           <input type="submit" value="Guardar" class="btn btn-success float-right">
@@ -304,47 +166,4 @@
       </div>
     </section>
     <!-- /.content -->
-  </div>
-  <!-- /.content-wrapper -->
-  <footer class="main-footer">
-    <div class="float-right d-none d-sm-block">
-      <b>Version</b> 3.0.4
-    </div>
-    <strong>Copyright &copy; 2014-2019 <a href="http://adminlte.io">AdminLTE.io</a>.</strong> All rights
-    reserved.
-  </footer>
-
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
-    <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
-</div>
-<!-- ./wrapper -->
-
-<!-- jQuery -->
-<script src="assets/plugins/jquery/jquery.min.js"></script>
-
-<!-- Bootstrap 4 -->
-<script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-<!-- bs-custom-file-input -->
-<script src="assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
-
-
-<!-- include FilePond library -->
-<script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
-<script src="https://unpkg.com/jquery-filepond/filepond.jquery.js"></script>
-
-<!-- Googole maps -->
-<script src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyAwuYKZVsfo1GUeNQVXkfxu9Nfr3mmdnSo&libraries=places&language=es&callback=initMap" async defer></script>
-
-<!-- AdminLTE App -->
-<script src="assets/js/adminlte.min.js"></script>
-
-<!-- Customs -->
-<script src="assets/js/custom.js"></script>
-<script src="assets/js/maps.js"></script>
-</body>
-</html>
+<%@include file="../template/bottom.jsp" %>

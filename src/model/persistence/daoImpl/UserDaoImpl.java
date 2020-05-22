@@ -37,7 +37,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public User exists(User user) {
+	public User exists(User user) { 
 		if(!con.openConexion()) {
 			return null;
 		}
