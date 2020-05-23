@@ -19,8 +19,8 @@
 <div class="aqui"><%= request.getRequestURI() %></div>
 
 <!-- Googole maps -->
-<script src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyAwuYKZVsfo1GUeNQVXkfxu9Nfr3mmdnSo&libraries=places&language=es&callback=initMap" async defer></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=weekly&key=&libraries=places&language=es&callback=initMap" async defer></script>
 
 <!-- Customs -->
-<script src="assets/js/custom.js"></script> 
+<script src="assets/js/custom.js"></script>
 <script src="assets/js/maps.js"></script>
