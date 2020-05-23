@@ -62,7 +62,7 @@
                     1
                   </td>
                   <td>
-                    <img src="images/locations/mini/loofilm-alhambra-01.jpg" width="50px" alt="Loofilm - Imagen de la Alhambra">
+                    <img src="images/locations/la-alhambra-granada-01-large.jpg" width="50px" alt="Loofilm - Imagen de la Alhambra"> 
                   </td>
                   <td>
                     Alhambra
