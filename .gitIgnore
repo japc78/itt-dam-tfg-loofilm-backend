@@ -1,0 +1,27 @@
+# Ignore
+.metadata/
+.recommenders/
+.vscode/
+.settings/
+**/bin/
+Servers/
+admin_template/
+plugins/
+.classpath
+.project
+*.code-workspace
+*.zip
+*.rar
+*.7z
+*.pdf
+*.dat
+*.txt
+*.map
+*.css
+desktop.ini
+/.metadata/
+target/
+/WebContent/WEB-INF/classes/
+/WebContent/images/locations/*.*
+/WebContent/images/productions/*.*
+/WebContent/images/scenes/*.*
