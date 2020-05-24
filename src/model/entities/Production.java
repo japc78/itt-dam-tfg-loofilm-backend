@@ -21,7 +21,7 @@ public class Production implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private Boolean active;
+	private boolean active;
 
 	private String cast;
 
@@ -31,12 +31,16 @@ public class Production implements Serializable {
 
 	private String name;
 
-	private Boolean type;
+	private boolean type;
 
 	private String web;
 
 	@Temporal(TemporalType.DATE)
 	private Date year;
+
+	//bi-directional many-to-one association to ProductionsMedia
+	@OneToMany(mappedBy="production")
+	private List<ProductionsMedia> productionsMedias;
 
 	//bi-directional many-to-one association to Scene
 	@OneToMany(mappedBy="production")
@@ -53,11 +57,11 @@ public class Production implements Serializable {
 		this.id = id;
 	}
 
-	public Boolean getActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 
-	public void setActive(Boolean active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
@@ -93,11 +97,11 @@ public class Production implements Serializable {
 		this.name = name;
 	}
 
-	public Boolean getType() {
+	public boolean getType() {
 		return this.type;
 	}
 
-	public void setType(Boolean type) {
+	public void setType(boolean type) {
 		this.type = type;
 	}
 
@@ -115,6 +119,28 @@ public class Production implements Serializable {
 
 	public void setYear(Date year) {
 		this.year = year;
+	}
+
+	public List<ProductionsMedia> getProductionsMedias() {
+		return this.productionsMedias;
+	}
+
+	public void setProductionsMedias(List<ProductionsMedia> productionsMedias) {
+		this.productionsMedias = productionsMedias;
+	}
+
+	public ProductionsMedia addProductionsMedia(ProductionsMedia productionsMedia) {
+		getProductionsMedias().add(productionsMedia);
+		productionsMedia.setProduction(this);
+
+		return productionsMedia;
+	}
+
+	public ProductionsMedia removeProductionsMedia(ProductionsMedia productionsMedia) {
+		getProductionsMedias().remove(productionsMedia);
+		productionsMedia.setProduction(null);
+
+		return productionsMedia;
 	}
 
 	public List<Scene> getScenes() {

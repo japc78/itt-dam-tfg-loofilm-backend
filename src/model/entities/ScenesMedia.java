@@ -19,13 +19,13 @@ public class ScenesMedia implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private Boolean active;
+	private boolean active;
 
 	private Timestamp createDate;
 
 	private String description;
 
-	private Boolean type;
+	private boolean type;
 
 	//bi-directional many-to-one association to Scene
 	@ManyToOne(cascade={CascadeType.ALL})
@@ -43,11 +43,11 @@ public class ScenesMedia implements Serializable {
 		this.id = id;
 	}
 
-	public Boolean getActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 
-	public void setActive(Boolean active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
@@ -67,11 +67,11 @@ public class ScenesMedia implements Serializable {
 		this.description = description;
 	}
 
-	public Boolean getType() {
+	public boolean getType() {
 		return this.type;
 	}
 
-	public void setType(Boolean type) {
+	public void setType(boolean type) {
 		this.type = type;
 	}
 

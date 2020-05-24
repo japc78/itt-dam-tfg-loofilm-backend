@@ -19,15 +19,18 @@ public class ProductionsMedia implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private Boolean active;
+	private boolean active;
 
 	private Timestamp createDate;
 
 	private String description;
 
-	private Boolean isFilm;
+	private boolean isFilm;
 
-	private int productionId;
+	//bi-directional many-to-one association to Production
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="productionId")
+	private Production production;
 
 	public ProductionsMedia() {
 	}
@@ -40,11 +43,11 @@ public class ProductionsMedia implements Serializable {
 		this.id = id;
 	}
 
-	public Boolean getActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 
-	public void setActive(Boolean active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 
@@ -64,20 +67,20 @@ public class ProductionsMedia implements Serializable {
 		this.description = description;
 	}
 
-	public Boolean getIsFilm() {
+	public boolean getIsFilm() {
 		return this.isFilm;
 	}
 
-	public void setIsFilm(Boolean isFilm) {
+	public void setIsFilm(boolean isFilm) {
 		this.isFilm = isFilm;
 	}
 
-	public int getProductionId() {
-		return this.productionId;
+	public Production getProduction() {
+		return this.production;
 	}
 
-	public void setProductionId(int productionId) {
-		this.productionId = productionId;
+	public void setProduction(Production production) {
+		this.production = production;
 	}
 
 }

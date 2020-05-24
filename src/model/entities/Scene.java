@@ -20,7 +20,7 @@ public class Scene implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 
-	private Boolean active;
+	private boolean active;
 
 	private Timestamp createDate;
 
@@ -29,7 +29,7 @@ public class Scene implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Location
-	@ManyToOne
+	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="locationId")
 	private Location location;
 
@@ -53,11 +53,11 @@ public class Scene implements Serializable {
 		this.id = id;
 	}
 
-	public Boolean getActive() {
+	public boolean getActive() {
 		return this.active;
 	}
 
-	public void setActive(Boolean active) {
+	public void setActive(boolean active) {
 		this.active = active;
 	}
 

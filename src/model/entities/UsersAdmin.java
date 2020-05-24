@@ -22,7 +22,8 @@ public class UsersAdmin implements Serializable {
 
 	//bi-directional one-to-one association to User
 	@OneToOne(cascade={CascadeType.ALL})
-	@PrimaryKeyJoinColumn (name="userId")
+	@PrimaryKeyJoinColumn(name="userId", referencedColumnName="id")
+	// @JoinColumn(name="userId")
 	private User user;
 
 	public UsersAdmin() {
