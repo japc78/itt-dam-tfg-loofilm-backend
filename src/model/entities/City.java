@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * The persistent class for the cities database table.
- * 
+ *
  */
 @Entity
 @Table(name="cities")
@@ -16,17 +16,18 @@ public class City implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private String city;
 
-	//bi-directional many-to-one association to Address
-	@OneToMany(mappedBy="city")
-	private List<Address> addresses;
+	//bi-directional one-to-one association to Adress
+	@OneToOne
+	@JoinColumn(name="city", referencedColumnName="cityId")
+	private Adress adress;
 
 	//bi-directional many-to-one association to County
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="countyId")
 	private County county;
 
@@ -49,27 +50,14 @@ public class City implements Serializable {
 		this.city = city;
 	}
 
-	public List<Address> getAddresses() {
-		return this.addresses;
+	public Adress getAdress() {
+		return this.adress;
 	}
 
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
+	public void setAdress(Adress adress) {
+		this.adress = adress;
 	}
 
-	public Address addAddress(Address address) {
-		getAddresses().add(address);
-		address.setCity(this);
-
-		return address;
-	}
-
-	public Address removeAddress(Address address) {
-		getAddresses().remove(address);
-		address.setCity(null);
-
-		return address;
-	}
 
 	public County getCounty() {
 		return this.county;
@@ -77,6 +65,60 @@ public class City implements Serializable {
 
 	public void setCounty(County county) {
 		this.county = county;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#hashCode()
+	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
+		result = prime * result + ((county == null) ? 0 : county.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		City other = (City) obj;
+		if (city == null) {
+			if (other.city != null)
+				return false;
+		} else if (!city.equals(other.city))
+			return false;
+		if (county == null) {
+			if (other.county != null)
+				return false;
+		} else if (!county.equals(other.county))
+			return false;
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+
+	@Override
+	public String toString() {
+		return "City [city=" + city + ", county=" + county + ", id=" + id + "]";
 	}
 
 }

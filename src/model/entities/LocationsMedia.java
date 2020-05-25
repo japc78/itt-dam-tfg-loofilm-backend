@@ -16,14 +16,14 @@ public class LocationsMedia implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private boolean active;
 
 	private Timestamp createDate;
 
-	private String description;
+	private String url;
 
 	private boolean type;
 
@@ -59,12 +59,12 @@ public class LocationsMedia implements Serializable {
 		this.createDate = createDate;
 	}
 
-	public String getDescription() {
-		return this.description;
+	public String getUrl() {
+		return this.url;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public boolean getType() {

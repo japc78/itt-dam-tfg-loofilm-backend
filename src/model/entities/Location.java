@@ -1,6 +1,6 @@
 package model.entities;
 
-import java.awt.Point;
+
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -18,7 +18,7 @@ public class Location implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private boolean active;
@@ -29,7 +29,7 @@ public class Location implements Serializable {
 
 	private String email;
 
-	private Point gps;
+	private String gps;
 
 	private String name;
 
@@ -43,8 +43,8 @@ public class Location implements Serializable {
 
 	//bi-directional many-to-one association to Address
 	@ManyToOne
-	@JoinColumn(name="addressId")
-	private Address address;
+	@JoinColumn(name="adressId")
+	private Adress address;
 
 	//bi-directional many-to-one association to LocationsMedia
 	@OneToMany(mappedBy="location")
@@ -101,11 +101,11 @@ public class Location implements Serializable {
 		this.email = email;
 	}
 
-	public Point getGps() {
+	public String getGps() {
 		return this.gps;
 	}
 
-	public void setGps(Point gps) {
+	public void setGps(String gps) {
 		this.gps = gps;
 	}
 
@@ -149,11 +149,11 @@ public class Location implements Serializable {
 		this.web = web;
 	}
 
-	public Address getAddress() {
+	public Adress getAddress() {
 		return this.address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(Adress address) {
 		this.address = address;
 	}
 
@@ -222,5 +222,99 @@ public class Location implements Serializable {
 
 		return visited;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#hashCode()
+	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((gps == null) ? 0 : gps.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		result = prime * result + ((postalcode == null) ? 0 : postalcode.hashCode());
+		result = prime * result + ((street == null) ? 0 : street.hashCode());
+		result = prime * result + ((web == null) ? 0 : web.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Location other = (Location) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (gps == null) {
+			if (other.gps != null)
+				return false;
+		} else if (!gps.equals(other.gps))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (phone == null) {
+			if (other.phone != null)
+				return false;
+		} else if (!phone.equals(other.phone))
+			return false;
+		if (postalcode == null) {
+			if (other.postalcode != null)
+				return false;
+		} else if (!postalcode.equals(other.postalcode))
+			return false;
+		if (street == null) {
+			if (other.street != null)
+				return false;
+		} else if (!street.equals(other.street))
+			return false;
+		if (web == null) {
+			if (other.web != null)
+				return false;
+		} else if (!web.equals(other.web))
+			return false;
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+
+	@Override
+	public String toString() {
+		return "Location [active=" + active + ", address=" + address + ", createDate=" + createDate + ", description="
+				+ description + ", email=" + email + ", gps=" + gps + ", id=" + id + ", name=" + name + ", phone="
+				+ phone + ", postalcode=" + postalcode + ", street=" + street + ", web=" + web + "]";
+	}
+
+
 
 }

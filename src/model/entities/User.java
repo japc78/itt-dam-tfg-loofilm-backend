@@ -18,7 +18,7 @@ public class User implements Serializable {
 	private static final long serialVersionUID = -2540658346732983080L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO) 
+	@GeneratedValue(strategy=GenerationType.IDENTITY) 
 	private int id;
 
 	private boolean active;
@@ -42,8 +42,8 @@ public class User implements Serializable {
 
 	//bi-directional many-to-one association to Address
 	@ManyToOne
-	@JoinColumn(name="addressId")
-	private Address address;
+	@JoinColumn(name="adressId")
+	private Adress address;
 
 	//bi-directional one-to-one association to UsersAdmin
 	@OneToOne(mappedBy="user")
@@ -136,11 +136,11 @@ public class User implements Serializable {
 		this.street = street;
 	}
 
-	public Address getAddress() {
+	public Adress getAddress() {
 		return this.address;
 	}
 
-	public void setAddress(Address address) {
+	public void setAddress(Adress address) {
 		this.address = address;
 	}
 

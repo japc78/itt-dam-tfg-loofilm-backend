@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * The persistent class for the counties database table.
- * 
+ *
  */
 @Entity
 @Table(name="counties")
@@ -16,21 +16,21 @@ public class County implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private String county;
 
 	//bi-directional many-to-one association to Address
 	@OneToMany(mappedBy="county")
-	private List<Address> addresses;
+	private List<Adress> addresses;
 
 	//bi-directional many-to-one association to City
 	@OneToMany(mappedBy="county")
 	private List<City> cities;
 
 	//bi-directional many-to-one association to Country
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="countryCode")
 	private Country country;
 
@@ -53,22 +53,22 @@ public class County implements Serializable {
 		this.county = county;
 	}
 
-	public List<Address> getAddresses() {
+	public List<Adress> getAddresses() {
 		return this.addresses;
 	}
 
-	public void setAddresses(List<Address> addresses) {
+	public void setAddresses(List<Adress> addresses) {
 		this.addresses = addresses;
 	}
 
-	public Address addAddress(Address address) {
+	public Adress addAddress(Adress address) {
 		getAddresses().add(address);
 		address.setCounty(this);
 
 		return address;
 	}
 
-	public Address removeAddress(Address address) {
+	public Adress removeAddress(Adress address) {
 		getAddresses().remove(address);
 		address.setCounty(null);
 
@@ -103,6 +103,17 @@ public class County implements Serializable {
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+
+	@Override
+	public String toString() {
+		return "County [country=" + country + ", county=" + county + ", id=" + id + "]";
 	}
 
 }

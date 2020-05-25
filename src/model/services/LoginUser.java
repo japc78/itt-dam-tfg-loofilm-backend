@@ -2,9 +2,10 @@ package model.services;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Base64;
 
 import model.entities.User;
-import model.persistence.daoImpl.UserDaoImpl;
+import model.persistent .daoImpl.UserDaoImpl;
 
 /**
  * Gestor de Login [ara administradores.
@@ -25,16 +26,16 @@ public class LoginUser  {
 		System.out.println("LUA Email: " + user.getEmail());
 		System.out.println("LUA Pass: " + pass);
 		System.out.println("LUA HashPass: " + hashPass(pass));
-		System.out.println("LUA UserPass: " + userDao.loginAdmin(user).getPass());
+		// System.out.println("LUA UserPass: " + userDao.loginAdmin(user).getPass());
 
 		if (userDao.loginAdmin(user) != null) {
-			if (hashPass(pass).equals(userDao.loginAdmin(user).getPass())) {
-				return "ok-01";
+			if (hashPass(pass).equals(userDao.loginAdmin(user).getPass())) { 
+				return "OK-U01";
 			} else {
-				return "er-02";
+				return "ER-U02";
 			}
 		} else {
-			return "er-01";
+			return "ER-U01";
 		}
 	}
 
@@ -47,6 +48,6 @@ public class LoginUser  {
 	 */
 	private String hashPass(String pass) throws NoSuchAlgorithmException {
 		MessageDigest md = MessageDigest.getInstance("SHA-256");
-		return new String(md.digest(pass.getBytes()));
+		return Base64.getEncoder().encodeToString(md.digest(pass.getBytes()));
 	}
 }

@@ -47,7 +47,7 @@ public class ServletLoginAdmin extends HttpServlet {
 		try {
 			result = lu.loginAdmin(user, pass);
 		} catch (NoSuchAlgorithmException e) {
-			result = "er-00";
+			result = "ER-U00";
 			e.printStackTrace();
 		}
 
@@ -56,19 +56,19 @@ public class ServletLoginAdmin extends HttpServlet {
 
 		// Gestiono la respuesta.
 		switch (result) {
-			case "er-00":
+			case "ER-U00":
 				request.setAttribute("msgType", "error");
 				request.setAttribute("msg", "Error de la App");
 				request.setAttribute("email", user);
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 				break;
-			case "er-01":
+			case "ER-U01":
 				request.setAttribute("msgType", "error");
 				request.setAttribute("msg", "El email no es correcto");
 				request.setAttribute("email", user);
 				request.getRequestDispatcher("index.jsp").forward(request, response);
 				break;
-			case "er-02":
+			case "ER-U02":
 				request.setAttribute("msgType", "error");
 				request.setAttribute("msg", "La contraseña no es correcta");
 				request.setAttribute("email", user);

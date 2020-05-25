@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * The persistent class for the countries database table.
- * 
+ *
  */
 @Entity
 @Table(name="countries")
@@ -16,14 +16,13 @@ public class Country implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
 	private String countryCode;
 
 	private String country;
 
 	//bi-directional many-to-one association to Address
 	@OneToMany(mappedBy="country")
-	private List<Address> addresses;
+	private List<Adress> addresses;
 
 	//bi-directional many-to-one association to County
 	@OneToMany(mappedBy="country")
@@ -48,22 +47,22 @@ public class Country implements Serializable {
 		this.country = country;
 	}
 
-	public List<Address> getAddresses() {
+	public List<Adress> getAddresses() {
 		return this.addresses;
 	}
 
-	public void setAddresses(List<Address> addresses) {
+	public void setAddresses(List<Adress> addresses) {
 		this.addresses = addresses;
 	}
 
-	public Address addAddress(Address address) {
+	public Adress addAddress(Adress address) {
 		getAddresses().add(address);
 		address.setCountry(this);
 
 		return address;
 	}
 
-	public Address removeAddress(Address address) {
+	public Adress removeAddress(Adress address) {
 		getAddresses().remove(address);
 		address.setCountry(null);
 
@@ -90,6 +89,52 @@ public class Country implements Serializable {
 		county.setCountry(null);
 
 		return county;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#hashCode()
+	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((countryCode == null) ? 0 : countryCode.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Country other = (Country) obj;
+		if (countryCode == null) {
+			if (other.countryCode != null)
+				return false;
+		} else if (!countryCode.equals(other.countryCode))
+			return false;
+		return true;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+
+	@Override
+	public String toString() {
+		return "Country [country=" + country + ", countryCode=" + countryCode + "]";
 	}
 
 }
