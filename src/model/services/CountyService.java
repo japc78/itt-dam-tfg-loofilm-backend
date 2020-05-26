@@ -11,8 +11,9 @@ public class CountyService {
 		if (exists(county)) {
 			return county;
 		} else {
+			System.out.println("CountyService - Country: " + county.toString());
 			county.setCountry(country);
-			System.out.println("CountyService: " + county);
+			System.out.println("CountyServiceAqui: " + county.toString()); 
 			return cd.create(county);
 		}
 	}

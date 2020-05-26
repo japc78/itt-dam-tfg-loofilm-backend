@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <persistence version="2.2" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_2.xsd">
 	<persistence-unit name="loofilm" transaction-type="RESOURCE_LOCAL">
-		<class>model.entities.Adress</class>
 		<class>model.entities.City</class>
 		<class>model.entities.County</class>
 		<class>model.entities.Country</class>
@@ -11,10 +10,10 @@
 		<class>model.entities.ProductionsMedia</class>
 		<class>model.entities.Scene</class>
 		<class>model.entities.ScenesMedia</class>
-		<class>model.entities.User</class>
-		<class>model.entities.UsersAdmin</class>
 		<class>model.entities.Visited</class>
 		<class>model.entities.VisitedPK</class>
+		<class>model.entities.User</class>
+		<class>model.entities.UsersAdmin</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3360/loofilm?useSSL=false"/>
 			<property name="javax.persistence.jdbc.user" value="itt.dam"/>

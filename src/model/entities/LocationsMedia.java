@@ -23,9 +23,9 @@ public class LocationsMedia implements Serializable {
 
 	private Timestamp createDate;
 
-	private String url;
-
 	private boolean type;
+
+	private String url;
 
 	//bi-directional many-to-one association to Location
 	@ManyToOne(cascade={CascadeType.ALL})
@@ -59,20 +59,20 @@ public class LocationsMedia implements Serializable {
 		this.createDate = createDate;
 	}
 
-	public String getUrl() {
-		return this.url;
-	}
-
-	public void setUrl(String url) {
-		this.url = url;
-	}
-
 	public boolean getType() {
 		return this.type;
 	}
 
 	public void setType(boolean type) {
 		this.type = type;
+	}
+
+	public String getUrl() {
+		return this.url;
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
 	}
 
 	public Location getLocation() {

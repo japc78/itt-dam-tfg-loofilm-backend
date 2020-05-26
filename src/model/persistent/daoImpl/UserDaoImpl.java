@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
 		String sql = "SELECT u FROM User u WHERE u.email = ?1";
 		TypedQuery<User> query = con.getEm().createQuery(sql, User.class);
 		query.setParameter(1,user.getEmail());
-		System.out.println("UDAO:" + query.getSingleResult().toString());
+//		System.out.println("UDAO:" + query.getSingleResult().toString());
 		try {
 			// Se retorna el usuario si existe.
 			return query.getSingleResult(); 

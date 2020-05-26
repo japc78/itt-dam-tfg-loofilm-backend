@@ -21,18 +21,21 @@ public class City implements Serializable {
 
 	private String city;
 
-	//bi-directional one-to-one association to Adress
-	@OneToOne
-	@JoinColumn(name="city", referencedColumnName="cityId")
-	private Adress adress;
-
 	//bi-directional many-to-one association to County
 	@ManyToOne
 	@JoinColumn(name="countyId")
 	private County county;
 
+	//bi-directional many-to-one association to Location
+	@OneToMany(mappedBy="city")
+	private List<Location> locations;
+
+	//bi-directional many-to-one association to User
+	@OneToMany(mappedBy="city")
+	private List<User> users;
+
 	public City() {
-	}
+	} 
 
 	public int getId() {
 		return this.id;
@@ -50,21 +53,56 @@ public class City implements Serializable {
 		this.city = city;
 	}
 
-	public Adress getAdress() {
-		return this.adress;
-	}
-
-	public void setAdress(Adress adress) {
-		this.adress = adress;
-	}
-
-
 	public County getCounty() {
 		return this.county;
 	}
 
 	public void setCounty(County county) {
 		this.county = county;
+	}
+
+	public List<Location> getLocations() {
+		return this.locations;
+	}
+
+	public void setLocations(List<Location> locations) {
+		this.locations = locations;
+	}
+
+	public Location addLocation(Location location) {
+		getLocations().add(location);
+		location.setCity(this);
+
+		return location;
+	}
+
+	public Location removeLocation(Location location) {
+		getLocations().remove(location);
+		location.setCity(null);
+
+		return location;
+	}
+
+	public List<User> getUsers() {
+		return this.users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public User addUser(User user) {
+		getUsers().add(user);
+		user.setCity(this);
+
+		return user;
+	}
+
+	public User removeUser(User user) {
+		getUsers().remove(user);
+		user.setCity(null);
+
+		return user;
 	}
 
 	/*

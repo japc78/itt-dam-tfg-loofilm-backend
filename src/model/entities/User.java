@@ -15,10 +15,10 @@ import java.util.List;
 @Table(name="users")
 @NamedQuery(name="User.findAll", query="SELECT u FROM User u")
 public class User implements Serializable {
-	private static final long serialVersionUID = -2540658346732983080L;
+	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY) 
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
 	private boolean active;
@@ -40,10 +40,10 @@ public class User implements Serializable {
 
 	private String street;
 
-	//bi-directional many-to-one association to Address
+	//bi-directional many-to-one association to City
 	@ManyToOne
-	@JoinColumn(name="adressId")
-	private Adress address;
+	@JoinColumn(name="cityId")
+	private City city;
 
 	//bi-directional one-to-one association to UsersAdmin
 	@OneToOne(mappedBy="user")
@@ -136,12 +136,12 @@ public class User implements Serializable {
 		this.street = street;
 	}
 
-	public Adress getAddress() {
-		return this.address;
+	public City getCity() {
+		return this.city;
 	}
 
-	public void setAddress(Adress address) {
-		this.address = address;
+	public void setCity(City city) {
+		this.city = city;
 	}
 
 	public UsersAdmin getUsersAdmin() {

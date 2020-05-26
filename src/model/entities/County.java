@@ -21,10 +21,6 @@ public class County implements Serializable {
 
 	private String county;
 
-	//bi-directional many-to-one association to Address
-	@OneToMany(mappedBy="county")
-	private List<Adress> addresses;
-
 	//bi-directional many-to-one association to City
 	@OneToMany(mappedBy="county")
 	private List<City> cities;
@@ -51,28 +47,6 @@ public class County implements Serializable {
 
 	public void setCounty(String county) {
 		this.county = county;
-	}
-
-	public List<Adress> getAddresses() {
-		return this.addresses;
-	}
-
-	public void setAddresses(List<Adress> addresses) {
-		this.addresses = addresses;
-	}
-
-	public Adress addAddress(Adress address) {
-		getAddresses().add(address);
-		address.setCounty(this);
-
-		return address;
-	}
-
-	public Adress removeAddress(Adress address) {
-		getAddresses().remove(address);
-		address.setCounty(null);
-
-		return address;
 	}
 
 	public List<City> getCities() {
@@ -103,6 +77,49 @@ public class County implements Serializable {
 
 	public void setCountry(Country country) {
 		this.country = country;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#hashCode()
+	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((country == null) ? 0 : country.hashCode());
+		result = prime * result + ((county == null) ? 0 : county.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		County other = (County) obj;
+		if (country == null) {
+			if (other.country != null)
+				return false;
+		} else if (!country.equals(other.country))
+			return false;
+		if (county == null) {
+			if (other.county != null)
+				return false;
+		} else if (!county.equals(other.county))
+			return false;
+		return true;
 	}
 
 	/*

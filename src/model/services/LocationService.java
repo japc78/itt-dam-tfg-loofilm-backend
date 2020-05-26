@@ -2,14 +2,11 @@ package model.services;
 
 import java.util.List;
 
-import model.entities.Adress;
 import model.entities.Location;
-import model.persistent.daoImpl.AdressDaoImpl;
 import model.persistent.daoImpl.LocationDaoImpl;
 
 public class LocationService {
 	private LocationDaoImpl loDao = new LocationDaoImpl();
-	private AdressDaoImpl adDao = new AdressDaoImpl();
 
 	public List<Location> list() {
 		return loDao.list();
@@ -24,22 +21,13 @@ public class LocationService {
 	 *         er-04 si el campo descripción está vacio, y ok-01 si el producto se
 	 *         ha dado de alta correctamente.
 	 */
-	public String add(Location l, Adress address) {
+	public String add(Location l) {
 		System.out.println("Localition: " + l.toString());
-		System.out.println("Addres: " + address.toString());
-		// Se comprueba que la Adddres.
 
-		// Si no existe la Address, se crea la Localizacion.
-		if (adDao.exists(address) != null) {
-			// Si no exite.
-			// Se Crea la nueva dirección y se pasa al objeto l del tipo location.
-			l.setAddress(adDao.create(address));
+		//Se comprueba si existe.
+		if (!exists(l)) {
 			loDao.create(l);
 			return "OK-L01";
-			// Si existe la addres, se verifica que no exista la Localizacion.
-		} else if (!exists(l)) {
-			loDao.create(l);
-			return "OK-L02";
 		} else {
 			// Tanto la Address como la Localizacion existen.
 			return "ER-L01";

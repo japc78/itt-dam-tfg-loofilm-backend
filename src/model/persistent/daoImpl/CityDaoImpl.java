@@ -32,7 +32,7 @@ public class CityDaoImpl implements CityDao {
 		System.out.println("CityDao: " + city);
 		EntityTransaction et = con.getEm().getTransaction();
 		et.begin();
-		con.getEm().merge(city); 
+		con.getEm().persist(city); 
 		et.commit();
 		con.closeConexion(); 
 

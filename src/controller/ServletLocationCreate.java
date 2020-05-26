@@ -16,13 +16,10 @@ import javax.servlet.http.Part;
 import org.eclipse.persistence.jpa.jpql.parser.AdditionExpression;
 import org.omg.CORBA.portable.InputStream;
 
-import model.entities.Adress;
 import model.entities.City;
 import model.entities.Country;
 import model.entities.County;
 import model.entities.Location;
-import model.persistent.dao.CountryDao;
-import model.services.AdressService;
 import model.services.CityService;
 import model.services.CountryService;
 import model.services.CountyService;
@@ -43,12 +40,10 @@ public class ServletLocationCreate extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Se instancia las entidades y servicios necesarios.
-
 		LocationService ls = new LocationService();
 		CountryService countryService = new CountryService();
 		CountyService countyService = new CountyService();
 		CityService cityService = new CityService();
-		AdressService adressService = new AdressService();
 
 		// TODO Subida de ficheros. Solo uno.
 		// Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
@@ -87,14 +82,14 @@ public class ServletLocationCreate extends HttpServlet {
 		Country c = new Country();
 		c.setCountryCode(countryCode);
 		c.setCountry(country);
-		// c = countryService.add(c);
+		c = countryService.add(c);
 		System.out.println(c);
 
 		County co = new County();
 		co.setCounty(county);
 		co.setCountry(c);
 		System.out.println(co);
-		// co = countyService.add(co,c);
+		co = countyService.add(co,c);
 		// System.out.println(co);
 
 		City ci = new City();
@@ -103,10 +98,6 @@ public class ServletLocationCreate extends HttpServlet {
 		// ci = cityService.add(ci, co);
 		System.out.println(ci);
 
-		Adress adress = new Adress(c, co, ci);
-		// adress = adressService.add(adress);
-		System.out.println(adress);
-
 		Location l = new Location();
 
 		l.setName(name);
@@ -114,15 +105,15 @@ public class ServletLocationCreate extends HttpServlet {
 		l.setStreet(street);
 		l.setPostalcode(postal_code);
 		l.setWeb(web);
-		l.setEmail(email);
+		l.setEmail(email); 
 		l.setPhone(phone);
 		l.setGps(gps);
-		l.setAddress(adress);
+		l.setCity(ci);
 
-		System.out.println(l.toString());
-		System.out.println(c.toString());
-		System.out.println(co.toString());
-		System.out.println(ci.toString());
+//		System.out.println(l.toString());
+//		System.out.println(c.toString());
+//		System.out.println(co.toString());
+//		System.out.println(ci.toString());
 
 		// c = countryService.add(c);
 		// System.out.println("ServletLocation - Pais: " + c.getCountryCode() + " - " + c.getCountry());
@@ -133,7 +124,7 @@ public class ServletLocationCreate extends HttpServlet {
 		// System.out.println(ci.getCity());
 
 
-		String result = ls.add(l, adress);
+		String result = ls.add(l);
 		System.out.println(result);
 
 		// Gestiono la respuesta.

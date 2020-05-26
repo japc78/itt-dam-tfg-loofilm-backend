@@ -30,8 +30,11 @@ public class CountyDaoImpl implements CountyDao {
 		}
 		EntityTransaction et = con.getEm().getTransaction();
 		et.begin();
-		con.getEm().merge(county);
+		System.out.println("DaoCountyCreateBefore: "+ county);
+		con.getEm().persist(county);
 		et.commit();
+		System.out.println("DaoCountyCreateAfter: "+ county);
+
 		con.closeConexion();
 
 		// Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo

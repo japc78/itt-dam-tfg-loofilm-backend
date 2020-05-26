@@ -15,15 +15,14 @@ public class UsersAdmin implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int userId;
 
 	private boolean isSuper;
 
 	//bi-directional one-to-one association to User
-	@OneToOne(cascade={CascadeType.ALL})
-	@PrimaryKeyJoinColumn(name="userId", referencedColumnName="id")
-	// @JoinColumn(name="userId")
+	@OneToOne(cascade={CascadeType.REMOVE})
+	@JoinColumn(name="userId", referencedColumnName = "id", insertable = false, updatable = false)
 	private User user;
 
 	public UsersAdmin() {
@@ -42,7 +41,7 @@ public class UsersAdmin implements Serializable {
 	}
 
 	public void setIsSuper(boolean isSuper) {
-		this.isSuper = isSuper;
+		this.isSuper = isSuper; 
 	}
 
 	public User getUser() {

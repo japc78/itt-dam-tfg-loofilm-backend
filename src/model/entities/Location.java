@@ -1,6 +1,5 @@
 package model.entities;
 
-
 import java.io.Serializable;
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -41,10 +40,10 @@ public class Location implements Serializable {
 
 	private String web;
 
-	//bi-directional many-to-one association to Address
-	@ManyToOne
-	@JoinColumn(name="adressId")
-	private Adress address;
+	//bi-directional many-to-one association to City
+	@ManyToOne(cascade={CascadeType.ALL})
+	@JoinColumn(name="cityId")
+	private City city;
 
 	//bi-directional many-to-one association to LocationsMedia
 	@OneToMany(mappedBy="location")
@@ -149,12 +148,12 @@ public class Location implements Serializable {
 		this.web = web;
 	}
 
-	public Adress getAddress() {
-		return this.address;
+	public City getCity() {
+		return this.city;
 	}
 
-	public void setAddress(Adress address) {
-		this.address = address;
+	public void setCity(City city) {
+		this.city = city;
 	}
 
 	public List<LocationsMedia> getLocationsMedias() {
@@ -233,13 +232,10 @@ public class Location implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((gps == null) ? 0 : gps.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
 		result = prime * result + ((postalcode == null) ? 0 : postalcode.hashCode());
-		result = prime * result + ((street == null) ? 0 : street.hashCode());
 		result = prime * result + ((web == null) ? 0 : web.hashCode());
 		return result;
 	}
@@ -259,15 +255,10 @@ public class Location implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Location other = (Location) obj;
-		if (address == null) {
-			if (other.address != null)
+		if (city == null) {
+			if (other.city != null)
 				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
+		} else if (!city.equals(other.city))
 			return false;
 		if (gps == null) {
 			if (other.gps != null)
@@ -279,20 +270,10 @@ public class Location implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (phone == null) {
-			if (other.phone != null)
-				return false;
-		} else if (!phone.equals(other.phone))
-			return false;
 		if (postalcode == null) {
 			if (other.postalcode != null)
 				return false;
 		} else if (!postalcode.equals(other.postalcode))
-			return false;
-		if (street == null) {
-			if (other.street != null)
-				return false;
-		} else if (!street.equals(other.street))
 			return false;
 		if (web == null) {
 			if (other.web != null)
@@ -310,11 +291,8 @@ public class Location implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Location [active=" + active + ", address=" + address + ", createDate=" + createDate + ", description="
+		return "Location [active=" + active + ", city=" + city + ", createDate=" + createDate + ", description="
 				+ description + ", email=" + email + ", gps=" + gps + ", id=" + id + ", name=" + name + ", phone="
 				+ phone + ", postalcode=" + postalcode + ", street=" + street + ", web=" + web + "]";
 	}
-
-
-
 }

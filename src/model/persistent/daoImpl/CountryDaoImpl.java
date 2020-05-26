@@ -31,7 +31,7 @@ public class CountryDaoImpl implements CountryDao {
 
 		EntityTransaction et = con.getEm().getTransaction();
 		et.begin();
-		con.getEm().merge(country);
+		con.getEm().persist(country);
 		et.commit();
 		con.closeConexion();
 
@@ -61,7 +61,7 @@ public class CountryDaoImpl implements CountryDao {
 	// 	try {
 	// 		// Se retorna el usuario si existe.
 	// 		return query.getSingleResult();
-	// 	} catch (NoResultException e) {
+	// 	} catch (NoResultException e) { 
 	// 		return null;
 	// 	}
 	// }

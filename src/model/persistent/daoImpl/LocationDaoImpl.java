@@ -26,7 +26,7 @@ public class LocationDaoImpl implements LocationDao {
 
 		EntityTransaction et = con.getEm().getTransaction();
 		et.begin();
-		con.getEm().merge(location);
+		con.getEm().persist(location);
 		et.commit();
 		con.closeConexion();
 
@@ -51,17 +51,9 @@ public class LocationDaoImpl implements LocationDao {
 		if(!con.openConexion()) {
 			return null;
 		}
-		// Preparacion consulta con JPQL
-		String sql = "SELECT l FROM Location l WHERE l.addres = ?";
-		TypedQuery<Location> query = con.getEm().createQuery(sql, Location.class);
-		query.setParameter(1,location.getAddress());
-
-		List<Location> locations = query.getResultList();
-		for (Location l : locations) {
-			if (l.equals(location)) {
-				return l;
-			}
+		if(!con.openConexion()) {
+			return null;
 		}
-		return null;
+		return con.getEm().contains(location) ? location : null;
 	}
 }
