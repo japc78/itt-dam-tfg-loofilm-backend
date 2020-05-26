@@ -4,8 +4,16 @@ Trabajo fin de grado del [Ciclo Superior de Desarrollo de Aplicaciones Multiplaf
 
 La tecnologías `Java`, `Maven`, `JPA`, `Web`, `JDBC`, `Servlet`, `MVC`, `JSP`, `HTML`, `CSS3`.
 
-Frameworks [Admin Template Adminator](https://github.com/puikinsh/Adminator-admin-dashboard)
+## Framework para la vista del backend.
+[AdminLTE](https://adminlte.io/) -> [Github](https://github.com/ColorlibHQ/AdminLTE)
 
+## API GOOGLE MAPS para Localizaciones.
+[Place Autocomplete](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete)
+[Place Autocomplete Address Form](https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform)
+[Markers](https://developers.google.com/maps/documentation/javascript/markers?hl=es#top_of_page)
+
+## Subida de imágenes
+[Filepond](https://pqina.nl/filepond/) -> [Github](https://github.com/pqina/filepond)
 
 Juan Antonio Pavón Carmona.  
 ITT DAM 2018/20.
