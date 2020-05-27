@@ -35,7 +35,15 @@ public class City implements Serializable {
 	private List<User> users;
 
 	public City() {
-	} 
+	}
+
+	/**
+	 * @param city
+	 * @param county
+	 */
+	public City(String city) {
+		this.city = city;
+	}
 
 	public int getId() {
 		return this.id;
@@ -158,5 +166,4 @@ public class City implements Serializable {
 	public String toString() {
 		return "City [city=" + city + ", county=" + county + ", id=" + id + "]";
 	}
-
 }

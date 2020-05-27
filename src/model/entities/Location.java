@@ -20,6 +20,7 @@ public class Location implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
 
+	@Column(columnDefinition = "boolean default true")
 	private boolean active;
 
 	private Timestamp createDate;
@@ -41,7 +42,7 @@ public class Location implements Serializable {
 	private String web;
 
 	//bi-directional many-to-one association to City
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne(cascade={CascadeType.MERGE})
 	@JoinColumn(name="cityId")
 	private City city;
 
@@ -222,6 +223,20 @@ public class Location implements Serializable {
 		return visited;
 	}
 
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+
+	@Override
+	public String toString() {
+		return "Location [active=" + active + ", city=" + city + ", createDate=" + createDate + ", description="
+				+ description + ", email=" + email + ", gps=" + gps + ", id=" + id + ", name=" + name + ", phone="
+				+ phone + ", postalcode=" + postalcode + ", street=" + street + ", web=" + web + "]";
+	}
+
 	/*
 	 * (non-Javadoc)
 	 *
@@ -232,11 +247,9 @@ public class Location implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((city == null) ? 0 : city.hashCode());
 		result = prime * result + ((gps == null) ? 0 : gps.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((postalcode == null) ? 0 : postalcode.hashCode());
-		result = prime * result + ((web == null) ? 0 : web.hashCode());
 		return result;
 	}
 
@@ -255,11 +268,6 @@ public class Location implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Location other = (Location) obj;
-		if (city == null) {
-			if (other.city != null)
-				return false;
-		} else if (!city.equals(other.city))
-			return false;
 		if (gps == null) {
 			if (other.gps != null)
 				return false;
@@ -275,24 +283,6 @@ public class Location implements Serializable {
 				return false;
 		} else if (!postalcode.equals(other.postalcode))
 			return false;
-		if (web == null) {
-			if (other.web != null)
-				return false;
-		} else if (!web.equals(other.web))
-			return false;
 		return true;
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
-
-	@Override
-	public String toString() {
-		return "Location [active=" + active + ", city=" + city + ", createDate=" + createDate + ", description="
-				+ description + ", email=" + email + ", gps=" + gps + ", id=" + id + ", name=" + name + ", phone="
-				+ phone + ", postalcode=" + postalcode + ", street=" + street + ", web=" + web + "]";
 	}
 }

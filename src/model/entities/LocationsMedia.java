@@ -30,7 +30,7 @@ public class LocationsMedia implements Serializable {
 	//bi-directional many-to-one association to Location
 	@ManyToOne(cascade={CascadeType.ALL})
 	@JoinColumn(name="locationId")
-	private Location location;
+	private Location location; 
 
 	public LocationsMedia() {
 	}

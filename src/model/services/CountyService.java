@@ -8,12 +8,12 @@ public class CountyService {
 	CountyDaoImpl cd = new CountyDaoImpl();
 
 	public County add (County county, Country country) {
+		county.setCountry(country);
 		if (exists(county)) {
+			System.out.println("Existe CountyService - Country: " + county.toString());
 			return county;
 		} else {
-			System.out.println("CountyService - Country: " + county.toString());
-			county.setCountry(country);
-			System.out.println("CountyServiceAqui: " + county.toString()); 
+			System.out.println("No existe CountyService: " + county.toString());
 			return cd.create(county);
 		}
 	}

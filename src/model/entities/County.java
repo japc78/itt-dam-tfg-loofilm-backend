@@ -33,6 +33,14 @@ public class County implements Serializable {
 	public County() {
 	}
 
+	/**
+	 * @param county
+	 * @param country
+	 */
+	public County(String county) {
+		this.county = county;
+	}
+
 	public int getId() {
 		return this.id;
 	}
@@ -85,6 +93,18 @@ public class County implements Serializable {
 	 * @see java.lang.Object#hashCode()
 	 */
 
+
+	@Override
+	public String toString() {
+		return "County [country=" + country + ", county=" + county + ", id=" + id + "]";
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#hashCode()
+	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -121,16 +141,4 @@ public class County implements Serializable {
 			return false;
 		return true;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
-
-	@Override
-	public String toString() {
-		return "County [country=" + country + ", county=" + county + ", id=" + id + "]";
-	}
-
 }

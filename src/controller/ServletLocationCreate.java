@@ -20,9 +20,6 @@ import model.entities.City;
 import model.entities.Country;
 import model.entities.County;
 import model.entities.Location;
-import model.services.CityService;
-import model.services.CountryService;
-import model.services.CountyService;
 import model.services.LocationService;
 
 /**
@@ -41,9 +38,6 @@ public class ServletLocationCreate extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// Se instancia las entidades y servicios necesarios.
 		LocationService ls = new LocationService();
-		CountryService countryService = new CountryService();
-		CountyService countyService = new CountyService();
-		CityService cityService = new CityService();
 
 		// TODO Subida de ficheros. Solo uno.
 		// Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
@@ -54,7 +48,7 @@ public class ServletLocationCreate extends HttpServlet {
 
 		String name 		= request.getParameter("name");
 		String description 	= request.getParameter("description");
-		String street 		= request.getParameter("description");
+		String street 		= request.getParameter("street");
 		String web			= request.getParameter("web");
 		String email		= request.getParameter("email");
 		String phone		= request.getParameter("phone");
@@ -79,24 +73,9 @@ public class ServletLocationCreate extends HttpServlet {
 		// 	// ... (do your job here)
 		// }
 
-		Country c = new Country();
-		c.setCountryCode(countryCode);
-		c.setCountry(country);
-		c = countryService.add(c);
-		System.out.println(c);
-
-		County co = new County();
-		co.setCounty(county);
-		co.setCountry(c);
-		System.out.println(co);
-		co = countyService.add(co,c);
-		// System.out.println(co);
-
-		City ci = new City();
-		ci.setCity(city);
-		ci.setCounty(co);
-		// ci = cityService.add(ci, co);
-		System.out.println(ci);
+		Country c = new Country(countryCode , country);
+		County co = new County(county);
+		City ci = new City(city);
 
 		Location l = new Location();
 
@@ -105,15 +84,14 @@ public class ServletLocationCreate extends HttpServlet {
 		l.setStreet(street);
 		l.setPostalcode(postal_code);
 		l.setWeb(web);
-		l.setEmail(email); 
+		l.setEmail(email);
 		l.setPhone(phone);
 		l.setGps(gps);
-		l.setCity(ci);
 
-//		System.out.println(l.toString());
-//		System.out.println(c.toString());
-//		System.out.println(co.toString());
-//		System.out.println(ci.toString());
+		// System.out.println(l.toString());
+		// System.out.println(c.toString());
+		// System.out.println(co.toString());
+		// System.out.println(ci.toString());
 
 		// c = countryService.add(c);
 		// System.out.println("ServletLocation - Pais: " + c.getCountryCode() + " - " + c.getCountry());
@@ -123,30 +101,22 @@ public class ServletLocationCreate extends HttpServlet {
 		// ci = cityService.add(ci, co);
 		// System.out.println(ci.getCity());
 
-
-		String result = ls.add(l);
+		String result = ls.add(l,ci,co,c);
 		System.out.println(result);
 
-		// Gestiono la respuesta.
-		// switch (result) {
-		// 	case "ER-L00":
-		// 		request.setAttribute("msgType", "error");
-		// 		request.setAttribute("msg", "Error de la App");
-		// 		request.getRequestDispatcher("location-create.jsp").forward(request, response);
-		// 		break;
-		// 	case "ER-L01":
-		// 		request.setAttribute("msgType", "error");
-		// 		request.setAttribute("msg", "Error de la App");
-		// 		request.getRequestDispatcher("location-create.jsp").forward(request, response);
-		// 		break;
-		// 	default:
-		// 		request.getRequestDispatcher("Loocation-list.jsp").forward(request, response);
-		// 		break;
-		// }
-
-
+		// Se procesa la respuesta.
+		switch (result) {
+			case "ER-L00":
+				request.setAttribute("msgType", "error");
+				request.setAttribute("msg", "Error de la App");
+				request.getRequestDispatcher("location-create.jsp").forward(request, response);
+				break;
+			default:
+				request.getRequestDispatcher("location-list.jsp").forward(request, response);
+				break;
+		}
 
 		// Modo pruebas
-		request.getRequestDispatcher("location-create.jsp").forward(request, response);
+		// request.getRequestDispatcher("location-create.jsp").forward(request, response);
 	}
 }

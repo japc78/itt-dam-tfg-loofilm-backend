@@ -3,7 +3,6 @@ package model.persistent.daoImpl;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
 
 import model.entities.City;
 import model.persistent.connection.Conexion;
@@ -17,24 +16,21 @@ public class CityDaoImpl implements CityDao {
 		if(!con.openConexion()) {
 			return null;
 		}
-		//Se usa JPQL para la consulta.
-		TypedQuery<City> query = con.getEm().createNamedQuery("City.findAll", City.class);
-		List<City> listCity = query.getResultList();
-		return listCity;
+		return con.getEm().createNamedQuery("City.findAll", City.class).getResultList();
 	}
 
 	@Override
-	public City create(City city) { 
-		if (!con.openConexion()) { 
+	public City create(City city) {
+		if (!con.openConexion()) {
 			return null;
 		}
-		
+
 		System.out.println("CityDao: " + city);
 		EntityTransaction et = con.getEm().getTransaction();
 		et.begin();
-		con.getEm().persist(city); 
+		con.getEm().persist(city);
 		et.commit();
-		con.closeConexion(); 
+		con.closeConexion();
 
 		// Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
 		return city;
@@ -46,7 +42,11 @@ public class CityDaoImpl implements CityDao {
 		if(!con.openConexion()) {
 			return null;
 		}
-		return con.getEm().contains(city) ? city : null;
+		List<City> list = list();
+		for (City c : list) {
+			if(c.equals(city)) return c;
+		}
+		return null;
 	}
 
 

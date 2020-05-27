@@ -3,7 +3,6 @@ package model.persistent.daoImpl;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
 
 import model.entities.Country;
 import model.persistent.connection.Conexion;
@@ -17,10 +16,7 @@ public class CountryDaoImpl implements CountryDao {
 		if(!con.openConexion()) {
 			return null;
 		}
-		//Se usa JPQL para la consulta.
-		TypedQuery<Country> query = con.getEm().createNamedQuery("Country.findAll", Country.class);
-		List<Country> listCoutry = query.getResultList();
-		return listCoutry;
+		return con.getEm().createNamedQuery("Country.findAll", Country.class).getResultList();
 	}
 
 	@Override
@@ -44,8 +40,7 @@ public class CountryDaoImpl implements CountryDao {
 		if(!con.openConexion()) {
 			return null;
 		}
-		Country c = con.getEm().find(Country.class, country.getCountryCode());
-		return c;
+		return con.getEm().find(Country.class, country.getCountryCode());
 	}
 
 	// @Override
@@ -61,7 +56,7 @@ public class CountryDaoImpl implements CountryDao {
 	// 	try {
 	// 		// Se retorna el usuario si existe.
 	// 		return query.getSingleResult();
-	// 	} catch (NoResultException e) { 
+	// 	} catch (NoResultException e) {
 	// 		return null;
 	// 	}
 	// }

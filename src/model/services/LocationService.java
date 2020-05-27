@@ -6,14 +6,18 @@ import model.entities.City;
 import model.entities.Country;
 import model.entities.County;
 import model.entities.Location;
+import model.persistent.daoImpl.CityDaoImpl;
+import model.persistent.daoImpl.CountryDaoImpl;
+import model.persistent.daoImpl.CountyDaoImpl;
 import model.persistent.daoImpl.LocationDaoImpl;
 
 public class LocationService {
 	private LocationDaoImpl loDao = new LocationDaoImpl();
-	private CountryService cntrSvc = new CountryService();
-	private CountyService cntySvc = new CountyService();
+	private CityDaoImpl cityDao = new CityDaoImpl();
+	private CountryDaoImpl countryDao = new CountryDaoImpl();
+	private CountyDaoImpl countyDao = new CountyDaoImpl();
 
-	public List<Object> list() {
+	public List<Object[]> list() {
 		return loDao.list();
 	}
 
@@ -27,14 +31,19 @@ public class LocationService {
 	 *         ha dado de alta correctamente.
 	 */
 	public String add(Location l, City city, County county, Country country) {
-		country = cntrSvc.add(country);
-		county = cntySvc.add(county, country);
-		city.setCounty(county);
-		l.setCity(city);
+		// Se añade a la provincia el pais.
 
-		//Se comprueba si existe.
+		// Se comprueba si la localizacion existe.
 		if (!exists(l)) {
-			loDao.create(l);
+			if (countryDao.exists(country) != null) country = countryDao.exists(country);
+			county.setCountry(country);
+			if (countyDao.exists(county) != null) county = countyDao.exists(county);
+			city.setCounty(county);
+			if (cityDao.exists(city) != null) {
+				city = cityDao.exists(city);
+				l.setCity(city);
+			};
+			loDao.create(l,city,county, country);
 			return "OK-L00";
 		} else {
 			// Tanto la Address como la Localizacion existen.

@@ -28,6 +28,16 @@ public class Country implements Serializable {
 	public Country() {
 	}
 
+	/**
+	 * @param countryCode
+	 * @param country
+	*/
+	public Country(String countryCode, String country) {
+		this.countryCode = countryCode;
+		this.country = country;
+	}
+
+
 	public String getCountryCode() {
 		return this.countryCode;
 	}
@@ -119,5 +129,4 @@ public class Country implements Serializable {
 	public String toString() {
 		return "Country [country=" + country + ", countryCode=" + countryCode + "]";
 	}
-
 }

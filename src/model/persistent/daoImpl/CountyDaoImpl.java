@@ -3,7 +3,6 @@ package model.persistent.daoImpl;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
-import javax.persistence.TypedQuery;
 
 import model.entities.County;
 import model.persistent.connection.Conexion;
@@ -17,10 +16,7 @@ public class CountyDaoImpl implements CountyDao {
 		if(!con.openConexion()) {
 			return null;
 		}
-		//Se usa JPQL para la consulta.
-		TypedQuery<County> query = con.getEm().createNamedQuery("County.findAll", County.class);
-		List<County> listCounty = query.getResultList();
-		return listCounty;
+		return con.getEm().createNamedQuery("County.findAll", County.class).getResultList();
 	}
 
 	@Override
@@ -47,8 +43,13 @@ public class CountyDaoImpl implements CountyDao {
 		if(!con.openConexion()) {
 			return null;
 		}
-		System.out.println("DaoCounty: "+ con.getEm().contains(county));
-		return con.getEm().contains(county) ? county : null;
+		System.out.println("CountyDaoExist: " + county);
+		List<County> list = list();
+		for (County c : list) {
+			System.out.println("lista: " + c);
+			if(c.equals(county)) return c;
+		}
+		return null;
 	}
 
 	// @Override
