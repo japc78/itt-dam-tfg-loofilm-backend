@@ -9,7 +9,7 @@ public interface LocationDao {
 	 * Metodo que devuelve el listado de Localizacions
 	 * @return
 	 */
-	List<Location> list();
+	List<Object> list();
 
 	/**
 	 * Metodo para dar de alta una Localizacion

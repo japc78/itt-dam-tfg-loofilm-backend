@@ -2,13 +2,18 @@ package model.services;
 
 import java.util.List;
 
+import model.entities.City;
+import model.entities.Country;
+import model.entities.County;
 import model.entities.Location;
 import model.persistent.daoImpl.LocationDaoImpl;
 
 public class LocationService {
 	private LocationDaoImpl loDao = new LocationDaoImpl();
+	private CountryService cntrSvc = new CountryService();
+	private CountyService cntySvc = new CountyService();
 
-	public List<Location> list() {
+	public List<Object> list() {
 		return loDao.list();
 	}
 
@@ -21,13 +26,16 @@ public class LocationService {
 	 *         er-04 si el campo descripción está vacio, y ok-01 si el producto se
 	 *         ha dado de alta correctamente.
 	 */
-	public String add(Location l) {
-		System.out.println("Localition: " + l.toString());
+	public String add(Location l, City city, County county, Country country) {
+		country = cntrSvc.add(country);
+		county = cntySvc.add(county, country);
+		city.setCounty(county);
+		l.setCity(city);
 
 		//Se comprueba si existe.
 		if (!exists(l)) {
 			loDao.create(l);
-			return "OK-L01";
+			return "OK-L00";
 		} else {
 			// Tanto la Address como la Localizacion existen.
 			return "ER-L01";
@@ -41,7 +49,7 @@ public class LocationService {
 	 * @param l Se le pasa por argumento la localidad.
 	 * @return Devuelve true si el producto existe y false si no existe.
 	 */
-	private boolean exists(final Location l) {
+	private boolean exists(Location l) {
 		if (loDao.exists(l) != null) {
 			return true;
 		} else {
