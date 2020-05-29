@@ -42,6 +42,20 @@ public class Scene implements Serializable {
 	@OneToMany(mappedBy="scene")
 	private List<ScenesMedia> scenesMedias;
 
+	// Contructores
+	/**
+	 * @param description
+	 * @param name
+	 * @param location
+	 * @param production
+	 */
+	public Scene(Location location, Production production, String name, String description) {
+		this.description = description;
+		this.name = name;
+		this.location = location;
+		this.production = production;
+	}
+
 	public Scene() {
 	}
 
@@ -121,6 +135,68 @@ public class Scene implements Serializable {
 		scenesMedia.setScene(null);
 
 		return scenesMedia;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#hashCode()
+	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((location == null) ? 0 : location.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((production == null) ? 0 : production.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Scene other = (Scene) obj;
+		if (location == null) {
+			if (other.location != null)
+				return false;
+		} else if (!location.equals(other.location))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (production == null) {
+			if (other.production != null)
+				return false;
+		} else if (!production.equals(other.production))
+			return false;
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+
+	@Override
+	public String toString() {
+		return "Scene [active=" + active + ", createDate=" + createDate + ", description=" + description + ", id=" + id
+				+ ", location=" + location + ", name=" + name + ", production=" + production + ", scenesMedias="
+				+ scenesMedias + "]";
 	}
 
 }

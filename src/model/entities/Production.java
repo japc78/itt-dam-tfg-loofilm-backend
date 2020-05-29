@@ -31,12 +31,11 @@ public class Production implements Serializable {
 
 	private String name;
 
-	private boolean type;
+	private int type;
 
 	private String web;
 
-	@Temporal(TemporalType.DATE)
-	private Date year;
+	private int year;
 
 	//bi-directional many-to-one association to ProductionsMedia
 	@OneToMany(mappedBy="production")
@@ -46,8 +45,19 @@ public class Production implements Serializable {
 	@OneToMany(mappedBy="production")
 	private List<Scene> scenes;
 
+	// Constructores de la clase
 	public Production() {
 	}
+
+	public Production(String name, int year, int type, String description, String cast, String web) {
+		this.name = name;
+		this.year = year;
+		this.type = type;
+		this.description = description;
+		this.cast = cast;
+		this.web = web;
+	}
+
 
 	public int getId() {
 		return this.id;
@@ -97,11 +107,11 @@ public class Production implements Serializable {
 		this.name = name;
 	}
 
-	public boolean getType() {
+	public int getType() {
 		return this.type;
 	}
 
-	public void setType(boolean type) {
+	public void setType(int type) {
 		this.type = type;
 	}
 
@@ -113,11 +123,11 @@ public class Production implements Serializable {
 		this.web = web;
 	}
 
-	public Date getYear() {
+	public int getYear() {
 		return this.year;
 	}
 
-	public void setYear(Date year) {
+	public void setYear(int year) {
 		this.year = year;
 	}
 
@@ -165,4 +175,59 @@ public class Production implements Serializable {
 		return scene;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#hashCode()
+	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + type;
+		result = prime * result + year;
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Production other = (Production) obj;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (type != other.type)
+			return false;
+		if (year != other.year)
+			return false;
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+
+	@Override
+	public String toString() {
+		return "Production [active=" + active + ", cast=" + cast + ", createDate=" + createDate + ", description="
+				+ description + ", id=" + id + ", name=" + name + ", productionsMedias=" + productionsMedias
+				+ ", scenes=" + scenes + ", type=" + type + ", web=" + web + ", year=" + year + "]";
+	}
 }
