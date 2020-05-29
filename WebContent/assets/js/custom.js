@@ -11,4 +11,28 @@ $(document).ready(function () {
 			return false;
 		}
 	})
+
+	// Contador de caracteres para Bootsrap
+	// Links: https://www.jqueryscript.net/form/jQuery-Character-Counter-Limit-Plugin-For-Bootstrap.html
+	$('.maxlength').maxlength({
+		showOnReady:false,
+		alwaysShow:true,
+		threshold: 0,
+		warningClass:"badge badge-info",
+		limitReachedClass:"badge badge-danger",
+		separator:" / ",
+		preText:"",
+		postText:"",
+		showMaxLength:true,
+		placement:"bottom-right-inside",
+		message:null,
+		showCharsTyped:true,
+		validate:false,
+		utf8:false,
+		appendToParent:false,
+		twoCharLinebreak:true,
+		customMaxAttribute:null,
+		allowOverMax:false,
+		zIndex: 1099
+	});
 });

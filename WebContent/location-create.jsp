@@ -77,7 +77,7 @@
 						</div>
 						<div class="form-group">
 							<label for="inputDescription">Descripción <small>máx. 320 caracteres.</small></label>
-							<textarea id="inputDescription" class="form-control" rows="4" name="decription" required></textarea>
+							<textarea id="inputDescription" class="form-control" rows="4" name="description" required></textarea>
 						</div>
 					</div>
 					<!-- /.card-body -->

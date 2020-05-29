@@ -1,6 +1,7 @@
 <script src="assets/js/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="assets/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/bootstrap-maxlength.min.js"></script>
 <!-- AdminLTE App -->
 <script src="assets/js/adminlte.min.js"></script>
 
@@ -16,7 +17,7 @@
 <script src="assets/js/jquery.dataTables.min.js"></script>
 <script src="assets/js/dataTables.bootstrap4.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>
-<script src="assets/js/responsive.bootstrap4.min.js"></script>
+<script src="assets/js/responsive.bootstrap4.min.js"></script> 
 
 <%-- <div class="aqui"><%= request.getRequestURI() %></div> --%>
 

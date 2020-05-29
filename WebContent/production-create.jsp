@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../template/top.jsp"%> 
+<%@include file="../template/top.jsp"%>
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<div class="container-fluid">
@@ -10,163 +10,125 @@
 				<div class="col-sm-6">
 					<ol class="breadcrumb float-sm-right">
 						<li class="breadcrumb-item"><a href="#">Inicio</a></li>
-						<li class="breadcrumb-item active">Añadir Localización</li>
+						<li class="breadcrumb-item active">
+							Añadir Producción (Film o Serie)
+						</li>
 					</ol>
 				</div>
 			</div>
-		</div><!-- /.container-fluid -->
+		</div>
+		<!-- /.container-fluid -->
 	</section>
 
 	<!-- Main content -->
 	<section class="content">
-		<div class="row">
-			<div class="col-md-6">
-				<!-- Card GPS -->
-				<div class="card card-info">
-					<div class="card-header">
-						<h3 class="card-title">Localización</h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-								<i class="fas fa-minus"></i></button>
+		<form action="production-create" method="post">
+			<div class="row">
+				<div class="col-md-6">
+					<div class="card card-info">
+						<div class="card-header">
+							<h3 class="card-title">Información general</h3>
+							<div class="card-tools">
+								<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+									<i class="fas fa-minus"></i>
+								</button>
+							</div>
 						</div>
-					</div>
-					<div class="card-body">
-						<div class="form-group">
-							<input id="pac-input" class="form-control mb-3" type="text" placeholder="Escribe la dirección de la localización">
-							<div id="map" class="map rounded"></div>
-						</div>
-						<div class="form-group">
-							<div class="">
-								<ul id="addressPreview" class="infoAddress alert-default-info list-unstyled rounded p-3"></ul>
+						<div class="card-body">
+							<div class="form-group">
+								<label for="inputName">Nombre <small>max. 180 caracteres</small></label>
+								<input type="text" id="inputName" class="form-control maxlength" name="name" maxlength="180" required/>
 							</div>
 
-							<!-- <textarea id="inputAddressPreview" class="form-control" rows="3" disabled="" name="inputAddressPreview"></textarea> -->
-							<input type="hidden" id="inputCity" name="locality" value="">
-							<input type="hidden" id="inputPostalCode" name="postal_code" value="">
-							<input type="hidden" id="inputCounty" name="administrative_area_level_2" value="">
-							<input type="hidden" id="inputCountry" name="country" value="">
-							<input type="hidden" id="inputCountryCode" name="countryCode" value="">
-							<input type="hidden" id="inputGps" name="gps" value="">
-							<button type="submit" class="btn btn-primary mt-2">Corregir textos</button>
-
-						</div>
-						<!-- <div class="form-group">
-						<label for="inputGPS">GPS <small>(coordenadas GPS: Latitud,Longitud)</small></label>
-						<input type="text" id="inputGPS" class="form-control" name="inputGPS" disabled>
-						<small>Haz Click para obtener Ciudad, Provincia o Estado, y País de la Localización.</small>
-						<button type="submit" class="btn btn-primary mt-2">Obtener</button>
-						</div> -->
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-6">
-				<div class="card card-info">
-					<div class="card-header">
-						<h3 class="card-title">General</h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-								<i class="fas fa-minus"></i></button>
-						</div>
-					</div>
-					<div class="card-body">
-						<div class="form-group">
-							<label for="inputName">Nombre <small>max. 180 caracteres</small></label>
-							<input type="text" id="inputName" class="form-control" name="name">
-						</div>
-						<div class="form-group">
-							<label for="inputDescription">Descripción <small>máx. 320 caracteres.</small></label>
-							<textarea id="inputDescription" class="form-control" rows="4" name="inputDescription"></textarea>
-						</div>
-					</div>
-					<!-- /.card-body -->
-				</div>
-				<!-- /.card -->
-
-				<div class="card card-info">
-					<div class="card-header">
-						<h3 class="card-title">Info</h3>
-
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-								<i class="fas fa-minus"></i></button>
-						</div>
-					</div>
-					<div class="card-body">
-						<div class="form-group">
-							<label for="inputStreet">Dirección <small>max. 180 caracteres.</small></label>
-							<input type="text" id="inputStreet" class="form-control mb-3" name="inputStreet">
-						</div>
-
-						<div class="form-group">
-							<label for="inputWeb">Web <small>max. 320 caracteres</small></label>
-							<input type="url" id="inputWeb" class="form-control" name="web" placeholder="Ej. https://www.alhambra.com">
-						</div>
-						<div class="form-group">
-							<label for="inputEmail">Email</label>
-							<input type="email" name="inputEmail" class="form-control" id="inputEmail" placeholder="Ej. info@alhambra.com">
-						</div>
-
-						<div class="form-group">
-							<label for="inputPhone">Teléfono</label>
-							<input type="text" name="phone" class="form-control" id="inputPhone" placeholder="Ej. 999777888">
-						</div>
-					</div>
-					<!-- /.card-body -->
-				</div>
-			</div>
-		</div>
-
-		<div class="row">
-			<div class="col-12">
-
-				<div class="card card-info">
-					<div class="card-header">
-						<h3 class="card-title">Imagenes <small>(max. 5 imágenes)</small></h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-								<i class="fas fa-minus"></i></button>
-						</div>
-					</div>
-					<div class="card-body">
-
-						<div class="form-group">
-							<div id="formImageUpload"></div>
-
-							<!-- <form action="/file-upload" class="dropzone" id="my-awesome-dropzone">
-								<div class="fallback">
-								<input name="file" type="file" multiple />
-								</div>
-							</form> -->
-
-							<form action="" method="post" enctype="multipart/form-data">
-								<input type="file" class="imageUpload" name="filepond" />
-							</form>
-							<!--
-							<form action="" method="post" enctype="multipart/form-data">
-								<div class="input-group">
-									<div class="custom-file">
-										<input type="file" class="custom-file-input" id="exampleInputFile" multiple>
-										<label class="custom-file-label" for="exampleInputFile">Añade las imágenes</label>
-									</div>
-									<div class="input-group-append">
-										<span class="input-group-text" id="">Upload</span>
+							<div class="row">
+								<div class="col-sm-6">
+									<!-- text input -->
+									<div class="form-group">
+										<label>Año</label>
+										<input type="inputYear" name="year" min="1885" max="2099" step="1" value="2020" class="form-control" required/>
 									</div>
 								</div>
-							</form> -->
+								<div class="col-sm-6">
+									<div class="form-group">
+										<label>Tipo de Producción</label>
+										<select id="inputType" name="type" class="custom-select">
+											<option value="0">Serie</option>
+											<option value="1" selected="selected">Pelicula</option>
+										</select>
+									</div>
+								</div>
+							</div>
 
+							<div class="form-group">
+								<label for="inputDescription">Descripción <small>máx. 500 caracteres.</small></label>
+								<textarea id="inputDescription" class="form-control maxlength" rows="4" name="description"  maxlength="500" required></textarea>
+							</div>
+
+							<div class="form-group">
+								<label for="inputCast">Casting <small>máx. 320 caracteres.</small></label>
+								<textarea id="inputCast" class="form-control maxlength" rows="4" name="cast"  maxlength="320" required></textarea>
+							</div>
+
+							<div class="form-group mb-3">
+								<label for="inputWeb">Web <small>max. 320 caracteres</small></label>
+								<input type="url" id="inputWeb" class="form-control maxlength" name="web" placeholder="Ej. https://www.alhambra.com" required  maxlength="320"/>
+							</div>
+
+							<div class="form-group">
+								<label for="inputWeb">Imagenes</label>
+								<div id="formImageUpload"></div>
+
+								<!-- <form action="/file-upload" class="dropzone" id="my-awesome-dropzone">
+									<div class="fallback">
+										<input name="file" type="file" multiple />
+									</div>
+								</form> -->
+								<input type="file" class="imageUpload" name="filepond"/>
+							</div>
 						</div>
+						<!-- /.card-body -->
 					</div>
+					<!-- /.card -->
+				</div>
+				<div class="col-md-6">
+					<div class="card card-info">
+						<div class="card-header">
+							<h3 class="card-title">Escenas</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body p-0">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th style="width: 10px">id</th>
+										<th>Escena o Rodaje</th>
+										<th>Localización</th>
+										<th>Ciudad</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>Recrear el esplendor de los Palacios Nazaríes</td>
+										<td>La Alhambra</td>
+										<td>Granada</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					</div>
+
 				</div>
 			</div>
-		</div>
 
-		<div class="row pb-3">
-			<div class="col-12 text-right">
-				<a href="#" class="btn btn-secondary mr-2">Cancelar</a>
-				<input type="submit" value="Guardar" class="btn btn-success float-right">
+			<div class="row pb-3">
+				<div class="col-12 text-right">
+					<a href="#" class="btn btn-secondary mr-2">Cancelar</a>
+					<input type="submit" value="Guardar" class="btn btn-success float-right" />
+				</div>
 			</div>
-		</div>
+		</form>
 	</section>
 	<!-- /.content -->
 <%@include file="../template/bottom.jsp" %>
