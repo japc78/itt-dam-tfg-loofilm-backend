@@ -12,7 +12,7 @@ $(document).ready(function () {
 		}
 	})
 
-	// Contador de caracteres para Bootsrap
+	// Contador de caracteres para Bootsrap 
 	// Links: https://www.jqueryscript.net/form/jQuery-Character-Counter-Limit-Plugin-For-Bootstrap.html
 	$('.maxlength').maxlength({
 		showOnReady:false,
@@ -34,5 +34,12 @@ $(document).ready(function () {
 		customMaxAttribute:null,
 		allowOverMax:false,
 		zIndex: 1099
+	});
+
+	// Bootstrap Select2. Select con buscador.
+	$('.select2').select2({
+		placeholder: 'Seleccione una opción',
+		allowClear: true,
+		language: "es"
 	});
 });

@@ -35,22 +35,39 @@
 							</div>
 						</div>
 						<div class="card-body">
-							<div class="form-group">
-								<label for="inputName">Localización</label>
-								<div class="input-group input-group">
-									<input type="text" class="form-control" name="location" value="" required>
-									<span class="input-group-append">
-										<button type="button" class="btn btn-info btn-flat rounded-right">Elegir</button>
-									</span>
+							<div class="row">
+								<div class="form-group col-md-6">
+									<label for="">Localización</label>
+									<select class="form-control select2" name="location">
+										<option></option>
+										<optgroup label="Granada">
+											<option value="3">Alhambra</option>
+											<option value="8">Sierra Nevada</option>
+										</optgroup>
+										<optgroup label="Sevilla">
+											<option value="2">La Giralda</option>
+											<option value="1">Torre del Oro</option>
+										</optgroup>
+									</select>
 								</div>
-							</div>
-							<div class="form-group">
-								<label for="inputName">Producción</label>
-								<div class="input-group input-group">
-									<input type="text" class="form-control" name="production" value="" required>
-									<span class="input-group-append">
-										<button type="button" class="btn btn-info btn-flat rounded-right">Elegir</button>
-									</span>
+
+								<div class="form-group col-md-6">
+									<label for="">Producción</label>
+									<select class="form-control select2" name="location">
+										<option></option>
+										<optgroup label="Films">
+											<option value="2">Queen & Slim </option>
+										</optgroup>
+										<optgroup label="Series">
+											<option value="1">Doom Patrol</option>
+											<option value="4">The Boyz</option>
+										</optgroup>
+
+										<!-- <optgroup label="España/Sevilla">
+											<option>La Giralda</option>
+											<option>Torre del Oro</option>
+										</optgroup> -->
+									</select>
 								</div>
 							</div>
 

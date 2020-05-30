@@ -2,6 +2,10 @@
 <!-- Bootstrap 4 -->
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/bootstrap-maxlength.min.js"></script>
+<%-- Select2 --%>
+<script src="assets/js/select2.min.js"></script>
+<script src="assets/js/select2i18n/es.js"></script> 
+
 <!-- AdminLTE App -->
 <script src="assets/js/adminlte.min.js"></script>
 
@@ -17,7 +21,8 @@
 <script src="assets/js/jquery.dataTables.min.js"></script>
 <script src="assets/js/dataTables.bootstrap4.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>
-<script src="assets/js/responsive.bootstrap4.min.js"></script> 
+<script src="assets/js/responsive.bootstrap4.min.js"></script>
+
 
 <%-- <div class="aqui"><%= request.getRequestURI() %></div> --%>
 
