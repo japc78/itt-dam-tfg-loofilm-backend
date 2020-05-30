@@ -21,6 +21,7 @@ public class Conexion {
 
 			return true;
 		} catch (Exception e) {
+			System.out.println("pasa");
 			e.printStackTrace();
 			return false;
 		}

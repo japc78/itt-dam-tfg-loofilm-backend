@@ -47,7 +47,7 @@
 				</a>
 				<ul class="nav nav-treeview">
 					<li class="nav-item">
-						<a href="location-list.jsp" class="nav-link">
+						<a href="location-list" class="nav-link">
 							<i class="far fa-circle nav-icon"></i>
 							<p>Listado</p>
 						</a>
@@ -70,7 +70,7 @@
 			</a>
 			<ul class="nav nav-treeview">
 				<li class="nav-item">
-				<a href="production-list.jsp" class="nav-link">
+				<a href="production-list" class="nav-link">
 					<i class="far fa-circle nav-icon"></i>
 					<p>Listado</p>
 				</a>

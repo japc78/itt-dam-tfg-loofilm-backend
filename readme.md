@@ -15,5 +15,8 @@ La tecnologías `Java`, `Maven`, `JPA`, `Web`, `JDBC`, `Servlet`, `MVC`, `JSP`, 
 ## Subida de imágenes
 [Filepond](https://pqina.nl/filepond/) -> [Github](https://github.com/pqina/filepond)
 
+## Select2. Selects con buscador
+[Select2](https://select2.org/) -> [Github](https://github.com/select2/select2)
+
 Juan Antonio Pavón Carmona.  
 ITT DAM 2018/20.

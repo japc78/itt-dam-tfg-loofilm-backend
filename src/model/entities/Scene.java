@@ -43,20 +43,21 @@ public class Scene implements Serializable {
 	private List<ScenesMedia> scenesMedias;
 
 	// Contructores
+	public Scene() {
+	}
+
 	/**
-	 * @param description
-	 * @param name
 	 * @param location
 	 * @param production
+	 * @param name
+	 * @param description
 	 */
 	public Scene(Location location, Production production, String name, String description) {
 		this.description = description;
 		this.name = name;
 		this.location = location;
 		this.production = production;
-	}
-
-	public Scene() {
+		active = true;
 	}
 
 	public int getId() {

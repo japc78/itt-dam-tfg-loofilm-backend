@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../template/top.jsp"%>
-  <!-- Content Header (Page header) --> 
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+  <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
       <div class="row mb-2">
@@ -32,41 +33,24 @@
             >
               <thead>
                 <tr>
-                  <th style="width: 1%;">
-                    id
-                  </th>
-                  <th style="width: 5%;">
-                    Imagen
-                  </th>
-                  <th style="width: 15%;">
-                    Nombre
-                  </th>
-                  <th style="width: 10%;">
-                    Año
-                  </th>
-                  <th style="width: 10%;">
-                    Tipo
-                  </th>
-                  <th style="width: 10%;"></th>
+                  <th style="width: 1%;">id</th>
+                  <th style="width: 5%;" class="no-sort">Imagen</th>
+                  <th>Nombre</th>
+                  <th style="width: 5%;">Año</th>
+                  <th style="width: 5%;">Tipo</th>
+                  <th style="width: 5%;">Escenas</th>
+                  <th style="width: 15%;" class="no-sort"></th>
                 </tr>
               </thead>
               <tbody>
+                <c:forEach items="${productions}" var="p">
                 <tr>
-                  <td>
-                    1
-                  </td>
-                  <td>
-                    <img src="images/productions/doom_patrol.jpg" width="50px">
-                  </td>
-                  <td>
-                    Doom Patrol
-                  </td>
-                  <td>
-                    2019
-                  </td>
-                  <td>
-                    Serie
-                  </td>
+                  <td>${p[0]}</td>
+                  <td><img src="images/productions/doom_patrol.jpg" width="50px"></td>
+                  <td>${p[1]}</td>
+                  <td>${p[2]}</td>
+                  <td>${p[3] eq 0 ? 'film':'serie'}</td>
+                  <td>${p[4]}</td>
                   <td class="project-actions text-right">
                     <a class="btn btn-primary btn-xs" href="#">
                       <i class="fas fa-folder"> </i>
@@ -82,37 +66,7 @@
                     </a>
                   </td>
                 </tr>
-                <tr>
-                  <td>
-                    2
-                  </td>
-                  <td>
-                    <img src="images/productions/queen_slim.jpg" width="50px">
-                  </td>
-                  <td>
-                    Queen & Slim
-                  </td>
-                  <td>
-                    2019
-                  </td>
-                  <td>
-                    film
-                  </td>
-                  <td class="project-actions text-right">
-                    <a class="btn btn-primary btn-xs" href="#">
-                      <i class="fas fa-folder"> </i>
-                      Ver
-                    </a>
-                    <a class="btn btn-info btn-xs" href="#">
-                      <i class="fas fa-pencil-alt"> </i>
-                      Editar
-                    </a>
-                    <a class="btn btn-danger btn-xs" href="#">
-                      <i class="fas fa-trash"> </i>
-                      Borrar
-                    </a>
-                  </td>
-                </tr>
+                </c:forEach>
               </tbody>
             </table>
           </div>

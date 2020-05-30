@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../template/top.jsp"%>
+<%@include file="../template/top.jsp"%> 
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<div class="container-fluid">
@@ -53,7 +53,7 @@
 
 								<div class="form-group col-md-6">
 									<label for="">Producción</label>
-									<select class="form-control select2" name="location">
+									<select class="form-control select2" name="production">
 										<option></option>
 										<optgroup label="Films">
 											<option value="2">Queen & Slim </option>
@@ -106,9 +106,7 @@
 									</div>
 								</form> -->
 
-								<form action="" method="post" enctype="multipart/form-data">
-									<input type="file" class="imageUpload" name="filepond" />
-								</form>
+								<input type="file" class="imageUpload" name="filepond" />
 							</div>
 						</div>
 						<!-- /.card-body -->

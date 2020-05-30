@@ -7,23 +7,23 @@ import model.entities.Production;
 public interface ProductionDao {
 	/**
 	 * Metodo que devuelve el listado de Producciones
-	 * @return
+	 * @return Retora un listado de producciones con los siguiente informacion id, imagen, nombre, año, tipo y el numero de escenas de la produccion.
 	 */
-	List<Production> list();
+	List<Object[]> list();
 
 	/**
 	 * Metodo para dar de alta una Produccion
 	 * @param production Se le pasa por argumento un objeto de la clase Production
-	 * @return Devuelve el id de la Produccion añadida.
+	 * @return Devuelve el la Produccion añadida.
 	 */
-	String create(Production production);
+	Production create(Production production);
 
 	/**
 	 * Metodo para modificar una Produccion
 	 * @param production Se le pasa por argumento un objeto de la clase Productionn
-	 * @return Devuelve el id de la Produccion modificada.
+	 * @return Devuelve la Produccion modificada.
 	 */
-	String update(Production production);
+	Production update(Production production);
 
 	/**
 	 * Metodo para borrar una Produccion
@@ -32,6 +32,13 @@ public interface ProductionDao {
 	 */
 	String delete(Production production);
 
+
+	/**
+	 * Metetodos que comprueba si existe una Produccion
+	 * @param id Se le pasa por argumento el id.
+	 * @return Devuelve el objeto encontrado
+	 */
+	Production find(int id);
 
 	/**
 	 * Metetodo que comprueba si existe un Produccion.

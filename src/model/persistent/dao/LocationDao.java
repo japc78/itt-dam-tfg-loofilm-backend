@@ -30,10 +30,10 @@ public interface LocationDao {
 
 	/**
 	 * Metetodos que comprueba si existe una Localizacion
-	 * @param location Se le pasa por argumento el objeto.
+	 * @param id Se le pasa por argumento el id.
 	 * @return Devuelve el objeto encontrado
 	 */
-	public Location find(Location location);
+	public Location find(int id);
 
 	/**
 	 * Metodo para borrar una Localizacion

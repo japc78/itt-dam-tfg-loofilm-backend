@@ -7,23 +7,23 @@ import model.entities.Scene;
 public interface SceneDao {
 	/**
 	 * Metodo que devuelve el listado de Escenas
-	 * @return
+	 * @return Retora un listado de escenas con los siguiente informacion id, imagen, nombre, Escena, tipo y localizacion.
 	 */
-	List<Scene> list();
+	List<Object[]> list();
 
 	/**
 	 * Metodo para dar de alta una Escena
 	 * @param scene Se le pasa por argumento un objeto de la clase Scene
 	 * @return Devuelve el id de la Escena añadida.
 	 */
-	String create(Scene scene);
+	Scene create(Scene scene);
 
 	/**
 	 * Metodo para modificar una Escena
 	 * @param scene Se le pasa por argumento un objeto de la clase Scenen
-	 * @return Devuelve el id de la Escena modificada.
+	 * @return Devuelve la Escena modificada.
 	 */
-	String update(Scene scene);
+	Scene update(Scene scene);
 
 	/**
 	 * Metodo para borrar una Escena
@@ -31,6 +31,13 @@ public interface SceneDao {
 	 * @return Devuelve el id de la Escena eliminada.
 	 */
 	String delete(Scene scene);
+
+	/**
+	 * Metetodos que comprueba si existe una Escena
+	 * @param scene Se le pasa por argumento el objeto.
+	 * @return Devuelve el objeto encontrado
+	 */
+	Scene find(Scene scene);
 
 
 	/**

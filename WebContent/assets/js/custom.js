@@ -12,7 +12,7 @@ $(document).ready(function () {
 		}
 	})
 
-	// Contador de caracteres para Bootsrap 
+	// Contador de caracteres para Bootsrap
 	// Links: https://www.jqueryscript.net/form/jQuery-Character-Counter-Limit-Plugin-For-Bootstrap.html
 	$('.maxlength').maxlength({
 		showOnReady:false,
@@ -40,6 +40,25 @@ $(document).ready(function () {
 	$('.select2').select2({
 		placeholder: 'Seleccione una opción',
 		allowClear: true,
-		language: "es"
+		language: "es",
+		selectionAdapter: 'SingleSelection'
+	});
+
+	// Datatables
+	$("#list_object").DataTable({
+		responsive: true,
+		autoWidth: true,
+		ordering: true,
+		paging: true,
+		info: true,
+		lengthMenu: [15, 30, 50, 100],
+		order: [ 0, "desc" ],
+		responsive: true,
+        columnDefs: [
+            { orderable: false, targets: 'no-sort' }
+        ],
+		language: {
+		"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
+		}
 	});
 });

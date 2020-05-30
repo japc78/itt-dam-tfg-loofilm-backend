@@ -35,7 +35,8 @@ public class ServletLocationCreate extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setCharacterEncoding("UTF-8");
 		// Se instancia las entidades y servicios necesarios.
 		LocationService ls = new LocationService();
 
@@ -44,21 +45,19 @@ public class ServletLocationCreate extends HttpServlet {
 		// String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
 		// InputStream fileContent = (InputStream) filePart.getInputStream();
 
-		request.setCharacterEncoding("UTF-8");
+		String name 		= req.getParameter("name");
+		String description 	= req.getParameter("description");
+		String street 		= req.getParameter("street");
+		String web			= req.getParameter("web");
+		String email		= req.getParameter("email");
+		String phone		= req.getParameter("phone");
 
-		String name 		= request.getParameter("name");
-		String description 	= request.getParameter("description");
-		String street 		= request.getParameter("street");
-		String web			= request.getParameter("web");
-		String email		= request.getParameter("email");
-		String phone		= request.getParameter("phone");
-
-		String city = request.getParameter("locality");
-		String postal_code = request.getParameter("postal_code");
-		String county = request.getParameter("administrative_area_level_2");
-		String country = request.getParameter("country");
-		String countryCode = request.getParameter("countryCode");
-		String gps = ls.gpsFormat(request.getParameter("gps"));
+		String city = req.getParameter("locality");
+		String postal_code = req.getParameter("postal_code");
+		String county = req.getParameter("administrative_area_level_2");
+		String country = req.getParameter("country");
+		String countryCode = req.getParameter("countryCode");
+		String gps = ls.gpsFormat(req.getParameter("gps"));
 
 
 		// TODO Subida de ficheros. Multiple.
@@ -107,12 +106,12 @@ public class ServletLocationCreate extends HttpServlet {
 		// Se procesa la respuesta.
 		switch (result) {
 			case "ER-L00":
-				request.setAttribute("msgType", "error");
-				request.setAttribute("msg", "Error de la App");
-				request.getRequestDispatcher("location-create.jsp").forward(request, response);
+				req.setAttribute("msgType", "error");
+				req.setAttribute("msg", "Error: La localizacion ya se encuentra en la BD");
+				req.getRequestDispatcher("location-create.jsp").forward(req, resp);
 				break;
 			default:
-				request.getRequestDispatcher("location-list.jsp").forward(request, response);
+				req.getRequestDispatcher("location-list.jsp").forward(req, resp);
 				break;
 		}
 

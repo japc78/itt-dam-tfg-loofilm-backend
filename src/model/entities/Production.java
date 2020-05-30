@@ -56,6 +56,7 @@ public class Production implements Serializable {
 		this.description = description;
 		this.cast = cast;
 		this.web = web;
+		active = true;
 	}
 
 

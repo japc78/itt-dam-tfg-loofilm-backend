@@ -17,17 +17,23 @@ public class LocationService {
 	private CountryDaoImpl countryDao = new CountryDaoImpl();
 	private CountyDaoImpl countyDao = new CountyDaoImpl();
 
+
+	/**
+	 * Listado de localizaciones
+	 * @return Una coleccion de Arrays.
+	 * Id, imagen, nombre, provincia, pais, numero de producciones, fecha
+	 */
 	public List<Object[]> list() {
 		return loDao.list();
 	}
 
 	/**
-	 * Metodo que para el alta de de una Localidad
-	 *
-	 * @param l Se le pasa por argumento la localidad a dar de alta.
-	 * @return Retorna er-01 si el codigo introudcido no es correcto, er-02 si el
-	 *         hay un producto con el mismo código, er-03 si el precio es igual a 0,
-	 *         er-04 si el campo descripción está vacio, y ok-01 si el producto se
+	 * Metodo que para el alta de de una localizacion
+	 * @param p Del tipo Location.
+	 * @param city Del tipo City. La ciudad a la que pertecene la localizacion.
+	 * @param county Del tipo County. La provincia o estado al que pertence la ciudad de la Localizacion.
+	 * @param country Del tipo Country. El pais al que pertenece la provincia a la que pertenece la Localiacion.
+	 * @return Retorna ER-P01 si ya hay un elmento igual en la BD y OK-P01 si el producto se
 	 *         ha dado de alta correctamente.
 	 */
 	public String add(Location l, City city, County county, Country country) {
@@ -52,11 +58,18 @@ public class LocationService {
 	}
 
 	/**
-	 * Metodo que comprueba si la Localización a introducir ya se encuentra en la
-	 * BBDD.
-	 *
-	 * @param l Se le pasa por argumento la localidad.
-	 * @return Devuelve true si el producto existe y false si no existe.
+	 * Metodo que busca una localizacion por su id.
+	 * @param id Del tipo entero positivo.
+	 * @return Devuelve un objeto del tipo Location.
+	 */
+	public Location find(int id) {
+		return loDao.find(id);
+	}
+
+	/**
+	 * Metodo que comprueba si la Localizacion pasada por parametro existe.
+	 * @param l Del tipo Location.
+	 * @return Devuelve true si existe y false si no existe.
 	 */
 	private boolean exists(Location l) {
 		if (loDao.exists(l) != null) {
