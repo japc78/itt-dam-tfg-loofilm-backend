@@ -2,12 +2,10 @@
 <!-- Bootstrap 4 -->
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/bootstrap-maxlength.min.js"></script>
-<%-- Select2 --%>
-<script src="assets/js/select2.min.js"></script>
-<script src="assets/js/select2i18n/es.js"></script> 
 
-<!-- AdminLTE App -->
-<script src="assets/js/adminlte.min.js"></script>
+<%-- Select2 --%>
+<script src="assets/js/select2/select2.min.js"></script>
+<script src="assets/js/select2/es.js"></script>
 
 <!-- include FilePond library -->
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
@@ -28,6 +26,9 @@
 
 <!-- Googole maps -->
 <script src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyAtE8CLC9umWj6xxhoQIdZ7kK-iKzcWZY0&libraries=places&language=es-ES&callback=initMap" async defer></script>
+
+<!-- AdminLTE App -->
+<script src="assets/js/adminlte.min.js"></script>
 
 <!-- Customs -->
 <script src="assets/js/customFilepond.js"></script>

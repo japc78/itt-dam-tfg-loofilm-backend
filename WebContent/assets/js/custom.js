@@ -38,10 +38,9 @@ $(document).ready(function () {
 
 	// Bootstrap Select2. Select con buscador.
 	$('.select2').select2({
-		placeholder: 'Seleccione una opción',
+		placeholder: 'Seleccione una opción', 
 		allowClear: true,
-		language: "es",
-		selectionAdapter: 'SingleSelection'
+		language: "es"
 	});
 
 	// Datatables
