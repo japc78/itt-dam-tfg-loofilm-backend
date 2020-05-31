@@ -33,6 +33,19 @@ public class SceneService {
 		}
 	}
 
+
+	public String toggleCheck(int id, boolean active) {
+		if(sDao.find(id) != null) {
+			Scene s = new Scene();
+			s = sDao.find(id);
+			s.setActive(active);
+			sDao.update(s);
+			return "OK-TC01";
+		} else {
+			return "ER-TC01";
+		}
+	}
+
 	/**
 	 * Metodo que comprueba si la scena pasada por parametro existe.
 	 * @param s Del tipo Scene.

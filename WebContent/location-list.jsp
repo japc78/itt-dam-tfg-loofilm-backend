@@ -53,7 +53,7 @@
                   <td class="text-center">${l[5]}</td>
                   <td class="text-center">
                   	<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                      <input type="checkbox" class="custom-control-input" id="check-${l[0]}" ${l[6] eq 'false' ? '': 'checked'}>  
+                      <input type="checkbox" class="custom-control-input check" id="check-${l[0]}" ${l[6] eq 'false' ? '': 'checked'}>
                       <label class="custom-control-label" for="check-${l[0]}"><span class="hidden">${l[6]}</span></label>
                     </div>
                    </td>

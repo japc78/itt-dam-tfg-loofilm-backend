@@ -72,9 +72,18 @@ public class LocationDaoImpl implements LocationDao {
 	}
 
 	@Override
-	public Integer update(Location location) {
-		// TODO Auto-generated method stub
-		return null;
+	public Location update(Location location) {
+		if(!con.openConexion()) {
+			return null;
+		}
+		EntityTransaction et = con.getEm().getTransaction();
+		et.begin();
+		con.getEm().merge(location);
+		et.commit();
+		con.closeConexion();
+
+		//Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
+		return location;
 	}
 
 	@Override

@@ -32,7 +32,7 @@ public interface LocationDao {
 	 * @param location Se le pasa por argumento un objeto de la clase Locationn
 	 * @return Devuelve el id de la Localizacion modificada.
 	 */
-	Integer update(Location location);
+	Location update(Location location);
 
 	/**
 	 * Metetodos que comprueba si existe una Localizacion

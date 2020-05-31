@@ -34,10 +34,10 @@ public interface SceneDao {
 
 	/**
 	 * Metetodos que comprueba si existe una Escena
-	 * @param scene Se le pasa por argumento el objeto.
+	 * @param scene Se le pasa por argumento el id objeto.
 	 * @return Devuelve el objeto encontrado
 	 */
-	Scene find(Scene scene);
+	Scene find(int id);
 
 
 	/**

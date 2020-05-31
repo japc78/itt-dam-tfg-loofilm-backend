@@ -54,7 +54,7 @@
                   <td>${p[4]}</td>
 					<td class="text-center">
 						<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-							<input type="checkbox" class="custom-control-input" id="check-${s[0]}" ${p[5] eq 'false' ? '': 'checked'}>  
+							<input type="checkbox" class="custom-control-input check" id="check-${p[0]}" ${p[5] eq 'false' ? '': 'checked'}>  
 							<label class="custom-control-label" for="check-${p[0]}"><span class="hidden">${p[5]}</span></label>
 						</div>
 					</td>                  

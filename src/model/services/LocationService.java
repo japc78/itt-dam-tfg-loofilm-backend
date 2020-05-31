@@ -66,6 +66,29 @@ public class LocationService {
 		}
 	}
 
+
+	public String update(Location l) {
+		// Se comprueba si la localizacion existe.
+		if (!exists(l)) {
+			loDao.update(l);
+			return "OK-L01";
+		} else {
+			return "ER-L01";
+		}
+	}
+
+	public String toggleCheck(int id, boolean active) {
+		if(loDao.find(id) != null) {
+			Location l = new Location();
+			l = loDao.find(id);
+			l.setActive(active);
+			loDao.update(l);
+			return "OK-TC01";
+		} else {
+			return "ER-TC01";
+		}
+	}
+
 	/**
 	 * Metodo que busca una localizacion por su id.
 	 * @param id Del tipo entero positivo.

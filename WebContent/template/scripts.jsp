@@ -11,9 +11,7 @@
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
-
 <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-
 
 <!-- DataTables -->
 <script src="assets/js/jquery.dataTables.min.js"></script>
@@ -21,6 +19,8 @@
 <script src="assets/js/dataTables.responsive.min.js"></script>
 <script src="assets/js/responsive.bootstrap4.min.js"></script>
 
+<!-- Toastr -->
+<script src="assets/js/toastr.min.js"></script>
 
 <%-- <div class="aqui"><%= request.getRequestURI() %></div> --%>
 

@@ -49,8 +49,7 @@ public class SceneDaoImpl implements SceneDao {
 
 	@Override
 	public Scene update(Scene scene) {
-		// TODO Auto-generated method stub
-		return null;
+		return create(scene);
 	}
 
 	@Override
@@ -60,11 +59,11 @@ public class SceneDaoImpl implements SceneDao {
 	}
 
 	@Override
-	public Scene find(Scene scene) {
+	public Scene find(int id) {
 		if(!con.openConexion()) {
 			return null;
 		}
-		return con.getEm().find(Scene.class, scene.getId());
+		return con.getEm().find(Scene.class, id);
 	}
 
 	@Override

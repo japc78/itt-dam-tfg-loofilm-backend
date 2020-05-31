@@ -53,7 +53,7 @@
 								<td>${s[5]}</td>
 								<td class="text-center">
 									<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-										<input type="checkbox" class="custom-control-input" id="check-${s[0]}" ${s[6] eq 'false' ? '': 'checked'}>  
+										<input type="checkbox" class="custom-control-input check" id="check-${s[0]}" ${s[6] eq 'false' ? '': 'checked'}>  
 										<label class="custom-control-label" for="check-${s[0]}"><span class="hidden">${s[6]}</span></label>
 									</div>
 								</td>								

@@ -62,8 +62,7 @@ public class ProducctionDaoImpl implements ProductionDao {
 
 	@Override
 	public Production update(Production production) {
-		// TODO Auto-generated method stub
-		return null;
+		return create(production);
 	}
 
 	@Override

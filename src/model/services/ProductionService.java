@@ -39,6 +39,18 @@ public class ProductionService {
 		}
 	}
 
+	public String toggleCheck(int id, boolean active) {
+		if(pDao.find(id) != null) {
+			Production p = new Production();
+			p = pDao.find(id);
+			p.setActive(active);
+			pDao.update(p);
+			return "OK-TC01";
+		} else {
+			return "ER-TC01";
+		}
+	}
+
 
 	/**
 	 * Metodo que busca una producion por su id.

@@ -38,7 +38,7 @@ $(document).ready(function () {
 
 	// Bootstrap Select2. Select con buscador.
 	$('.select2').select2({
-		placeholder: 'Seleccione una opción', 
+		placeholder: 'Seleccione una opción',
 		allowClear: true,
 		language: "es"
 	});
@@ -60,4 +60,49 @@ $(document).ready(function () {
 		"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
 		}
 	});
+
+	// Activar un elemento del listado Localicaiones
+	$(".check").click(function(){
+		// Se recoge al inputcheck sobre el que se realiza la accion.
+		check = $(this);
+
+		// Se recogen los datos del listado
+		id = this.id.split('-');
+		active = $(this).prop("checked");
+		
+		// Se guarda el estado anterior por si falla al actualizarse
+		stateBefore = $(this).prop("checked") == true ? false : true;
+
+		// Se recoge la url, asi el mismo metodo me vale para los 3 listados.
+		url = $(location).attr("href").split('/');
+
+		// console.log('id: ' + id[1]);
+		// console.log('active: ' + active);
+		// console.log('url: ' + url[url.length-1]);
+
+		// A traves del http post se realiza la actualizacion del elemento.
+		$.post(url[url.length-1],
+		{
+		  id: id[1],
+		  active: active
+		},
+		function(data, status){
+			// Muestra un mensaje con el estado que devuelve el servlet.
+			if (data.split(':')[0] == 'OK') {
+				toastr.options = {
+					"positionClass": "toast-top-center",
+					"showDuration": "300",
+					"hideDuration": "500",
+					"timeOut": "1000"
+				}
+				toastr.success(data);
+			} else {
+				toastr.success(data);
+				// Sino vuelve al estado anterior.
+				check.prop("checked", stateBefore);
+			}
+			// console.log('Data: ' + data);
+			// console.log('Status: ' + status);
+		});
+	  });
 });
