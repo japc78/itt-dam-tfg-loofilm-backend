@@ -17,6 +17,14 @@ public class ProductionService {
 	}
 
 	/**
+	 * Metodo que devuelve un listado de Producciones series o films activas.
+	 * @return Array de objetos id, nombre, año, tipo
+	 */
+	public List<Object[]> listSelect2() {
+		return pDao.listSelect2();
+	}
+
+	/**
 	 * Metodo que para el alta de de una produccion
 	 * @param p Del tipo Production.
 	 * @return Retorna ER-P01 si ya hay un elmento igual en la BD y OK-P01 si el producto se
@@ -30,6 +38,7 @@ public class ProductionService {
 			return "ER-P01";
 		}
 	}
+
 
 	/**
 	 * Metodo que busca una producion por su id.

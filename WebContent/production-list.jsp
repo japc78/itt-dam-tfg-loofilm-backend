@@ -39,6 +39,7 @@
                   <th style="width: 5%;">Año</th>
                   <th style="width: 5%;">Tipo</th>
                   <th style="width: 5%;">Escenas</th>
+ 				  <th style="width: 2%;" class="text-center">Estado</th> 
                   <th style="width: 15%;" class="no-sort"></th>
                 </tr>
               </thead>
@@ -51,6 +52,12 @@
                   <td>${p[2]}</td>
                   <td>${p[3] eq 0 ? 'film':'serie'}</td>
                   <td>${p[4]}</td>
+					<td class="text-center">
+						<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+							<input type="checkbox" class="custom-control-input" id="check-${s[0]}" ${p[5] eq 'false' ? '': 'checked'}>  
+							<label class="custom-control-label" for="check-${p[0]}"><span class="hidden">${p[5]}</span></label>
+						</div>
+					</td>                  
                   <td class="project-actions text-right">
                     <a class="btn btn-primary btn-xs" href="#">
                       <i class="fas fa-folder"> </i>

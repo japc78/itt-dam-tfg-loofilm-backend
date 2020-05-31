@@ -15,6 +15,12 @@ public interface LocationDao {
 	List<Object[]> list();
 
 	/**
+	 * Metodo que devuelve un listado de Localizaciones activas por Provincia y Pais para el Select del Crear Escena.
+	 * @return Array de objetos id, nombre, provincia, pais
+	 */
+	List<Object[]> listSelect2();
+
+	/**
 	 * Metodo para dar de alta una Localizacion
 	 * @param location Se le pasa por argumento un objeto de la clase Location
 	 * @return Devuelve el id de la Localizacion añadida.

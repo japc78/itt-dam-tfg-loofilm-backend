@@ -21,10 +21,19 @@ public class LocationService {
 	/**
 	 * Listado de localizaciones
 	 * @return Una coleccion de Arrays.
-	 * Id, imagen, nombre, provincia, pais, numero de producciones, fecha
+	 * Id, imagen, nombre, provincia, pais, numero de producciones, estado
 	 */
 	public List<Object[]> list() {
 		return loDao.list();
+	}
+
+	/**
+	 * Listado de localizaciones para el Select de Crear Scena
+	 * @return Una coleccion de Arrays.
+	 * Id, nombre, provincia, pais
+	 */
+	public List<Object[]> listSelect2() {
+		return loDao.listSelect2();
 	}
 
 	/**

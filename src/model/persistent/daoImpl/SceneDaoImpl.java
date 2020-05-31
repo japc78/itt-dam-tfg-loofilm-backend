@@ -3,6 +3,7 @@ package model.persistent.daoImpl;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.TypedQuery;
 
 import model.entities.Scene;
 import model.persistent.connection.Conexion;
@@ -13,8 +14,22 @@ public class SceneDaoImpl implements SceneDao {
 
 	@Override
 	public List<Object[]> list() {
-		// TODO Auto-generated method stub
-		return null;
+		if(!con.openConexion()) {
+			return null;
+		}
+		// Se crea la consulta
+		String jpql = "SELECT s.id, s.name, p.name, p.type, l.name, ci.city, s.active FROM Scene s "
+				+ "JOIN Production p "
+				+ "JOIN Location l "
+				+ "JOIN l.city ci "
+				+ "WHERE s.location = l AND s.production = p "
+				+ "ORDER BY s.id DESC";
+
+		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
+
+		//Se recogen los valores de la consulta.
+		List<Object[]> list = query.getResultList();
+		return list;
 	}
 
 	@Override

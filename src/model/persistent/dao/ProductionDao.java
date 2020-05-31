@@ -12,6 +12,12 @@ public interface ProductionDao {
 	List<Object[]> list();
 
 	/**
+	 * Metodo que devuelve un listado de Producciones series o films activas.
+	 * @return Array de objetos id, nombre, año, tipo
+	 */
+	List<Object[]> listSelect2();
+
+	/**
 	 * Metodo para dar de alta una Produccion
 	 * @param production Se le pasa por argumento un objeto de la clase Production
 	 * @return Devuelve el la Produccion añadida.
