@@ -27,17 +27,18 @@
       <div class="col-12">
         <div class="card">
           <div class="card-body">
-            <table id="list_object" class="table table-bordered table-striped location"> 
+            <table id="list_object" class="table table-bordered table-striped location">
               <thead>
                 <tr>
                   <th style="width: 1%;" class="order">id</th>
                   <th style="width: 5%;" class="no-sort">Imagen</th>
-                  <th style="width: 15%;">Nombre</th>
-                  <th style="width: 10%;">Ciudad</th>
-                  <th style="width: 10%;">Provincia</th>
-                  <th style="width: 10%;">País</th>
+                  <th>Nombre</th>
+                  <th>Ciudad</th>
+                  <th>Provincia</th>
+                  <th>País</th>
                   <th style="width: 5%;" class="text-center">Produc.</th>
-                  <th style="width: 10%;" class="no-sort"></th>
+                  <th style="width: 2%;" class="text-center">Estado</th>
+                  <th class="no-sort text-center"></th>
                 </tr>
               </thead>
               <tbody>
@@ -50,6 +51,12 @@
                   <td>${l[3]}</td>
                   <td>${l[4]}</td>
                   <td class="text-center">${l[5]}</td>
+                  <td class="text-center">
+                  	<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+                      <input type="checkbox" class="custom-control-input" id="check-${l[0]}" ${l[6] eq 'false' ? '': 'checked'}>  
+                      <label class="custom-control-label" for="check-${l[0]}"><span class="hidden">${l[6]}</span></label>
+                    </div>
+                   </td>
                   <td class="project-actions text-right">
                     <a class="btn btn-primary btn-xs" href="#">
                       <i class="fas fa-folder"> </i>
