@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../template/top.jsp"%> 
+<%@include file="../template/top.jsp"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<div class="container-fluid">
@@ -40,14 +41,9 @@
 									<label for="">Localización</label>
 									<select class="form-control select2" name="location">
 										<option></option>
-										<optgroup label="Granada">
-											<option value="3">Alhambra</option>
-											<option value="8">Sierra Nevada</option>
-										</optgroup>
-										<optgroup label="Sevilla">
-											<option value="2">La Giralda</option>
-											<option value="1">Torre del Oro</option>
-										</optgroup>
+										<c:forEach items="${locations}" var="l">
+										<option value="${l[0]}">${l[1]} - ${l[2]} - ${l[3]}</option>
+										</c:forEach>
 									</select>
 								</div>
 
@@ -55,18 +51,9 @@
 									<label for="">Producción</label>
 									<select class="form-control select2" name="production">
 										<option></option>
-										<optgroup label="Films">
-											<option value="2">Queen & Slim </option>
-										</optgroup>
-										<optgroup label="Series">
-											<option value="1">Doom Patrol</option>
-											<option value="4">The Boyz</option>
-										</optgroup>
-
-										<!-- <optgroup label="España/Sevilla">
-											<option>La Giralda</option>
-											<option>Torre del Oro</option>
-										</optgroup> -->
+										<c:forEach items="${productions}" var="p">
+										<option value="${p[0]}">${p[1]} - ${p[2]} - ${p[3] eq 0 ? 'film':'serie'}</option>
+										</c:forEach>
 									</select>
 								</div>
 							</div>

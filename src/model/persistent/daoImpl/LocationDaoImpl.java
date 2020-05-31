@@ -23,14 +23,32 @@ public class LocationDaoImpl implements LocationDao {
 
 		// Se crea la consulta
 		String jpql = "SELECT l.id, l.name, ci.city, co.county, c.country, "
-				+ "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location), l.active " 
+				+ "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location), l.active "
 				+ "FROM Location l JOIN l.city ci "
 				+ "JOIN ci.county co JOIN co.country c "
 				+ "ORDER BY l.id DESC";
-		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class); 
+		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
 
 		//Se recogen los valores de la consulta.
-		List<Object[]> list = query.getResultList(); 
+		List<Object[]> list = query.getResultList();
+		return list;
+	}
+
+	@Override
+	public List<Object[]> listSelect2() {
+		if(!con.openConexion()) {
+			return null;
+		}
+
+		// Se crea la consulta
+		String jpql = "SELECT l.id, l.name, co.county, c.country "
+				+ "FROM Location l JOIN l.city ci "
+				+ "JOIN ci.county co JOIN co.country c "
+				+ "WHERE l.active = 1";
+		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
+
+		//Se recogen los valores de la consulta.
+		List<Object[]> list = query.getResultList();
 		return list;
 	}
 
@@ -39,7 +57,7 @@ public class LocationDaoImpl implements LocationDao {
 		if(!con.openConexion()) {
 			return null;
 		}
-		EntityTransaction et = con.getEm().getTransaction();  
+		EntityTransaction et = con.getEm().getTransaction();
 		et.begin();
 		con.getEm().merge(country);
 		country.getCounties().add(county);
@@ -85,4 +103,6 @@ public class LocationDaoImpl implements LocationDao {
 		}
 		return null;
 	}
+
+
 }

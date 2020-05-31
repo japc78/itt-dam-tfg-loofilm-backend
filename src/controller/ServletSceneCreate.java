@@ -14,10 +14,22 @@ import model.entities.Scene;
 import model.services.LocationService;
 import model.services.ProductionService;
 import model.services.SceneService;
- 
+
 @WebServlet("/scene-create")
 public class ServletSceneCreate extends HttpServlet {
 	private static final long serialVersionUID = 4000751667389489942L;
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		LocationService ls = new LocationService();
+		ProductionService ps = new ProductionService();
+
+		// Se pasan los datos por parametros a los Selects
+		req.setAttribute("locations", ls.listSelect2());
+		req.setAttribute("productions", ps.listSelect2());
+
+		req.getRequestDispatcher("scene-create.jsp").forward(req, resp);
+	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -38,9 +50,9 @@ public class ServletSceneCreate extends HttpServlet {
 		int idProduction 		= Integer.parseInt(req.getParameter("production"));
 		String name 		= req.getParameter("name");
 		String description 	= req.getParameter("description");
-		
-		System.out.println("Localizacion Id: " +  idLocation);
-		System.out.println("Produccion Id: " +  idProduction); 
+
+		// System.out.println("Localizacion Id: " +  idLocation);
+		// System.out.println("Produccion Id: " +  idProduction);
 
 		location = ls.find(idLocation);
 		production = ps.find(idProduction);

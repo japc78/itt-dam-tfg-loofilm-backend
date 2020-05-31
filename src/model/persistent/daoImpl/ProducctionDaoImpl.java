@@ -18,11 +18,27 @@ public class ProducctionDaoImpl implements ProductionDao {
 			return null;
 		}
 		// Se crea la consulta
-		// String jpql = "SELECT p.id, p.name, p.year, p.type, (SELECT COUNT(s) FROM Scene s JOIN p) FROM Production p JOIN p.scene s";
+		String jpql = "SELECT p.id, p.name, p.year, p.type, "
+				+ "(SELECT COUNT(s) FROM Scene s WHERE s.production = p), p.active "
+				+ "FROM Production p "
+				+ "ORDER BY p.id DESC";
 
-		String jpql = "SELECT p.id, p.name, p.year, p.type, (SELECT COUNT(s) FROM Scene s WHERE s.production = p) FROM Production p ORDER BY p.id DESC";
+		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
 
-		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class); 
+		//Se recogen los valores de la consulta.
+		List<Object[]> list = query.getResultList();
+		return list;
+	}
+
+	@Override
+	public List<Object[]> listSelect2() {
+		if(!con.openConexion()) {
+			return null;
+		}
+		// Se crea la consulta
+		String jpql = "SELECT p.id, p.name, p.year, p.type FROM Production p WHERE p.active = 1";
+
+		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
 
 		//Se recogen los valores de la consulta.
 		List<Object[]> list = query.getResultList();
@@ -76,5 +92,4 @@ public class ProducctionDaoImpl implements ProductionDao {
 		}
 		return null;
 	}
-
 }
