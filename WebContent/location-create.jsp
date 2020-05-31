@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../template/top.jsp"%>
+<%@include file="../WEB-INF/template/top.jsp"%>
 <!-- Content Header (Page header) -->
 <section class="content-header">
 	<div class="container-fluid">
@@ -73,11 +73,11 @@
 					<div class="card-body">
 						<div class="form-group">
 							<label for="inputName">Nombre <small>max. 180 caracteres</small></label>
-							<input type="text" id="inputName" class="form-control" name="name" required>
+							<input type="text" id="inputName" class="form-control maxlength" name="name" maxlength="180" required>
 						</div>
 						<div class="form-group">
-							<label for="inputDescription">Descripción <small>máx. 320 caracteres.</small></label>
-							<textarea id="inputDescription" class="form-control" rows="4" name="description" required></textarea>
+							<label for="inputDescription">Descripción <small>máx. 500 caracteres.</small></label>
+							<textarea id="inputDescription" class="form-control maxlength" rows="4" name="description" maxlength="500" required></textarea>
 						</div>
 					</div>
 					<!-- /.card-body -->
@@ -95,22 +95,22 @@
 					</div>
 					<div class="card-body">
 						<div class="form-group">
-							<label for="inputStreet">Dirección <small>max. 180 caracteres.</small></label>
-							<input type="text" id="inputStreet" class="form-control mb-3" name="street" required>
+							<label for="inputStreet">Dirección <small>max. 320 caracteres.</small></label>
+							<input type="text" id="inputStreet" class="form-control maxlength mb-3" name="street" maxlength="320" required>
 						</div>
 
 						<div class="form-group">
 							<label for="inputWeb">Web <small>max. 320 caracteres</small></label>
-							<input type="url" id="inputWeb" class="form-control" name="web" placeholder="Ej. https://www.alhambra.com">
+							<input type="url" id="inputWeb" class="form-control maxlength" name="web" placeholder="Ej. https://www.alhambra.com" maxlength="320">
 						</div>
 						<div class="form-group">
 							<label for="inputEmail">Email</label>
-							<input type="email" name="email" class="form-control" id="inputEmail" placeholder="Ej. info@alhambra.com">
+							<input type="email" name="email" class="form-control maxlength" id="inputEmail" placeholder="Ej. info@alhambra.com" maxlength="320">
 						</div>
 
 						<div class="form-group">
 							<label for="inputPhone">Teléfono</label>
-							<input type="text" name="phone" class="form-control" id="inputPhone" placeholder="Ej. 999777888">
+							<input type="text" name="phone" class="form-control maxlength" id="inputPhone" placeholder="Ej. 999777888" maxlength="12">
 						</div>
 					</div>
 					<!-- /.card-body -->
@@ -171,4 +171,4 @@
 <div class="msg ${msgType}">
 	<span>${msg}</span>
 </div>
-<%@include file="../template/bottom.jsp" %>
+<%@include file="../WEB-INF/template/bottom.jsp" %>

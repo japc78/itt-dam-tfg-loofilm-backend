@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../template/top.jsp"%>
+<%@include file="../WEB-INF/template/top.jsp"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!-- Content Header (Page header) -->
 <section class="content-header">
@@ -53,10 +53,10 @@
 								<td>${s[5]}</td>
 								<td class="text-center">
 									<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-										<input type="checkbox" class="custom-control-input check" id="check-${s[0]}" ${s[6] eq 'false' ? '': 'checked'}>  
+										<input type="checkbox" class="custom-control-input check" id="check-${s[0]}" ${s[6] eq 'false' ? '': 'checked'}>
 										<label class="custom-control-label" for="check-${s[0]}"><span class="hidden">${s[6]}</span></label>
 									</div>
-								</td>								
+								</td>
 								<td class="project-actions text-right">
 									<a class="btn btn-primary btn-xs" href="#">
 										<i class="fas fa-folder"> </i>
@@ -85,4 +85,4 @@
 	<!-- /.row -->
 </section>
 <!-- /.content -->
-<%@include file="../template/bottom.jsp" %>
+<%@include file="../WEB-INF/template/bottom.jsp" %>

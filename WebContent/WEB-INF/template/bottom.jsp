@@ -14,6 +14,6 @@
 <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
-<%@include file="../template/scripts.jsp"%>
+<%@include file="../template/scripts.jsp"%> 
 </body>
 </html>

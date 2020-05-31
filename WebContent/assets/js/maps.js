@@ -1,8 +1,8 @@
 function initMap() {
-  console.log('Google Maps API version: ' + google.maps.version);
+  // console.log('Google Maps API version: ' + google.maps.version);
 
   var map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 40.4231, lng: -3.6881 },
+    center: { lat: 40.4231, lng: -3.6881 }, 
     zoom: 5,
     mapTypeId: "roadmap",
     streetViewControl: false,
@@ -18,14 +18,13 @@ function initMap() {
     searchBox.setBounds(map.getBounds());
   });
 
-
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
   searchBox.addListener("places_changed", function () {
     const result = searchBox.getPlaces();
     place = result[0];
 
-    console.log(place);
+    // console.log(place);
 
     if (result.length == 0) {
       return;
@@ -58,9 +57,6 @@ function initMap() {
       map.setCenter(marker.getPosition());
     });
 
-
-
-
     // Se pasa la info al DOM
     printInfoAddress(infoAddress);
 
@@ -78,8 +74,6 @@ function initMap() {
       document.getElementsByClassName("gps")[0].innerHTML =  `<b>Coordenadas: </b> ${e.latLng.toString()}`;
       // console.log(e.latLng.toString());
     });
-
-
   });
 }
 

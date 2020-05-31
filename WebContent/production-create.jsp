@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@include file="../template/top.jsp"%>
+<%@include file="../WEB-INF/template/top.jsp"%>
 	<!-- Content Header (Page header) -->
 	<section class="content-header">
 		<div class="container-fluid">
@@ -131,4 +131,4 @@
 		</form>
 	</section>
 	<!-- /.content -->
-<%@include file="../template/bottom.jsp" %>
+<%@include file="../WEB-INF/template/bottom.jsp" %>

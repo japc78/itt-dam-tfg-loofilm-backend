@@ -18,6 +18,16 @@ public class ServletProductionCreate extends HttpServlet{
 	private static final long serialVersionUID = -6147400358347687716L;
 
 	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("withMaps", 0);
+		req.setAttribute("isList", 0);
+		req.setAttribute("isForm", 1); 
+		req.setAttribute("withSelect2", 0); 
+
+		req.getRequestDispatcher("production-create.jsp").forward(req, resp);
+	}
+
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 

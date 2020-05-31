@@ -18,6 +18,11 @@ public class ServletLocationList extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("withMaps", 0);
+		req.setAttribute("isList", 1);
+		req.setAttribute("isForm", 0);
+		req.setAttribute("withSelect2", 0);
+
 		LocationService ls = new LocationService();
 		req.setAttribute("locations", ls.list());
 		req.getRequestDispatcher("location-list.jsp").forward(req, resp);

@@ -15,7 +15,7 @@ import model.services.LoginUser;
 /**
  * Servlet implementation class login
  */
-@WebServlet("/loginadmin")
+@WebServlet("/login")
 public class ServletLoginAdmin extends HttpServlet {
 	private static final long serialVersionUID = 313045378965602880L;
 
@@ -25,11 +25,10 @@ public class ServletLoginAdmin extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)	throws ServletException, IOException {
 		// Se captura los datos del formulario.
-		String email = request.getParameter("email");
-		String pass = request.getParameter("pass");
+		String email = req.getParameter("email");
+		String pass = req.getParameter("pass");
 
 		// Se crea una instancia de Usuario y paso el Email
 		User user = new User();
@@ -37,7 +36,6 @@ public class ServletLoginAdmin extends HttpServlet {
 
 		// System.out.println("Srvl email: " + user.getEmail());
 		// System.out.println("Srvl pass: " + pass);
-
 
 		// Se instancia el gestor de Login
 		LoginUser lu = new LoginUser();
@@ -53,31 +51,29 @@ public class ServletLoginAdmin extends HttpServlet {
 
 		System.out.println("Srvl result: " + result);
 
-
 		// Gestiono la respuesta.
 		switch (result) {
 			case "ER-U00":
-				request.setAttribute("msgType", "error");
-				request.setAttribute("msg", "Error de la App");
-				request.setAttribute("email", user);
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+				req.setAttribute("msgType", "error");
+				req.setAttribute("msg", "Error de la App");
+				req.setAttribute("email", user);
+				req.getRequestDispatcher("index.jsp").forward(req, resp);
 				break;
 			case "ER-U01":
-				request.setAttribute("msgType", "error");
-				request.setAttribute("msg", "El email no es correcto");
-				request.setAttribute("email", user);
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+				req.setAttribute("msgType", "error");
+				req.setAttribute("msg", "El email no es correcto");
+				req.setAttribute("email", user);
+				req.getRequestDispatcher("index.jsp").forward(req, resp);
 				break;
 			case "ER-U02":
-				request.setAttribute("msgType", "error");
-				request.setAttribute("msg", "La contraseña no es correcta");
-				request.setAttribute("email", user);
-				request.getRequestDispatcher("index.jsp").forward(request, response);
+				req.setAttribute("msgType", "error");
+				req.setAttribute("msg", "La contraseña no es correcta");
+				req.setAttribute("email", user);
+				req.getRequestDispatcher("index.jsp").forward(req, resp);
 				break;
 			default:
-				request.getRequestDispatcher("dashboard.jsp").forward(request, response);
+				req.getRequestDispatcher("home").forward(req, resp);
 				break;
 		}
-
 	}
 }

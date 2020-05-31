@@ -16,6 +16,11 @@ public class ServletSceneList extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("withMaps", 0);
+		req.setAttribute("isList", 1);
+		req.setAttribute("isForm", 0);
+		req.setAttribute("withSelect2", 0);
+
 		SceneService ss = new SceneService();
 		req.setAttribute("scenes", ss.list());
 		req.getRequestDispatcher("scene-list.jsp").forward(req, resp);

@@ -21,11 +21,11 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Inicie la sesión</p>
+      <p class="login-box-msg">Inicie la sesión</p> 
       <div class="msg ${msgType}">
         <span>${msg}</span>
       </div>
-      <form action="loginadmin" method="post">
+      <form action="login" method="post">
         <div class="input-group mb-3">
           <input type="email" class="form-control" placeholder="Email" required value="${user.email}" name="email">
           <div class="input-group-append">

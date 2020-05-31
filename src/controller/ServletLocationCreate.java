@@ -31,6 +31,16 @@ import model.services.LocationService;
 public class ServletLocationCreate extends HttpServlet {
 	private static final long serialVersionUID = 4089613927822307019L;
 
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("withMaps", 1);
+		req.setAttribute("isForm", 1);
+		req.setAttribute("isList", 0);
+		req.setAttribute("withSelect2", 0);
+
+		req.getRequestDispatcher("location-create.jsp").forward(req, resp);
+	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)

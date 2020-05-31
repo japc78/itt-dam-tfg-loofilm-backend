@@ -21,6 +21,11 @@ public class ServletSceneCreate extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("withMaps", 0);
+		req.setAttribute("isList", 0);
+		req.setAttribute("isForm", 1);
+		req.setAttribute("withSelect2", 1);
+
 		LocationService ls = new LocationService();
 		ProductionService ps = new ProductionService();
 
