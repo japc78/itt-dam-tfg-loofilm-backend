@@ -58,11 +58,11 @@
                     </div>
                    </td>
                   <td class="project-actions text-right">
-                    <a class="btn btn-primary btn-xs" href="#">
+                    <a class="btn btn-primary btn-xs" href="location?id=${l[0]}">
                       <i class="fas fa-folder"> </i>
                       Ver
                     </a>
-                    <a class="btn btn-info btn-xs" href="#">
+                    <a class="btn btn-info btn-xs btnEdit" href="location?id=${l[0]}"> 
                       <i class="fas fa-pencil-alt"> </i>
                       Editar
                     </a>
