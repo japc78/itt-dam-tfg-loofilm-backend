@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Paths;
 import java.util.List;
@@ -30,6 +31,7 @@ import model.services.LocationService;
 @MultipartConfig
 public class ServletLocationCreate extends HttpServlet {
 	private static final long serialVersionUID = 4089613927822307019L;
+	private static final String SAVE_DIR = "images";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -70,17 +72,37 @@ public class ServletLocationCreate extends HttpServlet {
 		String gps = ls.gpsFormat(req.getParameter("gps"));
 
 
-		// TODO Subida de ficheros. Multiple.
-		// Retrieves <input type="file" name="file" multiple="true">
-		// List<Part> fileParts = request.getParts().stream().filter(part -> "file".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
+		// // TODO Subida de ficheros. Multiple.
+		// // Retrieves <input type="file" name="file" multiple="true">
+		// List<Part> fileParts = req.getParts().stream().filter(part -> "file".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
 
 		// for (Part filePart : fileParts) {
 		// 	// MSIE fix.
 		// 	String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-
 		// 	InputStream fileContent = (InputStream) filePart.getInputStream();
 		// 	// ... (do your job here)
 		// }
+
+		// Subida de ficheros
+        // gets absolute path of the web application
+        String appPath = req.getServletContext().getRealPath("");
+
+		// constructs path of the directory to save uploaded file
+        String savePath = appPath + File.separator + SAVE_DIR;
+
+        // creates the save directory if it does not exists
+        File fileSaveDir = new File(savePath);
+        if (!fileSaveDir.exists()) {
+            fileSaveDir.mkdir();
+        }
+
+        for (Part part : req.getParts()) {
+			String fileName = extractFileName(part);
+			System.out.println("File " + fileName);
+            // refines the fileName in case it is an absolute path
+            fileName = new File(fileName).getName();
+            part.write(savePath + File.separator + fileName);
+        }
 
 		Country c = new Country(countryCode , country);
 		County co = new County(county);
@@ -121,11 +143,25 @@ public class ServletLocationCreate extends HttpServlet {
 				req.getRequestDispatcher("location-create.jsp").forward(req, resp);
 				break;
 			default:
-				req.getRequestDispatcher("location-list.jsp").forward(req, resp);
+				req.getRequestDispatcher("location-list").forward(req, resp);
 				break;
 		}
 
 		// Modo pruebas
 		// request.getRequestDispatcher("location-create.jsp").forward(request, response);
 	}
+
+	    /**
+     * Extracts file name from HTTP header content-disposition
+     */
+    private String extractFileName(Part part) {
+        String contentDisp = part.getHeader("content-disposition");
+        String[] items = contentDisp.split(";");
+        for (String s : items) {
+            if (s.trim().startsWith("filename")) {
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
+            }
+        }
+        return "";
+    }
 }
