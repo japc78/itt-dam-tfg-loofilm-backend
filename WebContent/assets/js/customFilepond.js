@@ -3,10 +3,22 @@ FilePond.registerPlugin(
 	FilePondPluginImagePreview,
 	FilePondPluginImageResize,
 	FilePondPluginImageTransform
-  );
+);
 
-  const inputElement = document.querySelector('input[type="file"]');
-  const pond = FilePond.create(inputElement, {
+	// FilePond.setOptions({
+	// 	server: {
+	// 		url: 'https://api.imgbb.com/1/upload
+	// 		method: 'POST',
+	// 		headers: {
+
+	// 		},
+	// 	}
+	// });
+
+
+/*
+const inputElement = document.querySelector('input[type="file"]');
+const pond = FilePond.create(inputElement, {
 	allowMultiple: true,
 	maxParallelUploads: 1,
 	maxFiles: 5,
@@ -29,5 +41,29 @@ FilePond.registerPlugin(
 	labelButtonAbortItemProcessing: 'Cancelar',
 	labelButtonUndoItemProcessing: 'Deschacer',
 	labelButtonRetryItemProcessing: 'Reintentar',
-	labelButtonProcessItem:'Subir'
+	labelButtonProcessItem:'Subir',
+
+	onaddfile: (err, filename) => {
+		console.log(err, filename);
+	},
+
+	// // alter the output property
+	// onpreparefile: (fileItem, outputFiles) => {
+	// 	// loop over the outputFiles array
+	// 	outputFiles.forEach(output => {
+	// 	const img = new Image();
+
+	// 	// output now is an object containing a `name` and a `file` property, we only need the `file`
+	// 	img.src = URL.createObjectURL(output.file);
+
+	// 	document.body.appendChild(img);
+	// 	})
+	// }
 });
+*/
+// FilePond.setOptions({
+// server:{
+//     url: 'https://api.imgbb.com/1',
+//     process: '/upload'
+// 	}
+// });
