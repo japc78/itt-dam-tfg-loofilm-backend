@@ -2,10 +2,8 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Paths;
-import java.util.List;
-import java.util.stream.Collectors;
 
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -13,9 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
-
-import org.eclipse.persistence.jpa.jpql.parser.AdditionExpression;
-import org.omg.CORBA.portable.InputStream;
 
 import model.entities.City;
 import model.entities.Country;
@@ -28,10 +23,12 @@ import model.services.LocationService;
  */
 
 @WebServlet("/location-create")
-@MultipartConfig
+@MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
+                 maxFileSize=1024*1024*10,      // 10MB
+                 maxRequestSize=1024*1024*50)   // 50MB
 public class ServletLocationCreate extends HttpServlet {
 	private static final long serialVersionUID = 4089613927822307019L;
-	private static final String SAVE_DIR = "images";
+	private static final String SAVE_DIR = "uploadFiles";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -52,11 +49,6 @@ public class ServletLocationCreate extends HttpServlet {
 		// Se instancia las entidades y servicios necesarios.
 		LocationService ls = new LocationService();
 
-		// TODO Subida de ficheros. Solo uno.
-		// Part filePart = request.getPart("file"); // Retrieves <input type="file" name="file">
-		// String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString(); // MSIE fix.
-		// InputStream fileContent = (InputStream) filePart.getInputStream();
-
 		String name 		= req.getParameter("name");
 		String description 	= req.getParameter("description");
 		String street 		= req.getParameter("street");
@@ -71,37 +63,27 @@ public class ServletLocationCreate extends HttpServlet {
 		String countryCode = req.getParameter("countryCode");
 		String gps = ls.gpsFormat(req.getParameter("gps"));
 
-
-		// // TODO Subida de ficheros. Multiple.
-		// // Retrieves <input type="file" name="file" multiple="true">
-		// List<Part> fileParts = req.getParts().stream().filter(part -> "file".equals(part.getName()) && part.getSize() > 0).collect(Collectors.toList());
-
-		// for (Part filePart : fileParts) {
-		// 	// MSIE fix.
-		// 	String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
-		// 	InputStream fileContent = (InputStream) filePart.getInputStream();
-		// 	// ... (do your job here)
-		// }
-
 		// Subida de ficheros
-        // gets absolute path of the web application
+        // Se optiene la ruta absoluta de la aplicacion
         String appPath = req.getServletContext().getRealPath("");
 
-		// constructs path of the directory to save uploaded file
+		// Se crea el path donde se ubicaran los fichros
         String savePath = appPath + File.separator + SAVE_DIR;
+		System.out.println("Ruta " + savePath);
 
-        // creates the save directory if it does not exists
-        File fileSaveDir = new File(savePath);
+        // Se crea el direcctorio sino existe
+        File fileSaveDir = new File(savePath);      
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();
         }
-
+        
+        // Sube los ficheros
         for (Part part : req.getParts()) {
 			String fileName = extractFileName(part);
 			System.out.println("File " + fileName);
             // refines the fileName in case it is an absolute path
             fileName = new File(fileName).getName();
-            part.write(savePath + File.separator + fileName);
+            part.write(fileName);
         }
 
 		Country c = new Country(countryCode , country);
@@ -143,7 +125,9 @@ public class ServletLocationCreate extends HttpServlet {
 				req.getRequestDispatcher("location-create.jsp").forward(req, resp);
 				break;
 			default:
-				req.getRequestDispatcher("location-list").forward(req, resp);
+//				req.getRequestDispatcher("location-list").forward(req, resp);
+				req.getRequestDispatcher("location-list").forward(
+						req, resp);
 				break;
 		}
 
@@ -151,15 +135,15 @@ public class ServletLocationCreate extends HttpServlet {
 		// request.getRequestDispatcher("location-create.jsp").forward(request, response);
 	}
 
-	    /**
-     * Extracts file name from HTTP header content-disposition
-     */
+	/**
+     * Metodo que extrae del HTTP header el nombre del fichero.
+    */
     private String extractFileName(Part part) {
         String contentDisp = part.getHeader("content-disposition");
         String[] items = contentDisp.split(";");
         for (String s : items) {
             if (s.trim().startsWith("filename")) {
-                return s.substring(s.indexOf("=") + 2, s.length()-1);
+                return s.substring(s.indexOf("=") + 2, s.length()-1); 
             }
         }
         return "";
