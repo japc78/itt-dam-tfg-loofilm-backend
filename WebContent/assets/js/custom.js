@@ -41,8 +41,8 @@ $(document).ready(function () {
 		$(".select2").select2({
 			placeholder: 'Seleccione una opción',
 			allowClear: true,
-			language: "es" 
-		}); 
+			language: "es"
+		});
 	}
 
 	// Datatables
@@ -78,18 +78,21 @@ $(document).ready(function () {
 			// Se guarda el estado anterior por si falla al actualizarse
 			stateBefore = $(this).prop("checked") == true ? false : true;
 
-			// Se recoge la url, asi el mismo metodo me vale para los 3 listados.
+			// Se recoge la url, asi el mismo metodo me vale para los 3 listados, se obtiene la procedencia -> categoy.
 			url = $(location).attr("href").split('/');
+			category = url[url.length-1].split('-')[0];
 
 			// console.log('id: ' + id[1]);
 			// console.log('active: ' + active);
-			// console.log('url: ' + url[url.length-1]);
+			// console.log('url: ' + url);
+			// console.log('url: ' + category);
 
 			// A traves del http post se realiza la actualizacion del elemento.
-			$.post(url[url.length-1],
+			$.post("update-status",
 			{
-			id: id[1],
-			active: active
+				id: id[1],
+				category: category,
+				active: active
 			},
 			function(data, status){
 				// Muestra un mensaje con el estado que devuelve el servlet.
