@@ -87,9 +87,20 @@ public class LocationDaoImpl implements LocationDao {
 	}
 
 	@Override
-	public Integer delete(Location location) {
-		// TODO Auto-generated method stub
-		return null;
+	public Location delete(Location location) {
+		if(!con.openConexion()) {
+			return null;
+		}
+		EntityTransaction et = con.getEm().getTransaction();
+		et.begin();
+		Location l = con.getEm().merge(location);
+		con.getEm().remove(l);
+		et.commit();
+		con.closeConexion();
+
+		//Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
+		System.out.println("DELETE: " + location);
+		return location;
 	}
 
 	@Override

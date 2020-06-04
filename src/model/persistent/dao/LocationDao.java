@@ -46,7 +46,7 @@ public interface LocationDao {
 	 * @param location Se le pasa por argumento un objeto de la clase Location
 	 * @return Devuelve el id de la Localizacion eliminada.
 	 */
-	Integer delete(Location location);
+	Location delete(Location location);
 
 
 	/**

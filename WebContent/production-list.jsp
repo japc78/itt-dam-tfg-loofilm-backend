@@ -47,10 +47,10 @@
                 <c:forEach items="${productions}" var="p">
                 <tr>
                   <td>${p[0]}</td>
-                  <td><img src="images/productions/doom_patrol.jpg" width="50px"></td>
+                  <td><img src="images/productions/doom_patrol.jpg" height="50px"></td>
                   <td>${p[1]}</td>
                   <td>${p[2]}</td>
-                  <td>${p[3] eq 0 ? 'film':'serie'}</td>
+                  <td>${p[3] eq 0 ? 'serie':'film'}</td>
                   <td>${p[4]}</td>
 					<td class="text-center">
 						<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
@@ -67,7 +67,7 @@
                       <i class="fas fa-pencil-alt"> </i>
                       Editar
                     </a>
-                    <a class="btn btn-danger btn-xs" href="#">
+                    <a id="del-${p[0]}" class="btn btn-danger btn-xs btnDel" href="#">
                       <i class="fas fa-trash"> </i>
                       Borrar
                     </a>

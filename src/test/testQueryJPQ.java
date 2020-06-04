@@ -1,5 +1,6 @@
 package test;
 
+import model.entities.Location;
 import model.services.LocationService;
 import model.services.ProductionService;
 import model.services.SceneService;
@@ -19,6 +20,9 @@ public class testQueryJPQ {
 			// 	}
 			// 	System.out.print("\n");
 			// }
+		
+			
+			System.out.println(ls.remove(15));
 
 			// for (Object[] l : ls.listSelect2()) {
 			// 	for (int i = 0; i < l.length; i++) {

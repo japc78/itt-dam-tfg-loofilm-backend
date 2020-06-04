@@ -47,6 +47,15 @@ public class SceneService {
 	}
 
 	/**
+	 * Metodo que busca una escena por su id.
+	 * @param id Del tipo entero positivo.
+	 * @return Devuelve un objeto del tipo Scene.
+	 */
+	public Scene find(int id) {
+		return sDao.find(id);
+	}
+
+	/**
 	 * Metodo que comprueba si la scena pasada por parametro existe.
 	 * @param s Del tipo Scene.
 	 * @return Devuelve true si existe y false si no existe.
@@ -56,6 +65,21 @@ public class SceneService {
 			return true;
 		} else {
 			return false;
+		}
+	}
+
+	/**
+	 * Metodo que elimina una escena. Se le pasa como argumento la escena a borrar.
+	 * @param p Objeto del tipo Scene.
+	 * @return
+	 */
+	public String remove(Scene p) {
+		// Se comprueba si la localizacion existe.
+		if (!exists(p)) {
+			sDao.delete(p);
+			return "OK-P01";
+		} else {
+			return "ER-P01";
 		}
 	}
 }

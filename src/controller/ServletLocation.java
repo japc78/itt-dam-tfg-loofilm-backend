@@ -20,20 +20,20 @@ public class ServletLocation extends HttpServlet{
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		LocationService ls = new LocationService();
+		LocationService ls = new LocationService(); 
 
 		req.setAttribute("withMaps", 1);
 		req.setAttribute("isList", 0);
 		req.setAttribute("isForm", 1);
 		req.setAttribute("withSelect2", 0);
 
-		int id = Integer.parseInt(req.getParameter("id")); 
+		int id = Integer.parseInt(req.getParameter("id"));
 
 		Location l = new Location();
 		l = ls.find(id);
 
 		req.setAttribute("location", l);
-		
+
 		req.getRequestDispatcher("location.jsp").forward(req, resp);
 	}
 

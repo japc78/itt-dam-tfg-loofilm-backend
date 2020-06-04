@@ -28,7 +28,8 @@ import model.services.LocationService;
                  maxRequestSize=1024*1024*50)   // 50MB
 public class ServletLocationCreate extends HttpServlet {
 	private static final long serialVersionUID = 4089613927822307019L;
-	private static final String SAVE_DIR = "uploadFiles";
+	private static final String SAVE_DIR = "location";
+	private static final String DEFAULT_FILENAME = "loofilm_location";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -40,10 +41,7 @@ public class ServletLocationCreate extends HttpServlet {
 		req.getRequestDispatcher("location-create.jsp").forward(req, resp);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		// Se instancia las entidades y servicios necesarios.
@@ -68,15 +66,15 @@ public class ServletLocationCreate extends HttpServlet {
         String appPath = req.getServletContext().getRealPath("");
 
 		// Se crea el path donde se ubicaran los fichros
-        String savePath = appPath + File.separator + SAVE_DIR;
+        String savePath = appPath + File.separator + "images" + File.separator + SAVE_DIR;
 		System.out.println("Ruta " + savePath);
 
         // Se crea el direcctorio sino existe
-        File fileSaveDir = new File(savePath);      
+        File fileSaveDir = new File(savePath);
         if (!fileSaveDir.exists()) {
             fileSaveDir.mkdir();
         }
-        
+
         // Sube los ficheros
         for (Part part : req.getParts()) {
 			String fileName = extractFileName(part);
@@ -125,9 +123,16 @@ public class ServletLocationCreate extends HttpServlet {
 				req.getRequestDispatcher("location-create.jsp").forward(req, resp);
 				break;
 			default:
-//				req.getRequestDispatcher("location-list").forward(req, resp);
-				req.getRequestDispatcher("location-list").forward(
-						req, resp);
+				req.setAttribute("msgType", "ok");
+				req.setAttribute("msg", "Elemento añadido correctamente");
+
+				req.setAttribute("withMaps", 0);
+				req.setAttribute("isList", 1);
+				req.setAttribute("isForm", 0);
+				req.setAttribute("withSelect2", 0);
+
+				req.setAttribute("locations", ls.list());
+				req.getRequestDispatcher("location-list.jsp").forward(req, resp);
 				break;
 		}
 
@@ -143,9 +148,9 @@ public class ServletLocationCreate extends HttpServlet {
         String[] items = contentDisp.split(";");
         for (String s : items) {
             if (s.trim().startsWith("filename")) {
-                return s.substring(s.indexOf("=") + 2, s.length()-1); 
+                return s.substring(s.indexOf("=") + 2, s.length()-1);
             }
         }
-        return "";
+        return DEFAULT_FILENAME;
     }
 }

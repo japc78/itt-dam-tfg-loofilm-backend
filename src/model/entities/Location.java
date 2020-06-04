@@ -59,6 +59,21 @@ public class Location implements Serializable {
 	private List<Visited> visiteds;
 
 	public Location() {
+	}	
+
+	public Location(String name, String description, String email, String gps,  String phone,
+			String postalcode, String street, String web, City city) {
+		super();
+		this.active = true;
+		this.description = description;
+		this.email = email;
+		this.gps = gps;
+		this.name = name;
+		this.phone = phone;
+		this.postalcode = postalcode;
+		this.street = street;
+		this.web = web;
+		this.city = city;
 	}
 
 	public int getId() {

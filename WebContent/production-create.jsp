@@ -22,7 +22,7 @@
 
 	<!-- Main content -->
 	<section class="content">
-		<form action="production-create" method="post">
+		<form action="production-create" method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-6">
 					<div class="card card-info">
@@ -53,7 +53,7 @@
 										<label>Tipo de Producción</label>
 										<select id="inputType" name="type" class="custom-select">
 											<option value="0">Serie</option>
-											<option value="1" selected="selected">Pelicula</option>
+											<option value="1" selected="selected">Film</option>
 										</select>
 									</div>
 								</div>
@@ -83,7 +83,7 @@
 										<input name="file" type="file" multiple />
 									</div>
 								</form> -->
-								<input type="file" class="imageUpload" name="filepond"/>
+								<input type="file" name="production-create"/>
 							</div>
 						</div>
 						<!-- /.card-body -->

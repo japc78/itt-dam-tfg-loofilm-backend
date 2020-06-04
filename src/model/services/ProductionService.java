@@ -73,4 +73,19 @@ public class ProductionService {
 			return false;
 		}
 	}
+
+	/**
+	 * Metodo que elimina una Produccion. Se le pasa como argumento la produccion a borrar.
+	 * @param p Objeto del tipo Production.
+	 * @return
+	 */
+	public String remove(Production p) {
+		// Se comprueba si la localizacion existe.
+		if (!exists(p)) {
+			pDao.delete(p);
+			return "OK-P01";
+		} else {
+			return "ER-P01";
+		}
+	}
 }

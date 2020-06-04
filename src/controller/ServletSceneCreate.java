@@ -77,7 +77,7 @@ public class ServletSceneCreate extends HttpServlet {
 				req.getRequestDispatcher("scene-create.jsp").forward(req, resp);
 				break;
 			default:
-				req.getRequestDispatcher("scene-list.jsp").forward(req, resp);
+				req.getRequestDispatcher("scene-list").forward(req, resp);
 				break;
 		}
 	}

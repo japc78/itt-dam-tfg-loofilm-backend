@@ -131,14 +131,14 @@
 					</div>
 					<div class="card-body">
 						<div class="form-group">
-							<div id="formImageUpload"></div>
-							<!-- <form action="/file-upload" class="dropzone" id="my-awesome-dropzone">
+							<!--<div id="formImageUpload"></div>
+							 <form action="/file-upload" class="dropzone" id="my-awesome-dropzone">
 							<div class="fallback">
 								<input name="file" type="file" multiple />
 							</div>
 							</form> -->
 
-							<input type="file" class="imageUpload" name="filepond"/>
+							<input name="file" type="file" multiple />
 
 							<!-- <form action="" method="post" enctype="multipart/form-data">
 										<div class="input-group">
@@ -147,7 +147,7 @@
 												<label class="custom-file-label" for="exampleInputFile">Añade las imágenes</label>
 											</div>
 											<div class="input-group-append">
-												<span class="input-group-text" id="">Upload</span>
+												<span class="input-group-text" id="">Upload</span> 
 											</div>
 										</div>
 							</form> -->
@@ -160,7 +160,7 @@
 		<div class="row pb-3">
 			<div class="col-12 text-right">
 				<a href="#" class="btn btn-secondary mr-2">Cancelar</a>
-				<input type="submit" value="Guardar" class="btn btn-success float-right">
+				<input type="submit" value="Guardar" class="btn btn-success float-right"> 
 			</div>
 		</div>
 	</form>

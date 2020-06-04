@@ -5,14 +5,14 @@
 <!-- Bootstrap 4 -->
 <script src="assets/js/bootstrap.bundle.min.js"></script>
 <script src="assets/js/bootstrap-maxlength.min.js"></script>
+<script src="assets/js/bootstrap-maxlength.min.js"></script>
 
-<!-- include FilePond library -->
+<!-- include FilePond library</script>--> 
 <script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
 <script src="https://unpkg.com/filepond/dist/filepond.min.js"></script>
-<!-- Customs -->
-<script src="assets/js/customFilepond.js"></script>
+<script src="assets/js/customFilepond.js">
 </c:if>
 
 <c:if test="${withSelect2 ge 1}">
@@ -27,6 +27,7 @@
 <script src="assets/js/dataTables.bootstrap4.min.js"></script>
 <script src="assets/js/dataTables.responsive.min.js"></script>
 <script src="assets/js/responsive.bootstrap4.min.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
 </c:if>
 
 <!-- Toastr -->

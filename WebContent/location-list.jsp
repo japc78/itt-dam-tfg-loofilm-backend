@@ -62,11 +62,11 @@
                       <i class="fas fa-folder"> </i>
                       Ver
                     </a>
-                    <a class="btn btn-info btn-xs btnEdit" href="location?id=${l[0]}"> 
+                    <a class="btn btn-info btn-xs btnEdit" href="location?id=${l[0]}">
                       <i class="fas fa-pencil-alt"> </i>
                       Editar
                     </a>
-                    <a class="btn btn-danger btn-xs" href="#">
+                    <a id="del-${l[0]}" class="btn btn-danger btn-xs btnDel" href="#">
                       <i class="fas fa-trash"> </i>
                       Borrar
                     </a>

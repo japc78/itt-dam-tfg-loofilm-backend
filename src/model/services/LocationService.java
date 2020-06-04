@@ -66,7 +66,11 @@ public class LocationService {
 		}
 	}
 
-
+	/**
+	 * Metodo que actualiza una Localizcacion. Se le pasa como argumento el del tipo Location con los datos a actualziar.
+	 * @param l Objeto del tipo Location.
+	 * @return
+	 */
 	public String update(Location l) {
 		// Se comprueba si la localizacion existe.
 		if (!exists(l)) {
@@ -77,6 +81,12 @@ public class LocationService {
 		}
 	}
 
+	/**
+	 * Metodo que activa o desactiva una localizacion.
+	 * @param id de tipo Integer, es el id del elemento a activar.
+	 * @param active Del tipo boolean, el estado true o false.
+	 * @return
+	 */
 	public String toggleCheck(int id, boolean active) {
 		if(loDao.find(id) != null) {
 			Location l = new Location();
@@ -119,5 +129,20 @@ public class LocationService {
 	 */
 	public String gpsFormat(final String gps) {
 		return gps.replaceAll("[()]", "");
+	}
+
+	/**
+	 * Metodo que elimina una lozalizacion. Se le pasa como argumento la localizacion a borrar.
+	 * @param l Objeto del tipo Location.
+	 * @return
+	 */
+	public String remove(int id) {
+		// Se comprueba si la localizacion existe.
+		if (find(id) != null) {
+			loDao.delete(find(id));
+			return "OK-L01";
+		} else {
+			return "ER-L01";
+		}
 	}
 }

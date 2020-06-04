@@ -53,7 +53,7 @@ $(document).ready(function () {
 			ordering: true,
 			paging: true,
 			info: true,
-			lengthMenu: [15, 30, 50, 100],
+			lengthMenu: [10, 25, 50, 100],
 			order: [ 0, "desc" ],
 			responsive: true,
 			columnDefs: [
@@ -114,4 +114,70 @@ $(document).ready(function () {
 			});
 		});
 	}
+
+	// Eliminar un elemento.
+		if ($(".btnDel").length){
+			$(".btnDel").click(function(e){
+				e.preventDefault();
+				// Se recoge el id del elemento
+				id = this.id.split('-')[1];
+
+				// Se recoge la url, asi el mismo metodo me vale para los 3 listados, se obtiene la procedencia -> categoy.
+				url = $(location).attr("href").split('/');
+				category = url[url.length-1].split('-')[0];
+
+				// console.log('id: ' + id);
+				// console.log('category: ' + category);
+
+				// Plantilla de la modal a mostrar para confirmar el borrado.
+				htmlTeplate = `
+					<form class="modal fade" id="modaldanger" action="delete" method="post">
+						<div class="modal-dialog" role="document">
+							<div class="modal-content bg-danger">
+								<div class="modal-header">
+									<h4 class="modal-title">Atención!!</h4>
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+								</div>
+								<div class="modal-body">
+									<p>Esta seguro que desea borrar el elemento</p>
+								</div>
+								<div class="modal-footer">
+									<input type="hidden" name="id" value="${id}">
+									<input type="hidden" name="category" value="${category}">
+
+									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+									<button type="submit" class="btn btn-primary btnConfirmDel">Borrar</button>
+								</div>
+							</div><!-- /.modal-content -->
+						</div><!-- /.modal-dialog -->
+					</form><!-- /.modal -->`
+
+				$("body").append(htmlTeplate);
+				$('#modaldanger').modal('show');
+			});
+		}
+
+		if ($(".btnConfirmDel").length){
+			$(".btnConfirmDel").click(function(e){
+				e.preventDefaul();
+				// Se recoge al inputcheck sobre el que se realiza la accion.
+				btn = $(this);
+				log
+
+				// Se recogen los datos del listado
+				category = this.id.split('-')[0];
+				id = this.id.split('-')[1];
+
+				console.log('id: ' + id);
+				console.log('categoria: ' + category);
+
+				// A traves del http post se realiza la actualizacion del elemento.
+				$.post("delete",
+				{
+					id: id[1],
+					category: category
+				});
+			});
+		}
+
 });
