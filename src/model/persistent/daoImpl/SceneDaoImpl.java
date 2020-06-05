@@ -53,9 +53,20 @@ public class SceneDaoImpl implements SceneDao {
 	}
 
 	@Override
-	public String delete(Scene scene) {
-		// TODO Auto-generated method stub
-		return null;
+	public Scene delete(Scene scene) {
+		if(!con.openConexion()) {
+			return null;
+		}
+		EntityTransaction et = con.getEm().getTransaction();
+		et.begin();
+		Scene s = con.getEm().merge(scene);
+		con.getEm().remove(s);
+		et.commit();
+		con.closeConexion();
+
+		//Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
+		System.out.println("DELETE: " + scene);
+		return scene;
 	}
 
 	@Override

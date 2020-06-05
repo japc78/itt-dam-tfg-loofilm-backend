@@ -43,7 +43,7 @@
               </thead>
               <tbody>
                 <c:forEach items="${locations}" var="l">
-                <tr>
+                <tr id="location-${l[0]}">
                   <td>${l[0]}</td>
                   <td><img src="images/locations/default.png" width="50px"></td>
                   <td>${l[1]}</td>
@@ -66,7 +66,7 @@
                       <i class="fas fa-pencil-alt"> </i>
                       Editar
                     </a>
-                    <a id="del-${l[0]}" class="btn btn-danger btn-xs btnDel" href="#">
+                    <a class="btn btn-danger btn-xs btnDel" href="#">
                       <i class="fas fa-trash"> </i>
                       Borrar
                     </a>

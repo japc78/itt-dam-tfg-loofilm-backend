@@ -73,13 +73,13 @@ public class SceneService {
 	 * @param p Objeto del tipo Scene.
 	 * @return
 	 */
-	public String remove(Scene p) {
+	public String remove(int id) {
 		// Se comprueba si la localizacion existe.
-		if (!exists(p)) {
-			sDao.delete(p);
-			return "OK-P01";
+		if (find(id) != null) {
+			sDao.delete(find(id));
+			return "OK-S01";
 		} else {
-			return "ER-P01";
+			return "ER-S01";
 		}
 	}
 }

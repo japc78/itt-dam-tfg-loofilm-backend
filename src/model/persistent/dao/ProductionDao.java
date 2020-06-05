@@ -34,9 +34,9 @@ public interface ProductionDao {
 	/**
 	 * Metodo para borrar una Produccion
 	 * @param production Se le pasa por argumento un objeto de la clase Production
-	 * @return Devuelve el id de la Produccion eliminada.
+	 * @return Devuelve el objeto del tipo Production eliminado.
 	 */
-	String delete(Production production);
+	Production delete(Production production);
 
 
 	/**

@@ -69,115 +69,93 @@ $(document).ready(function () {
 	if ($(".check").length){
 		$(".check").click(function(){
 			// Se recoge al inputcheck sobre el que se realiza la accion.
-			check = $(this);
+			// closest('parametro') para obtener el primer elemento que coincida con el parámetro especificado, podría ser un ID, una clase o directamente un tag como en este caso.
+			// https://es.stackoverflow.com/questions/200624/como-obtener-el-padre-superior-con-jquery
+			idParent = $(this).closest('tr').attr("id");
 
 			// Se recogen los datos del listado
-			id = this.id.split('-');
+			id = idParent.split('-')[1];
+			category = idParent.split('-')[0];
 			active = $(this).prop("checked");
 
 			// Se guarda el estado anterior por si falla al actualizarse
 			stateBefore = $(this).prop("checked") == true ? false : true;
 
-			// Se recoge la url, asi el mismo metodo me vale para los 3 listados, se obtiene la procedencia -> categoy.
-			url = $(location).attr("href").split('/');
-			category = url[url.length-1].split('-')[0];
-
-			// console.log('id: ' + id[1]);
-			// console.log('active: ' + active);
-			// console.log('url: ' + url);
-			// console.log('url: ' + category);
+			console.log('id: ' + id);
+			console.log('active: ' + active);
+			console.log('category: ' + category);
 
 			// A traves del http post se realiza la actualizacion del elemento.
+
 			$.post("update-status",
 			{
-				id: id[1],
+				id: id,
 				category: category,
 				active: active
 			},
 			function(data, status){
+				toastr.options = {
+					"positionClass": "toast-top-center",
+					"showDuration": "300",
+					"hideDuration": "500",
+					"timeOut": "1000"
+				}
 				// Muestra un mensaje con el estado que devuelve el servlet.
 				if (data.split(':')[0] == 'OK') {
-					toastr.options = {
-						"positionClass": "toast-top-center",
-						"showDuration": "300",
-						"hideDuration": "500",
-						"timeOut": "1000"
-					}
 					toastr.success(data);
 				} else {
-					toastr.success(data);
+					toastr.error(data);
 					// Sino vuelve al estado anterior.
 					check.prop("checked", stateBefore);
 				}
-				// console.log('Data: ' + data);
-				// console.log('Status: ' + status);
+				console.log('Data: ' + data);
+				console.log('Status: ' + status);
 			});
 		});
 	}
 
-	// Eliminar un elemento.
-		if ($(".btnDel").length){
-			$(".btnDel").click(function(e){
-				e.preventDefault();
-				// Se recoge el id del elemento
-				id = this.id.split('-')[1];
+	// Eliminar un elemento, muestra una modal de confirmación antes de borrar.
+	if ($(".btnDel").length){
+		$(".btnDel").click(function(e){
+			e.preventDefault();
+			// Se recoge al inputcheck sobre el que se realiza la accion.
+			// closest('parametro') para obtener el primer elemento que coincida con el parámetro especificado, podría ser un ID, una clase o directamente un tag como en este caso.
+			// https://es.stackoverflow.com/questions/200624/como-obtener-el-padre-superior-con-jquery
+			idParent = $(this).closest('tr').attr("id");
 
-				// Se recoge la url, asi el mismo metodo me vale para los 3 listados, se obtiene la procedencia -> categoy.
-				url = $(location).attr("href").split('/');
-				category = url[url.length-1].split('-')[0];
+			// Se recogen los datos del listado
+			id = idParent.split('-')[1];
+			category = idParent.split('-')[0];
 
-				// console.log('id: ' + id);
-				// console.log('category: ' + category);
+			// console.log('id: ' + id);
+			// console.log('category: ' + category);
+			msg1 = "Está seguro que desea borrar el elemento, se eliminaran también todas las escenas asociadas.";
+			msg2 = "Está seguro que desea borrar el elemento";
 
-				// Plantilla de la modal a mostrar para confirmar el borrado.
-				htmlTeplate = `
-					<form class="modal fade" id="modaldanger" action="delete" method="post">
-						<div class="modal-dialog" role="document">
-							<div class="modal-content bg-danger">
-								<div class="modal-header">
-									<h4 class="modal-title">Atención!!</h4>
-									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-								</div>
-								<div class="modal-body">
-									<p>Esta seguro que desea borrar el elemento</p>
-								</div>
-								<div class="modal-footer">
-									<input type="hidden" name="id" value="${id}">
-									<input type="hidden" name="category" value="${category}">
+			// Plantilla de la modal a mostrar para confirmar el borrado.
+			htmlTeplate = `
+				<form class="modal fade" id="modaldanger" action="delete" method="post">
+					<div class="modal-dialog" role="document">
+						<div class="modal-content bg-danger">
+							<div class="modal-header">
+								<h3 class="modal-title">ATENCIÓN!!</h3>
+								<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+							</div>
+							<div class="modal-body">
+								<p>${(category == 'scene')?msg2:msg1}</p>
+							</div>
+							<div class="modal-footer">
+								<input type="hidden" name="id" value="${id}">
+								<input type="hidden" name="category" value="${category}">
+								<button type="submit" class="btn btn-primary btnConfirmDel">Borrar</button>
+								<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+							</div>
+						</div><!-- /.modal-content -->
+					</div><!-- /.modal-dialog -->
+				</form><!-- /.modal -->`
 
-									<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-									<button type="submit" class="btn btn-primary btnConfirmDel">Borrar</button>
-								</div>
-							</div><!-- /.modal-content -->
-						</div><!-- /.modal-dialog -->
-					</form><!-- /.modal -->`
-
-				$("body").append(htmlTeplate);
-				$('#modaldanger').modal('show');
-			});
-		}
-
-		if ($(".btnConfirmDel").length){
-			$(".btnConfirmDel").click(function(e){
-				e.preventDefaul();
-				// Se recoge al inputcheck sobre el que se realiza la accion.
-				btn = $(this);
-				log
-
-				// Se recogen los datos del listado
-				category = this.id.split('-')[0];
-				id = this.id.split('-')[1];
-
-				console.log('id: ' + id);
-				console.log('categoria: ' + category);
-
-				// A traves del http post se realiza la actualizacion del elemento.
-				$.post("delete",
-				{
-					id: id[1],
-					category: category
-				});
-			});
-		}
-
+			$("body").append(htmlTeplate);
+			$('#modaldanger').modal('show');
+		});
+	}
 });

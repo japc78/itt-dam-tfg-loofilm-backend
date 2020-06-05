@@ -28,9 +28,9 @@ public interface SceneDao {
 	/**
 	 * Metodo para borrar una Escena
 	 * @param scene Se le pasa por argumento un objeto de la clase Scene
-	 * @return Devuelve el id de la Escena eliminada.
+	 * @return Devuelve el objeto del tipo Scene eliminado.
 	 */
-	String delete(Scene scene);
+	Scene delete(Scene scene);
 
 	/**
 	 * Metetodos que comprueba si existe una Escena

@@ -6091,7 +6091,7 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 1rem;
-  border-bottom: 1px solid #e9ecef;
+  // border-bottom: 1px solid #e9ecef;
   border-top-left-radius: calc(0.3rem - 1px);
   border-top-right-radius: calc(0.3rem - 1px);
 }
@@ -6104,13 +6104,15 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
 .modal-title {
   margin-bottom: 0;
   line-height: 1.5;
+  font-weight: 900;
+  letter-spacing: 1px;
 }
 
 .modal-body {
   position: relative;
   -ms-flex: 1 1 auto;
   flex: 1 1 auto;
-  padding: 1rem;
+  padding: 0 1rem;
 }
 
 .modal-footer {
@@ -6121,9 +6123,9 @@ a.close.disabled, a.disabled.mailbox-attachment-close {
   -ms-flex-align: center;
   align-items: center;
   -ms-flex-pack: end;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding: 0.75rem;
-  border-top: 1px solid #e9ecef;
+  // border-top: 1px solid #e9ecef;
   border-bottom-right-radius: calc(0.3rem - 1px);
   border-bottom-left-radius: calc(0.3rem - 1px);
 }

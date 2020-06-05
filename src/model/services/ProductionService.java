@@ -79,10 +79,10 @@ public class ProductionService {
 	 * @param p Objeto del tipo Production.
 	 * @return
 	 */
-	public String remove(Production p) {
+	public String remove(int id) {
 		// Se comprueba si la localizacion existe.
-		if (!exists(p)) {
-			pDao.delete(p);
+		if (find(id) != null) {
+			pDao.delete(find(id));
 			return "OK-P01";
 		} else {
 			return "ER-P01";

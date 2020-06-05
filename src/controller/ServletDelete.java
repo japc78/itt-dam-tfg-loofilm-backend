@@ -8,9 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import model.entities.Location;
-import model.entities.Production;
-import model.entities.Scene;
 import model.services.LocationService;
 import model.services.ProductionService;
 import model.services.SceneService;
@@ -24,8 +21,8 @@ public class ServletDelete extends HttpServlet{
 		String category = req.getParameter("category");
 		int id = Integer.parseInt(req.getParameter("id"));
 
-		// System.out.println("id: " + id);
-		// System.out.println("category: " + category);
+		System.out.println("id: " + id);
+		System.out.println("category: " + category);
 
 		String msg;
 		switch (delete(category, id)) {
@@ -39,10 +36,32 @@ public class ServletDelete extends HttpServlet{
 				break;
 			default:
 				msg = "OK: Elemento borrado";
+
+				req.setAttribute("withMaps", 0);
+				req.setAttribute("isList", 1);
+				req.setAttribute("isForm", 0);
+				req.setAttribute("withSelect2", 0);
+
+				if (category.equals("location")) {
+					LocationService s = new LocationService();
+					req.setAttribute("locations", s.list());
+					req.setAttribute("msg", msg);
+					req.getRequestDispatcher("location-list.jsp").forward(req, resp);
+
+				} else if (category.equals("production")) {
+					ProductionService s = new ProductionService();
+					req.setAttribute("productions", s.list());
+					req.setAttribute("msg", msg);
+					req.getRequestDispatcher("production-list.jsp").forward(req, resp);
+
+				} else {
+					SceneService s = new SceneService();
+					req.setAttribute("scenes", s.list());
+					req.setAttribute("msg", msg);
+					req.getRequestDispatcher("scene-list.jsp").forward(req, resp);
+				}
 				break;
 		}
-		resp.setContentType("Text/plain");
-		resp.getWriter().write(msg);
 	}
 
 	private String delete (String category, int id) {
@@ -52,12 +71,10 @@ public class ServletDelete extends HttpServlet{
 				return ls.remove(id);
 			case "production":
 				ProductionService ps = new ProductionService();
-				Production p = ps.find(id);
-				return ps.remove(p); 
+				return ps.remove(id);
 			case "scene":
 				SceneService ss = new SceneService();
-				Scene s = ss.find(id);
-				return ss.remove(s);
+				return ss.remove(id);
 			default:
 				return "ER-G00";
 		}

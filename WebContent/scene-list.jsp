@@ -43,7 +43,7 @@
 						</thead>
 						<tbody>
 						 	<c:forEach items="${scenes}" var="s">
-							<tr>
+							<tr id="scene-${s[0]}">
 								<td>${s[0]}</td>
 								<td><img src="images/scenes/isabel-alhambra-01.jpg" width="50px"></td>
 								<td>${s[1]}</td>
@@ -66,10 +66,10 @@
 										<i class="fas fa-pencil-alt"> </i>
 										Editar
 									</a>
-									<a class="btn btn-danger btn-xs" href="#">
-										<i class="fas fa-trash"> </i>
-										Borrar
-									</a>
+				                    <a class="btn btn-danger btn-xs btnDel" href="#">
+				                      <i class="fas fa-trash"> </i>
+				                      Borrar
+				                    </a>
 								</td>
 							</tr>
 							</c:forEach>

@@ -66,9 +66,20 @@ public class ProducctionDaoImpl implements ProductionDao {
 	}
 
 	@Override
-	public String delete(Production production) {
-		// TODO Auto-generated method stub
-		return null;
+	public Production delete(Production production) {
+		if(!con.openConexion()) {
+			return null;
+		}
+		EntityTransaction et = con.getEm().getTransaction();
+		et.begin();
+		Production p = con.getEm().merge(production);
+		con.getEm().remove(p);
+		et.commit();
+		con.closeConexion();
+
+		//Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
+		System.out.println("DELETE: " + production);
+		return production;
 	}
 
 	@Override

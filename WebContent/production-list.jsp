@@ -45,7 +45,7 @@
               </thead>
               <tbody>
                 <c:forEach items="${productions}" var="p">
-                <tr>
+                <tr id="production-${p[0]}">
                   <td>${p[0]}</td>
                   <td><img src="images/productions/doom_patrol.jpg" height="50px"></td>
                   <td>${p[1]}</td>
@@ -67,7 +67,7 @@
                       <i class="fas fa-pencil-alt"> </i>
                       Editar
                     </a>
-                    <a id="del-${p[0]}" class="btn btn-danger btn-xs btnDel" href="#">
+                    <a class="btn btn-danger btn-xs btnDel" href="#">
                       <i class="fas fa-trash"> </i>
                       Borrar
                     </a>
