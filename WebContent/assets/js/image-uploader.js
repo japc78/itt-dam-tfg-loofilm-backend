@@ -81,7 +81,7 @@
                 name: plugin.settings.imagesInputName + '[]',
                 accept: plugin.settings.extensions.join(','),
                 multiple: '',
-                required: ''
+                required: 'required'
             }).appendTo($container);
 
             // Create the uploaded images container and append it to the container
