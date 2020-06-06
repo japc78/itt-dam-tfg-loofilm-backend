@@ -1,4 +1,17 @@
 // Scripts para el proyecto.
+function readURL(input) {
+	if (input.files && input.files[0]) {
+	  var reader = new FileReader();
+
+	  reader.onload = function(e) {
+		$('#blah').attr('src', e.target.result);
+	  }
+
+	  reader.readAsDataURL(input.files[0]); // convert to base64 string
+	}
+  }
+
+
 // Jquery
 $(document).ready(function () {
 	// Evita que los formularios se envien al pulsar enter.
@@ -36,6 +49,7 @@ $(document).ready(function () {
 			zIndex: 1099
 		});
 	}
+
 	// Bootstrap Select2. Select con buscador.
 	if ($(".select2").length){
 		$(".select2").select2({
@@ -157,5 +171,22 @@ $(document).ready(function () {
 			$("body").append(htmlTeplate);
 			$('#modaldanger').modal('show');
 		});
+	}
+
+	// Preview de imagnes en input files.
+	// https://www.codehim.com/demo/jquery-image-uploader-preview-and-delete/
+	if ($(".input-images").length){
+		// Se recoge el maximo de imágenes desde un atributo data del elemento.
+		maxfiles = $('.input-images').data("maxfiles");
+		// console.log("Max files: " + maxfiles);
+
+		$('.input-images').imageUploader({
+				label: 'Arrstre y suelte los archivos aquí o haga clic para navegar',
+				maxFiles: maxfiles,
+				maxSize: 2097152, // 2Mb
+				mimes: ['image/jpeg'],
+				extensions: ['.jpg', '.jpeg']
+			}
+		);
 	}
 });

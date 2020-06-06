@@ -3,7 +3,6 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
@@ -28,8 +27,8 @@ import model.services.LocationService;
                  maxRequestSize=1024*1024*50)   // 50MB
 public class ServletLocationCreate extends HttpServlet {
 	private static final long serialVersionUID = 4089613927822307019L;
-	private static final String SAVE_DIR = "location";
-	private static final String DEFAULT_FILENAME = "loofilm_location";
+	private static final String UPLOAD_DIRECTORY = "locations";
+	private static final String DEFAULT_FILENAME = "loofilm";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -62,42 +61,30 @@ public class ServletLocationCreate extends HttpServlet {
 		String gps = ls.gpsFormat(req.getParameter("gps"));
 
 		// Subida de ficheros
-        // Se optiene la ruta absoluta de la aplicacion
-        String appPath = req.getServletContext().getRealPath("");
+		String uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + UPLOAD_DIRECTORY;
+		File uploadDir = new File(uploadPath);
+		if (!uploadDir.exists()) uploadDir.mkdir();
 
-		// Se crea el path donde se ubicaran los fichros
-        String savePath = appPath + File.separator + "images" + File.separator + SAVE_DIR;
-		System.out.println("Ruta " + savePath);
-
-        // Se crea el direcctorio sino existe
-        File fileSaveDir = new File(savePath);
-        if (!fileSaveDir.exists()) {
-            fileSaveDir.mkdir();
-        }
-
-        // Sube los ficheros
-        for (Part part : req.getParts()) {
-			String fileName = extractFileName(part);
-			System.out.println("File " + fileName);
-            // refines the fileName in case it is an absolute path
-            fileName = new File(fileName).getName();
-            part.write(fileName);
-        }
+		for (Part part : req.getParts()) {
+			String fileName = getFileName(part);
+			System.out.println("filename: " + fileName);
+			part.write(uploadPath + File.separator + fileName); 
+		}
 
 		Country c = new Country(countryCode , country);
 		County co = new County(county);
 		City ci = new City(city);
 
-		Location l = new Location();
+		Location l = new Location(name, description, email, gps, phone, postal_code, street, web, ci);
 
-		l.setName(name);
-		l.setDescription(description);
-		l.setStreet(street);
-		l.setPostalcode(postal_code);
-		l.setWeb(web);
-		l.setEmail(email);
-		l.setPhone(phone);
-		l.setGps(gps);
+		// l.setName(name);
+		// l.setDescription(description);
+		// l.setStreet(street);
+		// l.setPostalcode(postal_code);
+		// l.setWeb(web);
+		// l.setEmail(email);
+		// l.setPhone(phone);
+		// l.setGps(gps);
 
 		// System.out.println(l.toString());
 		// System.out.println(c.toString());
@@ -143,14 +130,11 @@ public class ServletLocationCreate extends HttpServlet {
 	/**
      * Metodo que extrae del HTTP header el nombre del fichero.
     */
-    private String extractFileName(Part part) {
-        String contentDisp = part.getHeader("content-disposition");
-        String[] items = contentDisp.split(";");
-        for (String s : items) {
-            if (s.trim().startsWith("filename")) {
-                return s.substring(s.indexOf("=") + 2, s.length()-1);
-            }
-        }
-        return DEFAULT_FILENAME;
-    }
+	private String getFileName(Part part) {
+	    for (String content : part.getHeader("content-disposition").split(";")) {
+	        if (content.trim().startsWith("filename"))
+	            return content.substring(content.indexOf("=") + 2, content.length() - 1);
+	        }
+	    return DEFAULT_FILENAME;
+	}
 }

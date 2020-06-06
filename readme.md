@@ -13,7 +13,7 @@ La tecnologías `Java`, `Maven`, `JPA`, `Web`, `JDBC`, `Servlet`, `MVC`, `JSP`, 
 [Markers](https://developers.google.com/maps/documentation/javascript/markers?hl=es#top_of_page)
 
 ## Subida de imágenes
-[Filepond](https://pqina.nl/filepond/) -> [Github](https://github.com/pqina/filepond)
+[Image-Uploader](https://www.codehim.com/demo/jquery-image-uploader-preview-and-delete/) 
 
 ## Select2. Selects con buscador
 [Select2](https://select2.org/) -> [Github](https://github.com/select2/select2)

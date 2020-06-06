@@ -1,16 +1,16 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <script src="assets/js/jquery.min.js"></script>
 
+<!-- Toastr -->
+<script src="assets/js/toastr.min.js"></script>
+
 <c:if test="${isForm ge 1}">
 	<!-- Bootstrap 4 -->
 	<script src="assets/js/bootstrap.bundle.min.js"></script>
-	<script src="assets/js/bootstrap-maxlength.min.js"></script>	
-	<!-- include FilePond library</script>-->
-	<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
-	<script src="https://unpkg.com/filepond-plugin-image-resize/dist/filepond-plugin-image-resize.js"></script>
-	<script src="https://unpkg.com/filepond-plugin-image-transform/dist/filepond-plugin-image-transform.js"></script>
-	<script src="https://unpkg.com/filepond/dist/filepond.min.js">
-	<script src="assets/js/customFilepond.js"></script>
+	<script src="assets/js/bootstrap-maxlength.min.js"></script>
+
+	<!-- Image upload</script>-->
+	<script src="assets/js/image-uploader.min.js"></script>
 </c:if>
 
 <c:if test="${withSelect2 ge 1}">
@@ -27,9 +27,6 @@
 	<script src="assets/js/responsive.bootstrap4.min.js"></script>
 	<script src="assets/js/bootstrap.min.js"></script>
 </c:if>
-
-<!-- Toastr -->
-<script src="assets/js/toastr.min.js"></script>
 
 <c:if test="${withMaps ge 1}">
 	<!-- Googole maps -->

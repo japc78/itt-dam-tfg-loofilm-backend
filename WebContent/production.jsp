@@ -24,7 +24,7 @@
 	<section class="content">
 		<form action="production-create" method="post" enctype="multipart/form-data">
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-6">
 					<div class="card card-info">
 						<div class="card-header">
 							<h3 class="card-title">Información general</h3>
@@ -75,13 +75,43 @@
 							</div>
 
 							<div class="form-group">
-								<label for="inputWeb">Cartel o imagen <small>(max. 1 imagen)</small></label>
+								<label for="inputWeb">Cartel o imagen</label>
  								<div class="input-images" data-maxfiles="1"></div>
 							</div>
 						</div>
 						<!-- /.card-body -->
 					</div>
 					<!-- /.card -->
+				</div>
+				<div class="col-md-6">
+					<div class="card card-info">
+						<div class="card-header">
+							<h3 class="card-title">Escenas</h3>
+						</div>
+						<!-- /.card-header -->
+						<div class="card-body p-0">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th style="width: 10px">id</th>
+										<th>Escena o Rodaje</th>
+										<th>Localización</th>
+										<th>Ciudad</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>1</td>
+										<td>Recrear el esplendor de los Palacios Nazaríes</td>
+										<td>La Alhambra</td>
+										<td>Granada</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- /.card-body -->
+					</div>
+
 				</div>
 			</div>
 
