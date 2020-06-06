@@ -38,7 +38,7 @@
                   <th>País</th>
                   <th style="width: 5%;" class="text-center">Produc.</th>
                   <th style="width: 2%;" class="text-center">Estado</th>
-                  <th class="no-sort text-center"></th>
+                  <th style="width: 12%;"class="no-sort text-center"></th>
                 </tr>
               </thead>
               <tbody>

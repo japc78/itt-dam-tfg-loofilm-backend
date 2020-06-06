@@ -138,7 +138,7 @@
 							</div>
 							</form> -->
 
-							<input name="file" type="file" multiple />
+							<input name="file" type="file" multiple required/>
 
 							<!-- <form action="" method="post" enctype="multipart/form-data">
 										<div class="input-group">

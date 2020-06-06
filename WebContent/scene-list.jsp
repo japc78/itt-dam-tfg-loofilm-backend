@@ -38,7 +38,7 @@
 								<th>Localización</th>
 								<th>Ciudad</th>
 								<th style="width: 2%;" class="text-center">Estado</th>
-								<th style="width: 15%;"></th>
+								<th style="width: 12%;"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -48,7 +48,7 @@
 								<td><img src="images/scenes/isabel-alhambra-01.jpg" width="50px"></td>
 								<td>${s[1]}</td>
 								<td>${s[2]}</td>
-								<td>${s[3] eq 0 ? 'film':'serie'}</td>
+								<td>${s[3] eq 0 ? 'serie':'film'}</td>
 								<td>${s[4]}</td>
 								<td>${s[5]}</td>
 								<td class="text-center">

@@ -77,7 +77,16 @@ public class ServletSceneCreate extends HttpServlet {
 				req.getRequestDispatcher("scene-create.jsp").forward(req, resp);
 				break;
 			default:
-				req.getRequestDispatcher("scene-list").forward(req, resp);
+				req.setAttribute("msgType", "ok");
+				req.setAttribute("msg", "Elemento añadido correctamente");
+
+				req.setAttribute("withMaps", 0);
+				req.setAttribute("isList", 1);
+				req.setAttribute("isForm", 0);
+				req.setAttribute("withSelect2", 0);
+
+				req.setAttribute("scenes", ss.list());
+				req.getRequestDispatcher("scene-list.jsp").forward(req, resp); 
 				break;
 		}
 	}

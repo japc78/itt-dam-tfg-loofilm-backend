@@ -17,7 +17,7 @@ import model.services.ProductionService;
 
 @WebServlet("/production-create")
 @MultipartConfig(fileSizeThreshold = 1024 * 1024,
-maxFileSize = 1024 * 1024 * 5, 
+maxFileSize = 1024 * 1024 * 5,
 maxRequestSize = 1024 * 1024 * 5 * 5)   // 50MB
 public class ServletProductionCreate extends HttpServlet{
 	private static final long serialVersionUID = -6147400358347687716L;
@@ -75,16 +75,14 @@ public class ServletProductionCreate extends HttpServlet{
 			default:
 				req.setAttribute("msgType", "ok");
 				req.setAttribute("msg", "Elemento añadido correctamente");
-				
+
 				req.setAttribute("withMaps", 0);
 				req.setAttribute("isList", 1);
 				req.setAttribute("isForm", 0);
 				req.setAttribute("withSelect2", 0);
 
-				LocationService ls = new LocationService();
-				req.setAttribute("locations", ls.list());
-				req.getRequestDispatcher("location-list.jsp").forward(req, resp);
-				
+				req.setAttribute("productions", ps.list());
+				req.getRequestDispatcher("production-list.jsp").forward(req, resp);
 				break;
 		}
 	}
