@@ -60,6 +60,14 @@ $(document).ready(function () {
 	}
 
 	// Datatables
+		// Solucion al problema de los eventos en los botones al hacer el responsive con datatables.
+			// https://datatables.net/forums/discussion/45641/on-click-event-failing-when-using-responsive
+			// https://datatables.net/forums/discussion/36696/button-is-not-working-in-jquery-responsive-datatable
+			// $('#list_object').on( 'click', '.check, .btnDel', function (e) {
+			// 	console.log("*************** clicked");
+			// 	});
+
+	// Tabla
 	if ($("#list_object").length){
 		$("#list_object").DataTable({
 			responsive: true,
@@ -77,69 +85,14 @@ $(document).ready(function () {
 			"url": "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Spanish.json"
 			}
 		});
-	}
 
-	// Activar un elemento del listado Localicaiones
-	if ($(".check").length){
-		$(".check").click(function(){
-			// Se recoge al inputcheck sobre el que se realiza la accion.
-			// closest('parametro') para obtener el primer elemento que coincida con el parámetro especificado, podría ser un ID, una clase o directamente un tag como en este caso.
-			// https://es.stackoverflow.com/questions/200624/como-obtener-el-padre-superior-con-jquery
-			idParent = $(this).closest('tr').attr("id");
 
-			// Se recogen los datos del listado
-			id = idParent.split('-')[1];
-			category = idParent.split('-')[0];
-			active = $(this).prop("checked");
-
-			// Se guarda el estado anterior por si falla al actualizarse
-			stateBefore = $(this).prop("checked") == true ? false : true;
-
-			console.log('id: ' + id);
-			console.log('active: ' + active);
-			console.log('category: ' + category);
-
-			// A traves del http post se realiza la actualizacion del elemento.
-
-			$.post("update-status",
-			{
-				id: id,
-				category: category,
-				active: active
-			},
-			function(data, status){
-				toastr.options = {
-					"positionClass": "toast-top-center",
-					"showDuration": "300",
-					"hideDuration": "500",
-					"timeOut": "1000"
-				}
-				// Muestra un mensaje con el estado que devuelve el servlet.
-				if (data.split(':')[0] == 'OK') {
-					toastr.success(data);
-				} else {
-					toastr.error(data);
-					// Sino vuelve al estado anterior.
-					check.prop("checked", stateBefore);
-				}
-				console.log('Data: ' + data);
-				console.log('Status: ' + status);
-			});
-		});
-	}
-
-	// Eliminar un elemento, muestra una modal de confirmación antes de borrar.
-	if ($(".btnDel").length){
-		$(".btnDel").click(function(e){
+		// Activar un elemento del listado Localicaiones
+		$('#list_object').on( 'click', '.btnDel', function (e) {
 			e.preventDefault();
-			// Se recoge al inputcheck sobre el que se realiza la accion.
-			// closest('parametro') para obtener el primer elemento que coincida con el parámetro especificado, podría ser un ID, una clase o directamente un tag como en este caso.
-			// https://es.stackoverflow.com/questions/200624/como-obtener-el-padre-superior-con-jquery
-			idParent = $(this).closest('tr').attr("id");
-
 			// Se recogen los datos del listado
-			id = idParent.split('-')[1];
-			category = idParent.split('-')[0];
+			id = $(this).attr('id').split('-')[1];
+			category = $('table').data("type");
 
 			// console.log('id: ' + id);
 			// console.log('category: ' + category);
@@ -171,7 +124,60 @@ $(document).ready(function () {
 			$("body").append(htmlTeplate);
 			$('#modaldanger').modal('show');
 		});
+
+		// Eliminar un elemento, muestra una modal de confirmación antes de borrar.
+		$('#list_object').on( 'click', '.check', function (e) {
+			// Se recogen los datos del listado
+			
+			check = $(this);
+			
+			id = $(this).attr('id').split('-')[1];
+			category = $('table').data("type");
+			newStatus = check.prop("checked");
+			
+			if (!newStatus) check.removeAttr('checked');
+			
+			// Se guarda el estado anterior por si falla al actualizarse
+			stateBefore = $(this).prop("checked") == true ? false : true;
+
+			console.log('id: ' + id);
+			console.log('active: ' + newStatus);
+			console.log('stateBefore: ' + stateBefore);
+			console.log('category: ' + category);
+
+			// A traves del http post se realiza la actualizacion del elemento.
+
+			$.post("update-status",
+			{
+				id: id,
+				category: category,
+				active: newStatus
+			},
+			function(data, status){
+				toastr.options = {
+					"positionClass": "toast-top-center",
+					"showDuration": "300",
+					"hideDuration": "500",
+					"timeOut": "1000"
+				}
+				// Muestra un mensaje con el estado que devuelve el servlet.
+				if (data.split(':')[0] == 'OK') {
+					toastr.success(data);
+					check.prop("checked", newStatus);
+				} else {
+					toastr.error(data);
+					// Sino vuelve al estado anterior.
+					check.prop("checked", stateBefore);
+				}
+				console.log('Data: ' + data);
+				console.log('Status: ' + status);
+			});
+		});
 	}
+
+	// $('#list_object').on( 'click', '.check, .btnDel', function (e) {
+	// 	console.log("*************** clicked");
+	// 	});
 
 	// Preview de imagnes en input files.
 	// https://www.codehim.com/demo/jquery-image-uploader-preview-and-delete/

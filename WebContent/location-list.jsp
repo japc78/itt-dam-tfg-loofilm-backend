@@ -27,7 +27,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-body">
-            <table id="list_object" class="table table-bordered table-striped location">
+            <table id="list_object" data-type="location" class="table table-bordered table-striped location">
               <thead>
                 <tr>
                   <th style="width: 1%;" class="order">id</th>
@@ -38,12 +38,12 @@
                   <th>País</th>
                   <th style="width: 5%;" class="text-center">Produc.</th>
                   <th style="width: 2%;" class="text-center">Estado</th>
-                  <th style="width: 12%;"class="no-sort text-center"></th>
+                  <th style="min-width: 120px;"class="no-sort text-center"></th>
                 </tr>
               </thead>
               <tbody>
                 <c:forEach items="${locations}" var="l">
-                <tr id="location-${l[0]}">
+                <tr>
                   <td>${l[0]}</td>
                   <td><img src="images/locations/default.png" width="50px"></td>
                   <td>${l[1]}</td>
@@ -58,18 +58,9 @@
                     </div>
                    </td>
                   <td class="project-actions text-right">
-                    <a class="btn btn-primary btn-xs" href="location?id=${l[0]}">
-                      <i class="fas fa-folder"> </i>
-                      Ver
-                    </a>
-                    <a class="btn btn-info btn-xs btnEdit" href="location?id=${l[0]}">
-                      <i class="fas fa-pencil-alt"> </i>
-                      Editar
-                    </a>
-                    <a class="btn btn-danger btn-xs btnDel" href="#">
-                      <i class="fas fa-trash"> </i>
-                      Borrar
-                    </a>
+                    <a class="btn btn-primary btn-xs" href="location?id=${l[0]}">Ver</a>
+                    <a class="btn btn-info btn-xs btnEdit" href="location?id=${l[0]}">Editar</a>
+                    <a id="del-${l[0]}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
                   </td>
                 </tr>
                 </c:forEach>

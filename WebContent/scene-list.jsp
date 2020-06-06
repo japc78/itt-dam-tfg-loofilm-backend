@@ -38,7 +38,7 @@
 								<th>Localización</th>
 								<th>Ciudad</th>
 								<th style="width: 2%;" class="text-center">Estado</th>
-								<th style="width: 12%;"></th>
+								<th style="max-width: 120px;"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -58,18 +58,9 @@
 									</div>
 								</td>
 								<td class="project-actions text-right">
-									<a class="btn btn-primary btn-xs" href="#">
-										<i class="fas fa-folder"> </i>
-										Ver
-									</a>
-									<a class="btn btn-info btn-xs" href="#">
-										<i class="fas fa-pencil-alt"> </i>
-										Editar
-									</a>
-				                    <a class="btn btn-danger btn-xs btnDel" href="#">
-				                      <i class="fas fa-trash"> </i>
-				                      Borrar
-				                    </a>
+									<a class="btn btn-primary btn-xs" href="#">Ver</a>
+									<a class="btn btn-info btn-xs" href="#">Editar</a>
+				                    <a class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
 								</td>
 							</tr>
 							</c:forEach>
