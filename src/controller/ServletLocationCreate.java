@@ -2,6 +2,8 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -15,6 +17,7 @@ import model.entities.City;
 import model.entities.Country;
 import model.entities.County;
 import model.entities.Location;
+import model.entities.LocationsMedia;
 import model.services.LocationService;
 
 /**
@@ -28,7 +31,6 @@ import model.services.LocationService;
 public class ServletLocationCreate extends HttpServlet {
 	private static final long serialVersionUID = 4089613927822307019L;
 	private static final String UPLOAD_DIRECTORY = "locations";
-	private static final String DEFAULT_FILENAME = "loofilm";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -59,23 +61,33 @@ public class ServletLocationCreate extends HttpServlet {
 		String country = req.getParameter("country");
 		String countryCode = req.getParameter("countryCode");
 		String gps = ls.gpsFormat(req.getParameter("gps"));
-
-		// Subida de ficheros
-		String uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + UPLOAD_DIRECTORY;
-		File uploadDir = new File(uploadPath);
-		if (!uploadDir.exists()) uploadDir.mkdir();
-
-		for (Part part : req.getParts()) {
-			String fileName = getFileName(part);
-			System.out.println("filename: " + fileName);
-			part.write(uploadPath + File.separator + fileName); 
-		}
+		List<LocationsMedia> images = new ArrayList<>();
 
 		Country c = new Country(countryCode , country);
 		County co = new County(county);
 		City ci = new City(city);
 
 		Location l = new Location(name, description, email, gps, phone, postal_code, street, web, ci);
+
+		
+		// Subida de ficheros
+		String uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + UPLOAD_DIRECTORY;
+		File uploadDir = new File(uploadPath);
+		if (!uploadDir.exists()) uploadDir.mkdir();
+
+		for (Part part : req.getParts()) {
+			// Se optiene el nombre del fichero.
+			String fileName = getFileName(part);
+
+			if (!fileName.isEmpty()) {
+				System.out.println("Filename: " + fileName);
+				images.add(new LocationsMedia(fileName, l));
+				part.write(uploadPath + File.separator + fileName);
+			}
+		}
+		
+		l.setLocationsMedias(images);
+
 
 		// l.setName(name);
 		// l.setDescription(description);
@@ -135,6 +147,6 @@ public class ServletLocationCreate extends HttpServlet {
 	        if (content.trim().startsWith("filename"))
 	            return content.substring(content.indexOf("=") + 2, content.length() - 1);
 	        }
-	    return DEFAULT_FILENAME;
+	    return "";
 	}
 }

@@ -24,11 +24,19 @@ public class LocationsMedia implements Serializable {
 	private String filename;
 
 	//bi-directional many-to-one association to Location
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="locationId")
 	private Location location;
 
 	public LocationsMedia() {
+	}
+
+	/**
+	 * @param filename
+	*/
+	public LocationsMedia(String filename, Location location) {
+		this.location = location;
+		this.filename = filename;
 	}
 
 	public int getId() {
@@ -62,4 +70,18 @@ public class LocationsMedia implements Serializable {
 	public void setLocation(Location location) {
 		this.location = location;
 	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#toString()
+	 */
+
+	@Override
+	public String toString() {
+		return "LocationsMedia [createDate=" + createDate + ", filename=" + filename + ", id=" + id + ", location="
+				+ location + "]";
+	}
+
+
 }

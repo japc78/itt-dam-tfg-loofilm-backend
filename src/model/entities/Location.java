@@ -42,16 +42,16 @@ public class Location implements Serializable {
 	private String web;
 
 	//bi-directional many-to-one association to City
-	@ManyToOne(cascade={CascadeType.MERGE})
+	@ManyToOne(cascade= CascadeType.MERGE)
 	@JoinColumn(name="cityId")
 	private City city;
 
 	//bi-directional many-to-one association to LocationsMedia
-	@OneToMany(mappedBy="location")
+	@OneToMany(mappedBy="location", cascade = CascadeType.ALL)
 	private List<LocationsMedia> locationsMedias;
 
 	//bi-directional many-to-one association to Scene
-	@OneToMany(mappedBy="location", cascade={CascadeType.ALL})
+	@OneToMany(mappedBy="location", cascade= CascadeType.ALL)
 	private List<Scene> scenes;
 
 	//bi-directional many-to-one association to Visited
@@ -59,10 +59,10 @@ public class Location implements Serializable {
 	private List<Visited> visiteds;
 
 	public Location() {
-	}	
+	}
 
 	public Location(String name, String description, String email, String gps,  String phone,
-			String postalcode, String street, String web, City city) {
+			String postalcode, String street, String web, City city ){
 		super();
 		this.active = true;
 		this.description = description;
@@ -242,19 +242,6 @@ public class Location implements Serializable {
 	/*
 	 * (non-Javadoc)
 	 *
-	 * @see java.lang.Object#toString()
-	 */
-
-	@Override
-	public String toString() {
-		return "Location [active=" + active + ", city=" + city + ", createDate=" + createDate + ", description="
-				+ description + ", email=" + email + ", gps=" + gps + ", id=" + id + ", name=" + name + ", phone="
-				+ phone + ", postalcode=" + postalcode + ", street=" + street + ", web=" + web + "]";
-	}
-
-	/*
-	 * (non-Javadoc)
-	 *
 	 * @see java.lang.Object#hashCode()
 	 */
 
@@ -296,8 +283,18 @@ public class Location implements Serializable {
 		if (postalcode == null) {
 			if (other.postalcode != null)
 				return false;
-		} else if (!postalcode.equals(other.postalcode))
+		} else if (!postalcode.equals(other.postalcode)) 
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "Location [id=" + id + ", active=" + active + ", createDate=" + createDate + ", description="
+				+ description + ", email=" + email + ", gps=" + gps + ", name=" + name + ", phone=" + phone
+				+ ", postalcode=" + postalcode + ", street=" + street + ", web=" + web + ", city=" + city
+				+ ", locationsMedias=" + locationsMedias + ", scenes=" + scenes + ", visiteds=" + visiteds + "]";
+	}
+	
+	
 }

@@ -9,6 +9,7 @@ import model.entities.City;
 import model.entities.Country;
 import model.entities.County;
 import model.entities.Location;
+import model.entities.LocationsMedia;
 import model.persistent .dao.LocationDao;
 import model.persistent .connection.Conexion;
 
@@ -63,7 +64,8 @@ public class LocationDaoImpl implements LocationDao {
 		country.getCounties().add(county);
 		city.setCounty(county);
 		location.setCity(city);
-		con.getEm().merge(location);
+		con.getEm().persist(location);
+	
 		et.commit();
 		con.closeConexion();
 
@@ -71,7 +73,7 @@ public class LocationDaoImpl implements LocationDao {
 		return location;
 	}
 
-	@Override
+	@Override 
 	public Location update(Location location) {
 		if(!con.openConexion()) {
 			return null;

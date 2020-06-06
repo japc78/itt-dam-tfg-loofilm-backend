@@ -6,6 +6,7 @@ import model.entities.City;
 import model.entities.Country;
 import model.entities.County;
 import model.entities.Location;
+import model.entities.LocationsMedia;
 import model.persistent.daoImpl.CityDaoImpl;
 import model.persistent.daoImpl.CountryDaoImpl;
 import model.persistent.daoImpl.CountyDaoImpl;
