@@ -19,7 +19,7 @@ public class ProducctionDaoImpl implements ProductionDao {
 		}
 		// Se crea la consulta
 		String jpql = "SELECT p.id, p.name, p.year, p.type, "
-				+ "(SELECT COUNT(s) FROM Scene s WHERE s.production = p), p.active "
+				+ "(SELECT COUNT(s) FROM Scene s WHERE s.production = p), p.active, p.filename "
 				+ "FROM Production p "
 				+ "ORDER BY p.id DESC";
 

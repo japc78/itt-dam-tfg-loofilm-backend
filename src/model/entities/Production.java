@@ -2,7 +2,6 @@ package model.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
-import java.util.Date;
 import java.sql.Timestamp;
 import java.util.List;
 
@@ -37,9 +36,7 @@ public class Production implements Serializable {
 
 	private int year;
 
-	//bi-directional many-to-one association to ProductionsMedia
-	@OneToMany(mappedBy="production")
-	private List<ProductionsMedia> productionsMedias;
+	private String filename;
 
 	//bi-directional many-to-one association to Scene
 	@OneToMany(mappedBy="production", cascade={CascadeType.ALL})
@@ -49,13 +46,14 @@ public class Production implements Serializable {
 	public Production() {
 	}
 
-	public Production(String name, int year, int type, String description, String cast, String web) {
+	public Production(String name, int year, int type, String description, String cast, String web, String filename) {
 		this.name = name;
 		this.year = year;
 		this.type = type;
 		this.description = description;
 		this.cast = cast;
 		this.web = web;
+		this.filename = filename;
 		active = true;
 	}
 
@@ -132,26 +130,12 @@ public class Production implements Serializable {
 		this.year = year;
 	}
 
-	public List<ProductionsMedia> getProductionsMedias() {
-		return this.productionsMedias;
+	public String getFilename() {
+		return filename;
 	}
 
-	public void setProductionsMedias(List<ProductionsMedia> productionsMedias) {
-		this.productionsMedias = productionsMedias;
-	}
-
-	public ProductionsMedia addProductionsMedia(ProductionsMedia productionsMedia) {
-		getProductionsMedias().add(productionsMedia);
-		productionsMedia.setProduction(this);
-
-		return productionsMedia;
-	}
-
-	public ProductionsMedia removeProductionsMedia(ProductionsMedia productionsMedia) {
-		getProductionsMedias().remove(productionsMedia);
-		productionsMedia.setProduction(null);
-
-		return productionsMedia;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	public List<Scene> getScenes() {
@@ -176,12 +160,6 @@ public class Production implements Serializable {
 		return scene;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#hashCode()
-	 */
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -191,12 +169,6 @@ public class Production implements Serializable {
 		result = prime * result + year;
 		return result;
 	}
-
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 
 	@Override
 	public boolean equals(Object obj) {
@@ -219,16 +191,9 @@ public class Production implements Serializable {
 		return true;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 *
-	 * @see java.lang.Object#toString()
-	 */
-
 	@Override
 	public String toString() {
 		return "Production [active=" + active + ", cast=" + cast + ", createDate=" + createDate + ", description="
-				+ description + ", id=" + id + ", name=" + name + ", productionsMedias=" + productionsMedias
-				+ ", scenes=" + scenes + ", type=" + type + ", web=" + web + ", year=" + year + "]";
+				+ description + ", id=" + id + ", name=" + name + ", productionsMedias=" + ", scenes=" + scenes + ", type=" + type + ", web=" + web + ", year=" + year + "]";
 	}
 }

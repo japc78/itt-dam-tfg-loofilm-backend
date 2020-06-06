@@ -47,7 +47,7 @@
                 <c:forEach items="${productions}" var="p">
                 <tr id="production-${p[0]}">
                   <td>${p[0]}</td>
-                  <td><img src="images/productions/doom_patrol.jpg" height="50px"></td>
+                  <td><img src="images/productions/${p[6]}" height="50px"></td>
                   <td>${p[1]}</td>
                   <td>${p[2]}</td>
                   <td>${p[3] eq 0 ? 'serie':'film'}</td>

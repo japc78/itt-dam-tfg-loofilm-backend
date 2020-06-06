@@ -7,7 +7,6 @@
 		<class>model.entities.Location</class>
 		<class>model.entities.LocationsMedia</class>
 		<class>model.entities.Production</class>
-		<class>model.entities.ProductionsMedia</class>
 		<class>model.entities.Scene</class>
 		<class>model.entities.ScenesMedia</class>
 		<class>model.entities.Visited</class>

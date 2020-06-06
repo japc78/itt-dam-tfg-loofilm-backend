@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
 import model.entities.Production;
-import model.services.LocationService;
 import model.services.ProductionService;
 
 @WebServlet("/production-create")
@@ -50,21 +49,32 @@ public class ServletProductionCreate extends HttpServlet{
 		String description 	= req.getParameter("description");
 		String cast 		= req.getParameter("cast");
 		String web			= req.getParameter("web");
+		String poster = "";
 
-		// Subida de ficheros
+		// Subida de imagenes
+		// Ruta de la ubicacioon de los ficheros
 		String uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + UPLOAD_DIRECTORY;
 		File uploadDir = new File(uploadPath);
+
+		// Sino existe la carpeta se crea
 		if (!uploadDir.exists()) uploadDir.mkdir();
 
+
 		for (Part part : req.getParts()) {
+			// Se optiene el nombre del fichero.
 			String fileName = getFileName(part);
-			System.out.println("filename: " + fileName);
-			part.write(uploadPath + File.separator + fileName);
+
+			if (!fileName.isEmpty()) {
+				System.out.println("filename: " + fileName);
+				poster = fileName;
+				part.write(uploadPath + File.separator + fileName);
+			}
 		}
 
-		p = new Production(name, year, type, description, cast, web);
+		p = new Production(name, year, type, description, cast, web, poster);
+
 		String result = ps.add(p);
-		System.out.println(result);
+		// System.out.println(result);
 		// Se procesa la respuesta.
 		switch (result) {
 			case "ER-P01":
@@ -92,6 +102,6 @@ public class ServletProductionCreate extends HttpServlet{
 	        if (content.trim().startsWith("filename"))
 	            return content.substring(content.indexOf("=") + 2, content.length() - 1);
 	        }
-	    return DEFAULT_FILENAME;
+	    return "";
 	}
 }
