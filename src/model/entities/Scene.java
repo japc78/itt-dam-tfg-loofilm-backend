@@ -29,12 +29,12 @@ public class Scene implements Serializable {
 	private String name;
 
 	//bi-directional many-to-one association to Location
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="locationId")
 	private Location location;
 
 	//bi-directional many-to-one association to Production
-	@ManyToOne(cascade={CascadeType.ALL})
+	@ManyToOne
 	@JoinColumn(name="productionId")
 	private Production production;
 

@@ -42,7 +42,7 @@ public class Production implements Serializable {
 	private List<ProductionsMedia> productionsMedias;
 
 	//bi-directional many-to-one association to Scene
-	@OneToMany(mappedBy="production")
+	@OneToMany(mappedBy="production", cascade={CascadeType.ALL})
 	private List<Scene> scenes;
 
 	// Constructores de la clase

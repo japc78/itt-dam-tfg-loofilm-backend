@@ -51,7 +51,7 @@ public class Location implements Serializable {
 	private List<LocationsMedia> locationsMedias;
 
 	//bi-directional many-to-one association to Scene
-	@OneToMany(mappedBy="location")
+	@OneToMany(mappedBy="location", cascade={CascadeType.ALL})
 	private List<Scene> scenes;
 
 	//bi-directional many-to-one association to Visited
