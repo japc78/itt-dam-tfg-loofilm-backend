@@ -27,10 +27,7 @@
       <div class="col-12">
         <div class="card">
           <div class="card-body">
-            <table
-              id="list_object"
-              class="table table-bordered table-striped"
-            >
+            <table id="list_object" data-type="production" class="table table-bordered table-striped">
               <thead>
                 <tr>
                   <th style="width: 1%;">id</th>
@@ -61,7 +58,7 @@
                   <td class="project-actions text-right">
                     <a class="btn btn-primary btn-xs" href="#">Ver</a>
                     <a class="btn btn-info btn-xs" href="#">Editar</a>
-                    <a class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
+                    <a id="del-${p[0]}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
                   </td>
                 </tr>
                 </c:forEach>

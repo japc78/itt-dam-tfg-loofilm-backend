@@ -13,7 +13,17 @@ import java.util.List;
 @Entity
 @Table(name="locations")
 @NamedQuery(name="Location.findAll", query="SELECT l FROM Location l")
-@NamedNativeQuery( name = "Location.list", query = "SELECT l.id, l.name, ci.city, co.county, c.country, (SELECT COUNT(*) FROM productions p JOIN scenes s ON p.id = s.productionId WHERE l.id = s.locationId), l.active, (SELECT lm.filename FROM locations_media lm WHERE l.id = lm.locationId LIMIT 1 ) FROM locations l JOIN cities ci ON l.cityId = ci.id	JOIN counties co ON  ci.countyId = co.id JOIN countries c ON co.countryCode = c.countryCode")
+@NamedNativeQuery( 
+	name = "Location.list",
+	query = "SELECT l.id, l.name, ci.city, co.county, c.country,"
+			+ " (SELECT COUNT(*) FROM productions p "
+			+ "JOIN scenes s ON p.id = s.productionId WHERE l.id = s.locationId),"
+			+ " l.active, "
+			+ "(SELECT lm.filename FROM locations_media lm "
+			+ "WHERE l.id = lm.locationId LIMIT 1 ) FROM locations l"
+			+ " JOIN cities ci ON l.cityId = ci.id	"
+			+ "JOIN counties co ON  ci.countyId = co.id "
+			+ "JOIN countries c ON co.countryCode = c.countryCode")
 public class Location implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -27,7 +27,7 @@
 		<div class="col-12">
 			<div class="card">
 				<div class="card-body">
-					<table id="list_object" class="table table-bordered table-striped">
+					<table id="list_object" data-type="scene" class="table table-bordered table-striped">
 						<thead>
 							<tr>
 								<th style="width: 1%;">id</th>
@@ -45,10 +45,10 @@
 						 	<c:forEach items="${scenes}" var="s">
 							<tr id="scene-${s[0]}">
 								<td>${s[0]}</td>
-								<td><img src="images/scenes/isabel-alhambra-01.jpg" width="50px"></td>
+								<td><img src="images/scenes/${s[7]}" width="50px"></td>
 								<td>${s[1]}</td>
 								<td>${s[2]}</td>
-								<td>${s[3] eq 0 ? 'serie':'film'}</td>
+								<td>${s[3] eq false ? 'serie':'film'}</td> 
 								<td>${s[4]}</td>
 								<td>${s[5]}</td>
 								<td class="text-center">
@@ -60,7 +60,7 @@
 								<td class="project-actions text-right">
 									<a class="btn btn-primary btn-xs" href="#">Ver</a>
 									<a class="btn btn-info btn-xs" href="#">Editar</a>
-				                    <a class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
+				                    <a id="del-${s[0]}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
 								</td>
 							</tr>
 							</c:forEach>
