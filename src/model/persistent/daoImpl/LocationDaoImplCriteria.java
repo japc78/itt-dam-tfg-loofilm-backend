@@ -7,6 +7,7 @@ import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Join;
+import javax.persistence.criteria.ListJoin;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
@@ -14,6 +15,7 @@ import model.entities.City;
 import model.entities.Country;
 import model.entities.County;
 import model.entities.Location;
+import model.entities.Production;
 import model.entities.Scene;
 import model.persistent.connection.Conexion;
 import model.persistent.dao.LocationDao;
@@ -29,8 +31,7 @@ public class LocationDaoImplCriteria implements LocationDao {
 
 		// Se crea la consulta
 		// String jpql = "SELECT l.id, l.name, ci.city, co.county, c.country, "
-		// + "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location),
-		// "
+		// + "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location), "
 		// + "l.active, "
 		// + "(SELECT lm.filename FROM l.locationsMedias lm LIMIT 1)"
 		// + "FROM Location l JOIN l.city ci "
@@ -44,22 +45,77 @@ public class LocationDaoImplCriteria implements LocationDao {
 		Join<Object, Object> joinCounty = joinCity.join("county");
 		Join<Object, Object> joinCountry = joinCounty.join("country");
 
+
+		Subquery<Long> countProduction = innerCriteriaQuery.subquery(Long.class);
+		Root<Production> sqCountProduction = countProduction.from(Production.class);
+		Join<Object, Object> joinScenes = sqCountProduction.join("scenes");
+
+		countProduction.select(cb.count(sqCountProduction)).where(cb.equal(joinScenes.get("location"), rootLocation));
+
+
 		innerCriteriaQuery.multiselect(
 			rootLocation.get("id"),
 			rootLocation.get("name"),
 			joinCity.get("city"),
 			joinCounty.get("county"),
-			joinCountry.get("country")
+			joinCountry.get("country"),
+			countProduction
 			);
 
-		Subquery<Integer> counScenes = innerCriteriaQuery.subquery(Integer.class);
-		Root<Scene> sqCountScenes = counScenes.from(Scene.class);
-		counScenes.select(cb.count(sqCountScenes)).where(cb.equal(sqCountScenes, rootLocation));
 
 		TypedQuery<Tuple> query = con.getEm().createQuery(innerCriteriaQuery);
 
 		//Se recogen los valores de la consulta.
 		List<Tuple> list = query.getResultList();
+		return list;
+	}
+
+	@Override
+	public List<Object[]> list() {
+		if (!con.openConexion()) {
+			return null;
+		}
+
+		// Se crea la consulta
+		// String jpql = "SELECT l.id, l.name, ci.city, co.county, c.country, "
+		// + "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location), "
+		// + "l.active, "
+		// + "(SELECT lm.filename FROM l.locationsMedias lm LIMIT 1)"
+		// + "FROM Location l JOIN l.city ci "
+		// + "JOIN ci.county co JOIN co.country c "
+		// + "ORDER BY l.id DESC";
+
+		CriteriaBuilder cb = con.getEm().getCriteriaBuilder();
+		CriteriaQuery<Object[]> cq = cb.createQuery(Object[].class);
+		Root<Location> location = cq.from(Location.class);
+		Join<Object, Object> city = location.join("city");
+		Join<Object, Object> county = city.join("county");
+		Join<Object, Object> country = county.join("country");
+
+
+		Subquery<Long> countProduction = cq.subquery(Long.class);
+		Root<Production> production = countProduction.from(Production.class);
+		Join<Object, Object> scenes = production.join("scenes");
+
+		countProduction
+			.select(cb.count(production))
+			.where(cb.equal(scenes.get("location"), location));
+
+
+		cq.multiselect(
+			location.get("id"),
+			location.get("name"),
+			city.get("city"),
+			county.get("county"),
+			country.get("country"),
+			countProduction.getSelection()
+			);
+
+
+		TypedQuery<Object[]> query = con.getEm().createQuery(cq);
+
+		//Se recogen los valores de la consulta.
+		List<Object[]> list = query.getResultList();
 		return list;
 	}
 
@@ -98,11 +154,4 @@ public class LocationDaoImplCriteria implements LocationDao {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	@Override
-	public List<Object[]> list() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }

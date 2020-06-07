@@ -13,7 +13,16 @@ public class LocationServiceCriteria {
 	 * @return Una coleccion de Arrays.
 	 * Id, imagen, nombre, provincia, pais, numero de producciones, estado
 	 */
-	public List<Tuple> list() {
-		return loDao.listTuple();
+	// public List<Tuple> list() {
+	// 	return loDao.listTuple();
+	// }
+
+		/**
+	 * Listado de localizaciones
+	 * @return Una coleccion de Arrays.
+	 * Id, imagen, nombre, provincia, pais, numero de producciones, estado
+	 */
+	public List<Object[]> list() {
+		return loDao.list();
 	}
 }
