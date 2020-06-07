@@ -19,8 +19,8 @@
 			<property name="javax.persistence.jdbc.password" value="ittRW"/>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 		<!-- Mostrar trazas sql con eclipselink -->
-		<!-- <property name="eclipselink.logging.level.sql" value="FINE" /> -->
-		<!-- <property name="eclipselink.logging.parameters" value="true" /> -->
+		<property name="eclipselink.logging.level.sql" value="FINE" />
+		<property name="eclipselink.logging.parameters" value="true" />
 	</properties>
 	</persistence-unit>
 </persistence>

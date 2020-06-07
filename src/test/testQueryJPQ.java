@@ -14,16 +14,16 @@ public class testQueryJPQ {
 
 
 		// Localizaciones
-			// for (Object[] l : ls.list()) {
-			// 	for (int i = 0; i < l.length; i++) {
-			// 		System.out.print("- " + l[i]);
-			// 	}
-			// 	System.out.print("\n");
-			// }
-		
-			
+			for (Object[] l : ls.list()) {
+				for (int i = 0; i < l.length; i++) {
+					System.out.print("- " + l[i]);
+				}
+				System.out.print("\n");
+			}
+
+
 			//System.out.println(ls.remove(8));
-			System.out.println(ps.remove(20));
+			// System.out.println(ps.remove(20));
 			//System.out.println(ls.remove(8));
 
 			// for (Object[] l : ls.listSelect2()) {
@@ -43,11 +43,11 @@ public class testQueryJPQ {
 
 
 		// Escenas
-			for (Object[] s : ss.list()) {
-				for (int i = 0; i < s.length; i++) {
-					System.out.print("- " + s[i]);
-				}
-				System.out.print("\n");
-			}
+			// for (Object[] s : ss.list()) {
+			// 	for (int i = 0; i < s.length; i++) {
+			// 		System.out.print("- " + s[i]);
+			// 	}
+			// 	System.out.print("\n");
+			// }
 	}
 }
