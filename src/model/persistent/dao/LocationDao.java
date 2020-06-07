@@ -2,6 +2,8 @@ package model.persistent.dao;
 
 import java.util.List;
 
+import javax.persistence.Tuple;
+
 import model.entities.City;
 import model.entities.Country;
 import model.entities.County;
@@ -13,6 +15,12 @@ public interface LocationDao {
 	 * @return
 	 */
 	List<Object[]> list();
+
+		/**
+	 * Metodo que devuelve el listado de Localizacions
+	 * @return
+	 */
+	List<Tuple> listTuple();
 
 	/**
 	 * Metodo que devuelve un listado de Localizaciones activas por Provincia y Pais para el Select del Crear Escena.

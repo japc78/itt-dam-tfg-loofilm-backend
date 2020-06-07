@@ -1,12 +1,11 @@
 package test;
 
-import model.entities.Location;
-import model.services.LocationService;
+import model.services.LocationServiceCriteria;
 
 public class testQueryCriteria {
 
 	public static void main(String[] args) {
-		LocationService ls = new LocationService();
+		LocationServiceCriteria ls = new LocationServiceCriteria();
 
 		for (Object[] l : ls.list()) {
 			System.out.println(l.toString());

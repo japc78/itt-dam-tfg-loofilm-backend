@@ -3,59 +3,55 @@ package model.persistent.daoImpl;
 import java.util.List;
 
 import javax.persistence.EntityTransaction;
+import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 
 import model.entities.City;
 import model.entities.Country;
 import model.entities.County;
 import model.entities.Location;
-import model.entities.LocationsMedia;
-import model.persistent .dao.LocationDao;
-import model.persistent .connection.Conexion;
+import model.persistent.dao.LocationDao;
+import model.persistent.connection.Conexion;
 
 public class LocationDaoImpl implements LocationDao {
 	Conexion con = new Conexion();
 
 	@Override
 	public List<Object[]> list() {
-		if(!con.openConexion()) {
+		if (!con.openConexion()) {
 			return null;
 		}
 
 		// Se crea la consulta
 		String jpql = "SELECT l.id, l.name, ci.city, co.county, c.country, "
 				+ "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location), l.active "
-				+ "FROM Location l JOIN l.city ci "
-				+ "JOIN ci.county co JOIN co.country c "
-				+ "ORDER BY l.id DESC";
+				+ "FROM Location l JOIN l.city ci " + "JOIN ci.county co JOIN co.country c " + "ORDER BY l.id DESC";
 		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
 
-		//Se recogen los valores de la consulta.
+		// Se recogen los valores de la consulta.
 		List<Object[]> list = query.getResultList();
 		return list;
 	}
 
 	@Override
 	public List<Object[]> listSelect2() {
-		if(!con.openConexion()) {
+		if (!con.openConexion()) {
 			return null;
 		}
 
 		// Se crea la consulta
-		String jpql = "SELECT l.id, l.name, co.county, c.country "
-				+ "FROM Location l JOIN l.city ci "
-				+ "JOIN ci.county co JOIN co.country c "
-				+ "WHERE l.active = 1";
+		String jpql = "SELECT l.id, l.name, co.county, c.country " + "FROM Location l JOIN l.city ci "
+				+ "JOIN ci.county co JOIN co.country c " + "WHERE l.active = 1";
 		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
 
-		//Se recogen los valores de la consulta.
+		// Se recogen los valores de la consulta.
 		List<Object[]> list = query.getResultList();
 		return list;
 	}
 
 	@Override
 	public Location create(Location location, City city, County county, Country country) {
-		if(!con.openConexion()) {
+		if (!con.openConexion()) {
 			return null;
 		}
 		EntityTransaction et = con.getEm().getTransaction();
@@ -65,17 +61,17 @@ public class LocationDaoImpl implements LocationDao {
 		city.setCounty(county);
 		location.setCity(city);
 		con.getEm().persist(location);
-	
+
 		et.commit();
 		con.closeConexion();
 
-		//Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
+		// Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
 		return location;
 	}
 
-	@Override 
+	@Override
 	public Location update(Location location) {
-		if(!con.openConexion()) {
+		if (!con.openConexion()) {
 			return null;
 		}
 		EntityTransaction et = con.getEm().getTransaction();
@@ -84,13 +80,13 @@ public class LocationDaoImpl implements LocationDao {
 		et.commit();
 		con.closeConexion();
 
-		//Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
+		// Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
 		return location;
 	}
 
 	@Override
 	public Location delete(Location location) {
-		if(!con.openConexion()) {
+		if (!con.openConexion()) {
 			return null;
 		}
 		EntityTransaction et = con.getEm().getTransaction();
@@ -100,14 +96,14 @@ public class LocationDaoImpl implements LocationDao {
 		et.commit();
 		con.closeConexion();
 
-		//Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
+		// Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
 		System.out.println("DELETE: " + location);
 		return location;
 	}
 
 	@Override
 	public Location find(int id) {
-		if(!con.openConexion()) {
+		if (!con.openConexion()) {
 			return null;
 		}
 		return con.getEm().find(Location.class, id);
@@ -115,14 +111,21 @@ public class LocationDaoImpl implements LocationDao {
 
 	@Override
 	public Location exists(Location location) {
-		if(!con.openConexion()) {
+		if (!con.openConexion()) {
 			return null;
 		}
 		List<Location> list = con.getEm().createNamedQuery("Location.findAll", Location.class).getResultList();
 
 		for (Location l : list) {
-			if(l.equals(location)) return l;
+			if (l.equals(location))
+				return l;
 		}
+		return null;
+	}
+
+	@Override
+	public List<Tuple> listTuple() {
+		// TODO Auto-generated method stub
 		return null;
 	}
 
