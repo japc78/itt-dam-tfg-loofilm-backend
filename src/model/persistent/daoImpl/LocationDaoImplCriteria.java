@@ -6,8 +6,10 @@ import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.From;
 import javax.persistence.criteria.Join;
 import javax.persistence.criteria.ListJoin;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Root;
 import javax.persistence.criteria.Subquery;
 
@@ -94,8 +96,8 @@ public class LocationDaoImplCriteria implements LocationDao {
 
 
 		Subquery<Long> countProduction = cq.subquery(Long.class);
-		Root<Production> production = countProduction.from(Production.class);
-		Join<Object, Object> scenes = production.join("scenes");
+		Path<Production> production = cq.from(Production.class);
+		Path<Object> scenes = production.get("scenes");
 
 		countProduction
 			.select(cb.count(production))
@@ -108,7 +110,7 @@ public class LocationDaoImplCriteria implements LocationDao {
 			city.get("city"),
 			county.get("county"),
 			country.get("country"),
-			countProduction.getSelection()
+			cb.count(countProduction)
 			);
 
 

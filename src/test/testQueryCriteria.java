@@ -16,7 +16,7 @@ public class testQueryCriteria {
 
 		for (Object[] l : ls.list()) {
 			for (int i = 0; i < l.length; i++) {
-				System.out.print("- " + l[i]);
+				System.out.print(" - " + l[i]);
 			}
 			System.out.print("\n");
 		}
