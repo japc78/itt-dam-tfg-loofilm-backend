@@ -23,12 +23,14 @@ public class LocationDaoImpl implements LocationDao {
 		}
 
 		// Se crea la consulta
-		String jpql = "SELECT l.id, l.name, ci.city, co.county, c.country, "
-				+ "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location), l.active "
-				+ "FROM Location l JOIN l.city ci "
-				+ "JOIN ci.county co JOIN co.country c "
-				+ "ORDER BY l.id DESC";
-		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
+		// String jpql = "SELECT l.id, l.name, ci.city, co.county, c.country, "
+		// 		+ "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location), l.active "
+		// 		+ "FROM Location l JOIN l.city ci "
+		// 		+ "JOIN ci.county co JOIN co.country c "
+		// 		+ "ORDER BY l.id DESC";
+
+		// String jpql = "SELECT l.id, l.name, ci.city, co.county, c.country, (SELECT COUNT(*) FROM productions p JOIN scenes s ON p.id = s.productionId WHERE l.id = s.locationId), l.active, (SELECT lm.filename FROM locations_media lm WHERE l.id = lm.locationId LIMIT 1 ) FROM locations l JOIN cities ci ON l.cityId = ci.id JOIN counties co ON  ci.countyId = co.id JOIN countries c ON co.countryCode = c.countryCode";
+		TypedQuery<Object[]> query = con.getEm().createNamedQuery("Location.list", Object[].class);
 
 		//Se recogen los valores de la consulta.
 		List<Object[]> list = query.getResultList();
@@ -65,7 +67,7 @@ public class LocationDaoImpl implements LocationDao {
 		city.setCounty(county);
 		location.setCity(city);
 		con.getEm().persist(location);
-	
+
 		et.commit();
 		con.closeConexion();
 
@@ -73,7 +75,7 @@ public class LocationDaoImpl implements LocationDao {
 		return location;
 	}
 
-	@Override 
+	@Override
 	public Location update(Location location) {
 		if(!con.openConexion()) {
 			return null;

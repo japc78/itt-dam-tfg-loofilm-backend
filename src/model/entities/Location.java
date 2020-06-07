@@ -13,6 +13,7 @@ import java.util.List;
 @Entity
 @Table(name="locations")
 @NamedQuery(name="Location.findAll", query="SELECT l FROM Location l")
+@NamedNativeQuery( name = "Location.list", query = "SELECT l.id, l.name, ci.city, co.county, c.country, (SELECT COUNT(*) FROM productions p JOIN scenes s ON p.id = s.productionId WHERE l.id = s.locationId), l.active, (SELECT lm.filename FROM locations_media lm WHERE l.id = lm.locationId LIMIT 1 ) FROM locations l JOIN cities ci ON l.cityId = ci.id	JOIN counties co ON  ci.countyId = co.id JOIN countries c ON co.countryCode = c.countryCode")
 public class Location implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -283,7 +284,7 @@ public class Location implements Serializable {
 		if (postalcode == null) {
 			if (other.postalcode != null)
 				return false;
-		} else if (!postalcode.equals(other.postalcode)) 
+		} else if (!postalcode.equals(other.postalcode))
 			return false;
 		return true;
 	}
@@ -295,6 +296,6 @@ public class Location implements Serializable {
 				+ ", postalcode=" + postalcode + ", street=" + street + ", web=" + web + ", city=" + city
 				+ ", locationsMedias=" + locationsMedias + ", scenes=" + scenes + ", visiteds=" + visiteds + "]";
 	}
-	
-	
+
+
 }

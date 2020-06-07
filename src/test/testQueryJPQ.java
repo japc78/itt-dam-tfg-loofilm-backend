@@ -1,6 +1,5 @@
 package test;
 
-import model.entities.Location;
 import model.services.LocationService;
 import model.services.ProductionService;
 import model.services.SceneService;
