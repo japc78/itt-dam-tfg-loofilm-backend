@@ -6,12 +6,15 @@ import javax.persistence.Tuple;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Join;
 import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 
 import model.entities.City;
 import model.entities.Country;
 import model.entities.County;
 import model.entities.Location;
+import model.entities.Scene;
 import model.persistent.connection.Conexion;
 import model.persistent.dao.LocationDao;
 
@@ -20,25 +23,38 @@ public class LocationDaoImplCriteria implements LocationDao {
 
 	@Override
 	public List<Tuple> listTuple() {
-		if(!con.openConexion()) {
+		if (!con.openConexion()) {
 			return null;
 		}
 
 		// Se crea la consulta
 		// String jpql = "SELECT l.id, l.name, ci.city, co.county, c.country, "
-		// 		+ "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location), "
-		// 		+ "l.active, "
-		// 		+ "(SELECT lm.filename FROM l.locationsMedias lm LIMIT 1)"
-		// 		+ "FROM Location l JOIN l.city ci "
-		// 		+ "JOIN ci.county co JOIN co.country c "
-		// 		+ "ORDER BY l.id DESC";
+		// + "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location),
+		// "
+		// + "l.active, "
+		// + "(SELECT lm.filename FROM l.locationsMedias lm LIMIT 1)"
+		// + "FROM Location l JOIN l.city ci "
+		// + "JOIN ci.county co JOIN co.country c "
+		// + "ORDER BY l.id DESC";
 
 		CriteriaBuilder cb = con.getEm().getCriteriaBuilder();
 		CriteriaQuery<Tuple> innerCriteriaQuery = cb.createTupleQuery();
 		Root<Location> rootLocation = innerCriteriaQuery.from(Location.class);
+		Join<Object, Object> joinCity = rootLocation.join("city");
+		Join<Object, Object> joinCounty = joinCity.join("county");
+		Join<Object, Object> joinCountry = joinCounty.join("country");
 
+		innerCriteriaQuery.multiselect(
+			rootLocation.get("id"),
+			rootLocation.get("name"),
+			joinCity.get("city"),
+			joinCounty.get("county"),
+			joinCountry.get("country")
+			);
 
-		innerCriteriaQuery.select(rootLocation.get("id"));
+		Subquery<Integer> counScenes = innerCriteriaQuery.subquery(Integer.class);
+		Root<Scene> sqCountScenes = counScenes.from(Scene.class);
+		counScenes.select(cb.count(sqCountScenes)).where(cb.equal(sqCountScenes, rootLocation));
 
 		TypedQuery<Tuple> query = con.getEm().createQuery(innerCriteriaQuery);
 

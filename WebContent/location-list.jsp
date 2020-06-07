@@ -45,7 +45,7 @@
                 <c:forEach items="${locations}" var="l">
                 <tr>
                   <td>${l[0]}</td>
-                  <td><img src="images/locations/default.png" width="50px"></td>
+                  <td><img src="images/locations/${l[7]}" width="50px"></td>
                   <td>${l[1]}</td>
                   <td>${l[2]}</td>
                   <td>${l[3]}</td>

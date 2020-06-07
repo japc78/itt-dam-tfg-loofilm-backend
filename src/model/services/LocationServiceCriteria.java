@@ -2,6 +2,8 @@ package model.services;
 
 import java.util.List;
 
+import javax.persistence.Tuple;
+
 import model.persistent.daoImpl.LocationDaoImplCriteria;
 
 public class LocationServiceCriteria {
@@ -11,7 +13,7 @@ public class LocationServiceCriteria {
 	 * @return Una coleccion de Arrays.
 	 * Id, imagen, nombre, provincia, pais, numero de producciones, estado
 	 */
-	public List<Object[]> list() {
-		return loDao.list();
+	public List<Tuple> list() {
+		return loDao.listTuple();
 	}
 }
