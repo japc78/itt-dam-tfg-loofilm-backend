@@ -24,8 +24,17 @@ public class LocationDaoImpl implements LocationDao {
 
 		// Se crea la consulta
 		String jpql = "SELECT l.id, l.name, ci.city, co.county, c.country, "
-				+ "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location), l.active "
-				+ "FROM Location l JOIN l.city ci " + "JOIN ci.county co JOIN co.country c " + "ORDER BY l.id DESC";
+		+ "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location), "
+		+ "l.active, "
+		+ "(SELECT DISTINTC lm.filename FROM l.locationsMedias lm JOIN l WHERE )"
+		+ "FROM Location l JOIN l.city ci "
+		+ "JOIN ci.county co JOIN co.country c "
+		+ "ORDER BY l.id DESC";
+
+		// // Se crea la consulta
+		// String jpql = "SELECT l.id, l.name, ci.city, co.county, c.country, "
+		// 		+ "(SELECT COUNT(p) FROM Production p JOIN p.scenes s WHERE l = s.location), l.active "
+		// 		+ "FROM Location l JOIN l.city ci " + "JOIN ci.county co JOIN co.country c " + "ORDER BY l.id DESC";
 		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
 
 		// Se recogen los valores de la consulta.

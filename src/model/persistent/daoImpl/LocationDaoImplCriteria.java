@@ -41,31 +41,33 @@ public class LocationDaoImplCriteria implements LocationDao {
 		// + "ORDER BY l.id DESC";
 
 		CriteriaBuilder cb = con.getEm().getCriteriaBuilder();
-		CriteriaQuery<Tuple> innerCriteriaQuery = cb.createTupleQuery();
-		Root<Location> rootLocation = innerCriteriaQuery.from(Location.class);
-		Join<Object, Object> joinCity = rootLocation.join("city");
-		Join<Object, Object> joinCounty = joinCity.join("county");
-		Join<Object, Object> joinCountry = joinCounty.join("country");
+		CriteriaQuery<Tuple> cq = cb.createTupleQuery();
+		Root<Location> location = cq.from(Location.class);
+		Join<Object, Object> city = location.join("city");
+		Join<Object, Object> county = city.join("county");
+		Join<Object, Object> country = county.join("country");
 
 
-		Subquery<Long> countProduction = innerCriteriaQuery.subquery(Long.class);
-		Root<Production> sqCountProduction = countProduction.from(Production.class);
-		Join<Object, Object> joinScenes = sqCountProduction.join("scenes");
+		Subquery<Long> countProduction = cq.subquery(Long.class);
+		Root<Production> production = countProduction.from(Production.class);
+		Join<Object, Object> scene = production.join("scenes");
 
-		countProduction.select(cb.count(sqCountProduction)).where(cb.equal(joinScenes.get("location"), rootLocation));
+		countProduction
+			.select(cb.count(production))
+			.where(cb.equal(scene.get("location"), location));
 
 
-		innerCriteriaQuery.multiselect(
-			rootLocation.get("id"),
-			rootLocation.get("name"),
-			joinCity.get("city"),
-			joinCounty.get("county"),
-			joinCountry.get("country"),
-			countProduction
+		cq.multiselect(
+			location.get("id"),
+			location.get("name"),
+			city.get("city"),
+			county.get("county"),
+			country.get("country"),
+			countProduction.getSelection()
 			);
 
 
-		TypedQuery<Tuple> query = con.getEm().createQuery(innerCriteriaQuery);
+		TypedQuery<Tuple> query = con.getEm().createQuery(cq);
 
 		//Se recogen los valores de la consulta.
 		List<Tuple> list = query.getResultList();
@@ -110,7 +112,7 @@ public class LocationDaoImplCriteria implements LocationDao {
 			city.get("city"),
 			county.get("county"),
 			country.get("country"),
-			cb.count(countProduction)
+			countProduction.getSelection()
 			);
 
 
