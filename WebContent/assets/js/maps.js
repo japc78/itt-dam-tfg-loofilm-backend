@@ -1,17 +1,30 @@
 function initMap() {
   // console.log('Google Maps API version: ' + google.maps.version);
 
+  // Create the search box and link it to the UI element.
+  const input = document.getElementById("pac-input");
+  const gps = document.getElementById("inputGps").value;
+  const lat = parseFloat(gps.split(',')[0]);
+  const lng = parseFloat(gps.split(',')[1]);
+  const searchBox = new google.maps.places.SearchBox(input);
+  let location = { lat: lat, lng: lng};
+  // console.log(location);
+
   var map = new google.maps.Map(document.getElementById("map"), {
-    center: { lat: 40.4231, lng: -3.6881 }, 
+    center: { lat: 40.4231, lng: -3.6881 },
     zoom: 5,
     mapTypeId: "roadmap",
     streetViewControl: false,
   });
+  let marker = new google.maps.Marker({map: map});
 
-  // Create the search box and link it to the UI element.
-  const input = document.getElementById("pac-input");
-  const searchBox = new google.maps.places.SearchBox(input);
-  let marker = new google.maps.Marker({ map: map });
+  // Para mostar el mapa y el marker en el leer y editar.
+  if (gps != '') {
+    marker.setPosition(location);
+    map.setCenter(location);
+    map.setZoom(15);
+  }
+
 
   // Bias the SearchBox results towards current map's viewport.
   map.addListener("bounds_changed", function () {
@@ -59,22 +72,27 @@ function initMap() {
 
     // Se pasa la info al DOM
     printInfoAddress(infoAddress);
-
-    // Cambiar de posicion el marcador.
-    map.addListener("click", function (e) {
-      //console.log(e.placeId);
-      //Se evita que salgan los globos de los elementos de interes del mapa.
-      if (e.placeId) {
-        e.stop();
-      }
-      marker.setPosition(e.latLng);
-      map.setCenter(e.latLng);
-
-      document.getElementById("inputGps").value = e.latLng.toString();
-      document.getElementsByClassName("gps")[0].innerHTML =  `<b>Coordenadas: </b> ${e.latLng.toString()}`;
-      // console.log(e.latLng.toString());
-    });
   });
+
+  // Cambiar de posicion el marcador.
+  map.addListener("click", function (e) {
+    // console.log(e.placeId);
+    //Se evita que salgan los globos de los elementos de interes del mapa.
+    if (e.placeId) {
+      e.stop();
+    }
+
+    location = e.latLng;
+    marker.setPosition(location);
+    map.setCenter(location);
+
+    document.getElementById("inputGps").value = location.toString();
+    if (document.getElementsByClassName("gps").length) {
+      document.getElementsByClassName("gps")[0].innerHTML =  `<b>Coordenadas: </b> ${location.toString()}`;
+      // console.log(e.latLng.toString());
+    }
+  });
+
 }
 
 // Funcion que retorna un objeto con los datos necesarios.

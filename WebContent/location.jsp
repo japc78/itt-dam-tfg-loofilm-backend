@@ -48,7 +48,7 @@
 							<input type="hidden" id="inputCounty" name="administrative_area_level_2" value="">
 							<input type="hidden" id="inputCountry" name="country" value="">
 							<input type="hidden" id="inputCountryCode" name="countryCode" value="">
-							<input type="hidden" id="inputGps" name="gps" value="">
+							<input type="hidden" id="inputGps" name="gps" value="${location.gps}">
 							<%-- <button type="submit" class="btn btn-primary mt-2">Corregir textos</button> --%>
 
 						</div>
