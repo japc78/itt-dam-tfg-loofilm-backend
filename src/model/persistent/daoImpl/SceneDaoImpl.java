@@ -13,24 +13,14 @@ public class SceneDaoImpl implements SceneDao {
 	Conexion con = new Conexion();
 
 	@Override
-	public List<Object[]> list() {
+	public List<Scene> list() {
 		if(!con.openConexion()) {
 			return null;
 		}
-		// Se crea la consulta
-//		String jpql = "SELECT s.id, s.name, p.name, p.type, l.name, ci.city, s.active FROM Scene s "
-//				+ "JOIN Production p "
-//				+ "JOIN Location l "
-//				+ "JOIN l.city ci "
-//				+ "WHERE s.location = l AND s.production = p "
-//				+ "ORDER BY s.id DESC";
-
-//		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
-		TypedQuery<Object[]> query = con.getEm().createNamedQuery("Scene.list", Object[].class);
-
-		
+		// Se realiza la consulta en Jpql con NameQuery directamente desde la clase
+		TypedQuery<Scene> query = con.getEm().createNamedQuery("Scene.findAll", Scene.class);
 		//Se recogen los valores de la consulta.
-		List<Object[]> list = query.getResultList();
+		List<Scene> list = query.getResultList();
 		return list;
 	}
 

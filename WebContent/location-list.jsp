@@ -44,23 +44,23 @@
               <tbody>
                 <c:forEach items="${locations}" var="l">
                 <tr>
-                  <td>${l[0]}</td>
-                  <td><img src="images/locations/${l[7]}" width="50px"></td>
-                  <td>${l[1]}</td>
-                  <td>${l[2]}</td>
-                  <td>${l[3]}</td>
-                  <td>${l[4]}</td>
-                  <td class="text-center">${l[5]}</td>
+                  <td>${l[0].id}</td>
+                  <td><img src="images/locations/${(l[0].locationsMedias[0].filename != null) ? l[0].locationsMedias[0].filename : 'default.png' }" width="50px"></td> 
+                  <td>${l[0].name}</td>
+                  <td>${l[0].city.city}</td>
+                  <td>${l[0].city.county.county}</td>
+                  <td>${l[0].city.county.country.country}</td>
+                  <td class="text-center">${l[1]}</td>
                   <td class="text-center">
                   	<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-                      <input type="checkbox" class="custom-control-input check" id="check-${l[0]}" ${l[6] eq 'false' ? '': 'checked'}>
-                      <label class="custom-control-label" for="check-${l[0]}"><span class="hidden">${l[6]}</span></label>
+                      <input type="checkbox" class="custom-control-input check" id="check-${l[0].id}" ${l[0].active eq 'false' ? '': 'checked'}>
+                      <label class="custom-control-label" for="check-${l[0].id}"><span class="hidden">${l[0].active}</span></label>
                     </div>
                    </td>
                   <td class="project-actions text-right">
-                    <a class="btn btn-primary btn-xs" href="location?id=${l[0]}">Ver</a>
-                    <a class="btn btn-info btn-xs btnEdit" href="location?id=${l[0]}">Editar</a>
-                    <a id="del-${l[0]}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
+                    <a class="btn btn-primary btn-xs" href="location?id=${l[0].id}">Ver</a>
+                    <a class="btn btn-info btn-xs btnEdit" href="location?id=${l[0].id}">Editar</a>
+                    <a id="del-${l[0].id}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
                   </td>
                 </tr>
                 </c:forEach>

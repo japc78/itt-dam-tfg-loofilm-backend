@@ -9,7 +9,7 @@ public interface SceneDao {
 	 * Metodo que devuelve el listado de Escenas
 	 * @return Retora un listado de escenas con los siguiente informacion id, imagen, nombre, Escena, tipo y localizacion.
 	 */
-	List<Object[]> list();
+	List<Scene> list();
 
 	/**
 	 * Metodo para dar de alta una Escena

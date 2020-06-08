@@ -47,12 +47,12 @@ public class ScenesMedia implements Serializable {
 		this.createDate = createDate;
 	}
 
-	public String getUrl() {
+	public String getFilename() {
 		return this.filename;
 	}
 
-	public void setUrl(String url) {
-		this.filename = url;
+	public void setFilename(String filename) {
+		this.filename = filename;
 	}
 
 	public Scene getScene() {

@@ -13,16 +13,6 @@ import java.util.List;
 @Entity
 @Table(name="scenes")
 @NamedQuery(name="Scene.findAll", query="SELECT s FROM Scene s")
-@NamedNativeQuery(
-		name = "Scene.list",
-		// s.id, s.name, p.name, p.type, l.name, ci.city, s.active
-		query = "SELECT s.id, s.name, p.name, p.type, l.name, ci.city, s.active, "
-				+ "(SELECT sm.filename FROM scenes_media sm "
-				+ "WHERE s.id = sm.sceneId LIMIT 1) "
-				+ "FROM scenes s "
-				+ "JOIN productions p ON p.id = s.productionId "
-				+ "JOIN locations l ON l.id = s.locationId "
-				+ "JOIN cities ci ON l.cityId = ci.id")
 public class Scene implements Serializable {
 	private static final long serialVersionUID = 1L;
 

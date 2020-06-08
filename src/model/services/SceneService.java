@@ -12,7 +12,7 @@ public class SceneService {
 	 * Metodo que devuelve el listado de Escenas
 	 * @return Retora un listado de escenas con los siguiente informacion id, imagen, nombre, Escena, tipo y localizacion.
 	 */
-	public List<Object[]> list() {
+	public List<Scene> list() {
 		return sDao.list();
 	}
 

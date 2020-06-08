@@ -43,24 +43,24 @@
 						</thead>
 						<tbody>
 						 	<c:forEach items="${scenes}" var="s">
-							<tr id="scene-${s[0]}">
-								<td>${s[0]}</td>
-								<td><img src="images/scenes/${s[7]}" width="50px"></td>
-								<td>${s[1]}</td>
-								<td>${s[2]}</td>
-								<td>${s[3] eq false ? 'serie':'film'}</td> 
-								<td>${s[4]}</td>
-								<td>${s[5]}</td>
+							<tr id="scene-${s.id}">
+								<td>${s.id}</td>
+								<td><img src="images/scenes/${s.scenesMedias[0].filename != null ? s.scenesMedias[0].filename : 'default.png'}" width="50px"></td> 
+								<td>${s.name}</td>
+								<td>${s.production.name}</td>
+								<td>${s.production.type eq 0 ? 'serie':'film'}</td> 
+								<td>${s.location.name}</td>
+								<td>${s.location.city.city}</td>
 								<td class="text-center">
 									<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-										<input type="checkbox" class="custom-control-input check" id="check-${s[0]}" ${s[6] eq 'false' ? '': 'checked'}>
-										<label class="custom-control-label" for="check-${s[0]}"><span class="hidden">${s[6]}</span></label>
+										<input type="checkbox" class="custom-control-input check" id="check-${s.id}" ${s.active eq 'false' ? '': 'checked'}>
+										<label class="custom-control-label" for="check-${s.id}"><span class="hidden">${s.active}</span></label>
 									</div>
 								</td>
 								<td class="project-actions text-right">
 									<a class="btn btn-primary btn-xs" href="#">Ver</a>
 									<a class="btn btn-info btn-xs" href="#">Editar</a>
-				                    <a id="del-${s[0]}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
+				                    <a id="del-${s.id}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a> 
 								</td>
 							</tr>
 							</c:forEach>

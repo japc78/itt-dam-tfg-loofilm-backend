@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.entities.Location;
+import model.entities.LocationsMedia;
 import model.services.LocationService;
 
 /**
@@ -16,11 +17,11 @@ import model.services.LocationService;
  */
 @WebServlet("/location")
 public class ServletLocation extends HttpServlet{
-	private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = -3602943763187489779L;
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		LocationService ls = new LocationService(); 
+		LocationService ls = new LocationService();
 
 		req.setAttribute("withMaps", 1);
 		req.setAttribute("isList", 0);
@@ -34,6 +35,10 @@ public class ServletLocation extends HttpServlet{
 
 		req.setAttribute("location", l);
 
+		for (LocationsMedia img : l.getLocationsMedias()) {
+			System.out.println(img.getFilename());
+		}
+
 		req.getRequestDispatcher("location.jsp").forward(req, resp);
 	}
 
@@ -42,5 +47,4 @@ public class ServletLocation extends HttpServlet{
 		// TODO Auto-generated method stub
 		super.doPost(req, resp);
 	}
-
 }
