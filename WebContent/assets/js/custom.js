@@ -128,15 +128,15 @@ $(document).ready(function () {
 		// Eliminar un elemento, muestra una modal de confirmación antes de borrar.
 		$('#list_object').on( 'click', '.check', function (e) {
 			// Se recogen los datos del listado
-			
+
 			check = $(this);
-			
+
 			id = $(this).attr('id').split('-')[1];
 			category = $('table').data("type");
 			newStatus = check.prop("checked");
-			
+
 			if (!newStatus) check.removeAttr('checked');
-			
+
 			// Se guarda el estado anterior por si falla al actualizarse
 			stateBefore = $(this).prop("checked") == true ? false : true;
 
@@ -186,8 +186,18 @@ $(document).ready(function () {
 		maxfiles = $('.input-images').data("maxfiles");
 		// console.log("Max files: " + maxfiles);
 
+		let preloaded = [
+			{id: 1, src: 'https://picsum.photos/500/500?random=1'},
+			{id: 2, src: 'https://picsum.photos/500/500?random=2'},
+			{id: 3, src: 'https://picsum.photos/500/500?random=3'},
+			{id: 4, src: 'https://picsum.photos/500/500?random=4'},
+			{id: 5, src: 'https://picsum.photos/500/500?random=5'},
+			{id: 6, src: 'https://picsum.photos/500/500?random=6'},
+		];
+
 		$('.input-images').imageUploader({
 				label: 'Arrstre y suelte los archivos aquí o haga clic para navegar',
+				preloaded: preloaded,
 				maxFiles: maxfiles,
 				maxSize: 2097152, // 2Mb
 				mimes: ['image/jpeg'],
