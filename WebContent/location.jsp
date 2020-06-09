@@ -34,7 +34,7 @@
 					</div>
 					<div class="card-body">
 						<div class="form-group">
-							<input id="pac-input" class="form-control mb-3" type="text" placeholder="Escribe la dirección de la localización" autocomplete="off">
+							<input id="pac-input" class="form-control mb-3" type="text" placeholder="Escribe la dirección de la localización" autocomplete="off" value="${location.name}, ${location.city.city}, ${location.city.county.county}, ${location.city.county.country.country}">
 							<div id="map" class="map rounded"></div>
 						</div>
 						<div class="form-group">

@@ -16,13 +16,54 @@ function initMap() {
     mapTypeId: "roadmap",
     streetViewControl: false,
   });
+
   let marker = new google.maps.Marker({map: map});
 
   // Para mostar el mapa y el marker en el leer y editar.
   if (gps != '') {
-    marker.setPosition(location);
+	let locationId;
+
     map.setCenter(location);
-    map.setZoom(15);
+	map.setZoom(15);
+
+	var geocoder = new google.maps.Geocoder;
+
+	// Para obtener el id de la localizacion y sacar su informacion.
+	geocoder.geocode({'location': location}, function(results, status) {
+		if (status === google.maps.GeocoderStatus.OK) {
+		  if (results[1]) {
+			console.log(results[1].place_id);
+			locationId = results[1].place_id;
+		  } else {
+			window.alert('No results found');
+		  }
+		} else {
+		  window.alert('Geocoder failed due to: ' + status);
+		}
+	});
+
+
+	let request = {
+		placeId: locationId,
+		fields: ['name', 'formatted_address', 'place_id', 'geometry', 'type']
+	};
+
+	console.log(request);
+
+	service = new google.maps.places.PlacesService(map);
+
+	service.getDetails(request, function(place, status) {
+		if (status === google.maps.places.PlacesServiceStatus.OK) {
+			marker.setPosition(location);
+			map.setCenter(results[0].geometry.location);
+
+			console.log(place);
+
+			const infoAddress = getInfoAddress(place);
+			// Se pasa la info al DOM
+			printInfoAddress(infoAddress);
+		}
+	});
   }
 
 
@@ -31,13 +72,12 @@ function initMap() {
     searchBox.setBounds(map.getBounds());
   });
 
-  // Listen for the event fired when the user selects a prediction and retrieve
-  // more details for that place.
+  // Evento en el input de introducir la direccion muestra las predicciones, y al seleccionar una y recupera la informacion
   searchBox.addListener("places_changed", function () {
     const result = searchBox.getPlaces();
     place = result[0];
 
-    // console.log(place);
+    console.log(place);
 
     if (result.length == 0) {
       return;
@@ -110,7 +150,7 @@ function getInfoAddress(place) {
   // Constante para recorrer address_components
   const infoLocation = {
     street_number: "short_name",
-	  route: "long_name",
+	route: "long_name",
     locality: "long_name",
     administrative_area_level_2: "long_name",
     administrative_area_level_1: "long_name",
