@@ -29,48 +29,8 @@ function initMap() {
 	if (gps != '') {
 		map.setCenter(location);
 		map.setZoom(15);
-
-		// Se crea una instancia de Geocoder para opbtener el place_id de la ubicacion a traves de las coordenadas.
-		var geocoder = new google.maps.Geocoder;
-
-		// Para obtener el id de la localizacion y sacar su informacion.
-		// Se envia la localizacion para obtener el place_id para obtener la informacion.
-		geocoder.geocode({'location': location}, function (results, status) {
-			if (status === google.maps.GeocoderStatus.OK) {
-				if (results[1]) {
-
-					//Se obtiene el place_id
-					locationId = results[1].place_id;
-					// console.log(locationId);
-
-					// Se prepara la peticion, pasandole solo el place_id. Se podria agregar la key field, para determinar atributos concretos, pero interesa que devuelva el objeto place completo.
-					let request = {
-						placeId: locationId
-					};
-
-					// Se crea una instancia del servicio de Place de google.
-					service = new google.maps.places.PlacesService(map);
-
-					// Se obtienen los datos de la localizacion a traves de su place_id.
-					service.getDetails(request, function (place, status) {
-						if (status === google.maps.places.PlacesServiceStatus.OK) {
-							marker.setPosition(location);
-							map.setCenter(results[0].geometry.location);
-							// console.log(place);
-
-							const infoAddress = getInfoAddress(place);
-							// Se pasa la info al DOM
-							printInfoAddress(infoAddress);
-						}
-					});
-
-				} else {
-					window.alert('No results found');
-				}
-			} else {
-				window.alert('Geocoder failed due to: ' + status);
-			}
-		});
+		marker.setPosition(location);
+		map.setCenter(location);
 	}
 
 	// Bias the SearchBox results towards current map's viewport.
@@ -127,9 +87,9 @@ function initMap() {
 		marker.setPosition(location);
 		map.setCenter(location);
 
-		document.getElementById("inputGps").value = location.toString();
+		document.getElementById("inputGps").value = gpsFormat(location.toString());
 		if (document.getElementsByClassName("gps").length) {
-			document.getElementsByClassName("gps")[0].innerHTML = `<b>Coordenadas: </b> ${location.toString()}`;
+			document.getElementsByClassName("gps")[0].innerHTML = `<b>Coordenadas: </b> ${gpsFormat(location.toString())}`;
 			// console.log(e.latLng.toString());
 		}
 	});
@@ -148,7 +108,7 @@ function getInfoAddress(place) {
 
 	// Se pasan los datos de primer nivel
 	o["name"] = place.name;
-	o["gps"] = place.geometry.location.toString();
+	o["gps"] = gpsFormat(place.geometry.location.toString());
 	o["web"] = place.website;
 	o["phone"] = place.formatted_phone_number;
 
@@ -182,6 +142,8 @@ function getInfoAddress(place) {
 	} else {
 		return
 	}
+	console.log(o);
+
 	return o;
 }
 
@@ -210,19 +172,16 @@ function printInfoAddress(infoAddress) {
 			if (document.getElementsByName(key).length > 0) {
 				document.getElementsByName(key)[0].value = infoAddress[key];
 			}
-			// console.log(`key: ${tplES[key]} - Valor: ${infoAddress[key]}`);
+			console.log(`key: ${tplES[key]} - Valor: ${infoAddress[key]}`);
 		}
 	}
 
 	// Se pasaan los datos
 	document.getElementById("addressPreview").innerHTML = tplInfo;
 	document.getElementById("inputStreet").value = infoAddress.route !== undefined ? `${infoAddress.route}, ${infoAddress.street_number}` : "";
+}
 
-	// document.getElementById("inputName").value = place.name !== undefined ? place.name : "";
-	// document.getElementById("inputPhone").value = place.formatted_phone_number !== undefined ? place.formatted_phone_number.replace(/[^0-9]+/g, '')  : "";
-	// document.getElementById("inputWeb").value = place.website !== undefined ? place.website : "";
-
-	// console.log(marker.getPosition().toString());
-
-	// document.getElementById("inputGps").value = marker.getPosition() !== undefined ? marker.getPosition().toString() : "";
+// Funcion para quitar parentesis a las coordeandas, se le pasa el string de las coordenadas.
+function gpsFormat(gps) {
+	  return gps.replace(/[()]/g, '')
 }
