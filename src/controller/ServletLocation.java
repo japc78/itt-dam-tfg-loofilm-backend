@@ -1,5 +1,6 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.ServletException;
@@ -18,6 +19,7 @@ import model.services.LocationService;
 @WebServlet("/location")
 public class ServletLocation extends HttpServlet{
 	private static final long serialVersionUID = -3602943763187489779L;
+	private static final String UPLOAD_DIRECTORY = "locations";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,6 +41,9 @@ public class ServletLocation extends HttpServlet{
 			System.out.println(img.getFilename());
 		}
 
+		String path = getServletContext().getContextPath() + File.separator + "images" + File.separator + UPLOAD_DIRECTORY + File.separator;
+
+		req.setAttribute("path", path);
 		req.getRequestDispatcher("location.jsp").forward(req, resp);
 	}
 

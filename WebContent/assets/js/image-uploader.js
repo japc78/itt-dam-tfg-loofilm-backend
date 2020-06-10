@@ -80,8 +80,7 @@
                 id: plugin.settings.imagesInputName + '-' + random(),
                 name: plugin.settings.imagesInputName + '[]',
                 accept: plugin.settings.extensions.join(','),
-                multiple: '',
-                required: 'required'
+                multiple: ''
             }).appendTo($container);
 
             // Create the uploaded images container and append it to the container

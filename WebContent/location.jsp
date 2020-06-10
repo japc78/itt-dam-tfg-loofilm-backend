@@ -6,7 +6,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1>Editar</h1>
+				<h1>Editar: ${location.id} - ${location.name} </h1>
 			</div>
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
@@ -20,7 +20,7 @@
 
 <!-- Main content -->
 <section class="content">
-	<form id="form" action="location-create" method="post" enctype="multipart/form-data">
+	<form id="form" action="location-update" method="post" enctype="multipart/form-data">
 		<div class="row">
 			<div class="col-md-6">
 				<!-- Card GPS -->
@@ -34,20 +34,28 @@
 					</div>
 					<div class="card-body">
 						<div class="form-group">
-							<input id="pac-input" class="form-control mb-3" type="text" placeholder="Escribe la dirección de la localización" autocomplete="off" value="${location.name}, ${location.city.city}, ${location.city.county.county}, ${location.city.county.country.country}">
+							<input id="pac-input" class="form-control mb-3" type="text" placeholder="Escribe la dirección de la localización" autocomplete="off">
 							<div id="map" class="map rounded"></div>
 						</div>
 						<div class="form-group">
 							<div class="">
-								<ul id="addressPreview" class="infoAddress alert-default-info list-unstyled rounded p-3"></ul>
+								<ul id="addressPreview" class="infoAddress alert-default-info list-unstyled rounded p-3">
+									<li class="small gps"><b>Coordenadas:</b> ${location.gps}</li>
+									<li class="small locality"><b>Ciudad:</b> ${location.city.city}</li>
+									<li class="small administrative_area_level_2"><b>Provincia:</b> ${location.city.county.county}</li>
+									<li class="small country"><b>Pais:</b> ${location.city.county.country.country}</li>
+									<li class="small postal_code"><b>Código Postal:</b> ${location.postalcode}</li>
+								</ul>
 							</div>
 
 							<!-- <textarea id="inputAddressPreview" class="form-control" rows="3" disabled="" name="inputAddressPreview"></textarea> -->
-							<input type="hidden" id="inputCity" name="locality" value="{}">
-							<input type="hidden" id="inputPostalCode" name="postal_code" value="">
-							<input type="hidden" id="inputCounty" name="administrative_area_level_2" value="">
-							<input type="hidden" id="inputCountry" name="country" value="">
-							<input type="hidden" id="inputCountryCode" name="countryCode" value="">
+							<input type="hidden" id="inputId" name="id" value="${location.id}">
+							<input type="hidden" id="inputId" name="active" value="${location.active}">
+							<input type="hidden" id="inputCity" name="locality" value="${location.city.city}">
+							<input type="hidden" id="inputPostalCode" name="postal_code" value="${location.postalcode}">
+							<input type="hidden" id="inputCounty" name="administrative_area_level_2" value="${location.city.county.county}">
+							<input type="hidden" id="inputCountry" name="country" value="${location.city.county.country.country}">
+							<input type="hidden" id="inputCountryCode" name="countryCode" value="${location.city.county.country.countryCode}">
 							<input type="hidden" id="inputGps" name="gps" value="${location.gps}">
 							<%-- <button type="submit" class="btn btn-primary mt-2">Corregir textos</button> --%>
 
@@ -132,26 +140,14 @@
 					</div>
 					<div class="card-body">
 						<div class="form-group">
-							<div id="formImageUpload"></div>
-							<!-- <form action="/file-upload" class="dropzone" id="my-awesome-dropzone">
-							<div class="fallback">
-								<input name="file" type="file" multiple />
+							<div>
+								<ul>
+								<c:forEach items="${location.locationsMedias}" var="img">
+									<li><img src="${path}${img.filename}" alt=""></li>
+								</c:forEach>
+								</ul>
 							</div>
-							</form> -->
-
-							<input type="file" class="imageUpload" name="filepond" multiple/>
-
-							<!-- <form action="" method="post" enctype="multipart/form-data">
-										<div class="input-group">
-											<div class="custom-file">
-												<input type="file" class="custom-file-input" id="exampleInputFile" multiple>
-												<label class="custom-file-label" for="exampleInputFile">Añade las imágenes</label>
-											</div>
-											<div class="input-group-append">
-												<span class="input-group-text" id="">Upload</span>
-											</div>
-										</div>
-							</form> -->
+							<div class="input-images" data-maxfiles="5"></div>
 						</div>
 					</div>
 				</div>

@@ -21,18 +21,21 @@ public interface LocationDao {
 	List<Object[]> listSelect2();
 
 	/**
-	 * Metodo para dar de alta una Localizacion
+	 * Metodo para dar de alta y modificar una Localizacion
 	 * @param location Se le pasa por argumento un objeto de la clase Location
-	 * @return Devuelve el id de la Localizacion añadida.
+	 * @param city Se le pasa por argumento un objeto de la clase City
+	 * @param county Se le pasa por argumento un objeto de la clase County
+	 * @param country Se le pasa por argumento un objeto de la clase Country
+	 * @return
 	 */
-	Location create(Location location, City city, County county, Country country);
+	Location setLocation(Location location, City city, County county, Country country);
 
 	/**
-	 * Metodo para modificar una Localizacion
-	 * @param location Se le pasa por argumento un objeto de la clase Locationn
-	 * @return Devuelve el id de la Localizacion modificada.
+	 * Metodo para dar de modificar datos de una localizacion
+	 * @param location Se le pasa por argumento un objeto de la clase Location
+	 * @return
 	 */
-	Location update(Location location);
+	Location setLocation(Location location);
 
 	/**
 	 * Metetodos que comprueba si existe una Localizacion

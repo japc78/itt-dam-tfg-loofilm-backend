@@ -39,7 +39,7 @@ public class LocationService {
 
 	/**
 	 * Metodo que para el alta de de una localizacion
-	 * @param p Del tipo Location.
+	 * @param l Del tipo Location.
 	 * @param city Del tipo City. La ciudad a la que pertecene la localizacion.
 	 * @param county Del tipo County. La provincia o estado al que pertence la ciudad de la Localizacion.
 	 * @param country Del tipo Country. El pais al que pertenece la provincia a la que pertenece la Localiacion.
@@ -59,11 +59,11 @@ public class LocationService {
 				city = cityDao.exists(city);
 				l.setCity(city);
 			};
-			loDao.create(l,city,county, country);
+			loDao.setLocation(l,city,county, country);
 			return "OK-L00";
 		} else {
 			// Tanto la Address como la Localizacion existen.
-			return "ER-L01";
+			return "ER-L00";
 		}
 	}
 
@@ -72,12 +72,21 @@ public class LocationService {
 	 * @param l Objeto del tipo Location.
 	 * @return
 	 */
-	public String update(Location l) {
+	public String update(Location l, City city, County county, Country country) {
 		// Se comprueba si la localizacion existe.
-		if (!exists(l)) {
-			loDao.update(l);
+		if (exists(l)) {
+			if (countryDao.exists(country) != null) country = countryDao.exists(country);
+			county.setCountry(country);
+			if (countyDao.exists(county) != null) county = countyDao.exists(county);
+			city.setCounty(county);
+			if (cityDao.exists(city) != null) {
+				city = cityDao.exists(city);
+				l.setCity(city);
+			};
+			loDao.setLocation(l,city,county, country);
 			return "OK-L01";
 		} else {
+			// Tanto la Address como la Localizacion existen.
 			return "ER-L01";
 		}
 	}
@@ -93,7 +102,7 @@ public class LocationService {
 			Location l = new Location();
 			l = loDao.find(id);
 			l.setActive(active);
-			loDao.update(l);
+			loDao.setLocation(l);
 			return "OK-TC01";
 		} else {
 			return "ER-TC01";
@@ -120,16 +129,6 @@ public class LocationService {
 		} else {
 			return false;
 		}
-	}
-
-	/**
-	 * Metodo que elimina los () de la cadena de String de Coordeandas
-	 *
-	 * @param gps String de las coordeanas
-	 * @return String con la coordenadas sin () para especificar las coordenadas.
-	 */
-	public String gpsFormat(final String gps) {
-		return gps.replaceAll("[()]", "");
 	}
 
 	/**

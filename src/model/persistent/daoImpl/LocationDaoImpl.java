@@ -52,7 +52,7 @@ public class LocationDaoImpl implements LocationDao {
 	}
 
 	@Override
-	public Location create(Location location, City city, County county, Country country) {
+	public Location setLocation(Location location, City city, County county, Country country) {
 		if(!con.openConexion()) {
 			return null;
 		}
@@ -62,8 +62,7 @@ public class LocationDaoImpl implements LocationDao {
 		country.getCounties().add(county);
 		city.setCounty(county);
 		location.setCity(city);
-		con.getEm().persist(location);
-
+		con.getEm().merge(location);
 		et.commit();
 		con.closeConexion();
 
@@ -71,8 +70,9 @@ public class LocationDaoImpl implements LocationDao {
 		return location;
 	}
 
+
 	@Override
-	public Location update(Location location) {
+	public Location setLocation(Location location) {
 		if(!con.openConexion()) {
 			return null;
 		}

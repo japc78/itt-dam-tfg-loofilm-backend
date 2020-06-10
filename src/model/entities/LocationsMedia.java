@@ -38,6 +38,13 @@ public class LocationsMedia implements Serializable {
 		this.location = location;
 		this.filename = filename;
 	}
+	
+	/**
+	 * @param filename
+	*/
+	public LocationsMedia(String filename) {
+		this.filename = filename;
+	}
 
 	public int getId() {
 		return this.id;

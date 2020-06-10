@@ -42,7 +42,7 @@ public class Location implements Serializable {
 	private String web;
 
 	//bi-directional many-to-one association to City
-	@ManyToOne(cascade= CascadeType.MERGE)
+	@ManyToOne(cascade= CascadeType.MERGE) 
 	@JoinColumn(name="cityId")
 	private City city;
 
@@ -61,8 +61,24 @@ public class Location implements Serializable {
 	public Location() {
 	}
 
+	public Location(int id, boolean active, String name, String description, String email, String gps,  String phone,
+	String postalcode, String street, String web, City city ){
+		super();
+		this.id = id;
+		this.active = active;
+		this.description = description;
+		this.email = email;
+		this.gps = gps;
+		this.name = name;
+		this.phone = phone;
+		this.postalcode = postalcode;
+		this.street = street;
+		this.web = web;
+		this.city = city;
+	}
+
 	public Location(String name, String description, String email, String gps,  String phone,
-			String postalcode, String street, String web, City city ){
+	String postalcode, String street, String web, City city ){
 		super();
 		this.active = true;
 		this.description = description;

@@ -19,28 +19,13 @@ import model.entities.County;
 import model.entities.Location;
 import model.entities.LocationsMedia;
 import model.services.LocationService;
-
-/**
- * Servlet implementation class ServletLocationCreate
- */
-
-@WebServlet("/location-create")
+@WebServlet("/location-update")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
                  maxFileSize=1024*1024*10,      // 10MB
                  maxRequestSize=1024*1024*50)   // 50MB
-public class ServletLocationCreate extends HttpServlet {
-	private static final long serialVersionUID = 4089613927822307019L;
+public class ServletLocationUpdate extends HttpServlet {
+	private static final long serialVersionUID = -1952783503110422356L;
 	private static final String UPLOAD_DIRECTORY = "locations";
-
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.setAttribute("withMaps", 1);
-		req.setAttribute("isForm", 1);
-		req.setAttribute("isList", 0);
-		req.setAttribute("withSelect2", 0);
-
-		req.getRequestDispatcher("location-create.jsp").forward(req, resp);
-	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -48,26 +33,30 @@ public class ServletLocationCreate extends HttpServlet {
 		// Se instancia las entidades y servicios necesarios.
 		LocationService ls = new LocationService();
 
+		System.out.println("id " + req.getParameter("id"));
+
+		int id 				= Integer.parseInt(req.getParameter("id"));
+		boolean active 		= Boolean.parseBoolean(req.getParameter("active"));
 		String name 		= req.getParameter("name");
 		String description 	= req.getParameter("description");
 		String street 		= req.getParameter("street");
 		String web			= req.getParameter("web");
 		String email		= req.getParameter("email");
 		String phone		= req.getParameter("phone");
+		String city			= req.getParameter("locality");
+		String postal_code 	= req.getParameter("postal_code");
+		String county 		= req.getParameter("administrative_area_level_2");
+		String country 		= req.getParameter("country");
+		String countryCode 	= req.getParameter("countryCode");
+		String gps 			= req.getParameter("gps");
 
-		String city = req.getParameter("locality");
-		String postal_code = req.getParameter("postal_code");
-		String county = req.getParameter("administrative_area_level_2");
-		String country = req.getParameter("country");
-		String countryCode = req.getParameter("countryCode");
-		String gps = req.getParameter("gps");
 		List<LocationsMedia> images = new ArrayList<>();
 
 		Country c = new Country(countryCode , country);
 		County co = new County(county);
 		City ci = new City(city);
 
-		Location l = new Location(name, description, email, gps, phone, postal_code, street, web, ci);
+		Location l = new Location(id, active, name, description, email, gps, phone, postal_code, street, web, ci);
 
 
 		// Subida de ficheros
@@ -88,30 +77,7 @@ public class ServletLocationCreate extends HttpServlet {
 
 		l.setLocationsMedias(images);
 
-
-		// l.setName(name);
-		// l.setDescription(description);
-		// l.setStreet(street);
-		// l.setPostalcode(postal_code);
-		// l.setWeb(web);
-		// l.setEmail(email);
-		// l.setPhone(phone);
-		// l.setGps(gps);
-
-		// System.out.println(l.toString());
-		// System.out.println(c.toString());
-		// System.out.println(co.toString());
-		// System.out.println(ci.toString());
-
-		// c = countryService.add(c);
-		// System.out.println("ServletLocation - Pais: " + c.getCountryCode() + " - " + c.getCountry());
-		// co = countyService.add(co, c);
-		// System.out.println("ServletLocation - Provincia: " + co.toString());
-		// System.out.println(co.getId());
-		// ci = cityService.add(ci, co);
-		// System.out.println(ci.getCity());
-
-		String result = ls.add(l,ci,co,c);
+		String result = ls.update(l,ci,co,c);
 		System.out.println(result);
 
 		// Se procesa la respuesta.
