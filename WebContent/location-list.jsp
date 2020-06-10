@@ -38,14 +38,14 @@
                   <th>País</th>
                   <th style="width: 5%;" class="text-center">Produc.</th>
                   <th style="width: 2%;" class="text-center">Estado</th>
-                  <th style="min-width: 120px;"class="no-sort text-center"></th>
+                  <th style="min-width: 130px;"class="no-sort text-center"></th>
                 </tr>
               </thead>
               <tbody>
                 <c:forEach items="${locations}" var="l">
                 <tr>
                   <td>${l[0].id}</td>
-                  <td><img src="images/locations/${(l[0].locationsMedias[0].filename != null) ? l[0].locationsMedias[0].filename : 'default.png' }" width="50px"></td> 
+                  <td><img src="images/locations/${(l[0].locationsMedias[0].filename != null) ? l[0].locationsMedias[0].filename : 'default.png' }" width="50px"></td>
                   <td>${l[0].name}</td>
                   <td>${l[0].city.city}</td>
                   <td>${l[0].city.county.county}</td>
