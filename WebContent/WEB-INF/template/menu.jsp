@@ -15,7 +15,7 @@
 	<!-- Right navbar links -->
 	<ul class="navbar-nav ml-auto">
 		<li class="nav-item user user-menu">
-		<small>Juan Antonio <%= request.getRequestURL().substring(request.getRequestURL().lastIndexOf("/")+1) %> </small><button type="button" class="btn btn-info btn-xs ml-3">Salir</button>
+		<small> </small><a href="login" class="btn btn-info btn-xs ml-3">Salir</a>
 		</li>
 	</ul>
 </nav>

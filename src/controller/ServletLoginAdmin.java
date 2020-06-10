@@ -19,12 +19,24 @@ import model.services.LoginUser;
 public class ServletLoginAdmin extends HttpServlet {
 	private static final long serialVersionUID = 313045378965602880L;
 
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		req.setAttribute("withMaps", 0);
+		req.setAttribute("isForm", 0);
+		req.setAttribute("isList", 0);
+		req.setAttribute("withSelect2", 0);
+
+		req.getRequestDispatcher("index.jsp").forward(req, resp);
+	}
+
 	/**
 	 * Gestiona el Login de los administradores a la Backend de la App
 	 *
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)	throws ServletException, IOException {
 		// Se captura los datos del formulario.
 		String email = req.getParameter("email");
@@ -72,7 +84,7 @@ public class ServletLoginAdmin extends HttpServlet {
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
 				break;
 			default:
-				String url = req.getRequestURL().toString();				
+				String url = req.getRequestURL().toString();
 				req.setAttribute("url", url);
 				req.getRequestDispatcher("dashboard.jsp").forward(req, resp);
 				break;
