@@ -1,5 +1,7 @@
 package test;
 
+import model.entities.Location;
+import model.entities.LocationsMedia;
 import model.services.LocationService;
 import model.services.ProductionService;
 import model.services.SceneService;
@@ -11,13 +13,21 @@ public class testQueryJPQ {
 		ProductionService ps = new ProductionService();
 		SceneService ss = new SceneService();
 
+		Location l = new Location();
+
 
 		// Localizaciones
-			for (Object[] l : ls.list()) {
-				for (int i = 0; i < l.length; i++) {
-					System.out.print("- " + l[i]);
-				}
-				System.out.print("\n");
+			// for (Object[] l : ls.list()) {
+			// 	for (int i = 0; i < l.length; i++) {
+			// 		System.out.print("- " + l[i]);
+			// 	}
+			// 	System.out.print("\n");
+			// }
+
+			l = ls.find(52);
+
+			for (LocationsMedia img : l.getLocationsMedias()) {
+				System.out.println(img.getFilename());
 			}
 
 

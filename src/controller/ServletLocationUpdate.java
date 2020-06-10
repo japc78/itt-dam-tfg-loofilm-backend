@@ -3,7 +3,11 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -34,6 +38,8 @@ public class ServletLocationUpdate extends HttpServlet {
 		// Se instancia las entidades y servicios necesarios.
 		LocationService ls = new LocationService();
 		LocationsMediaService lms = new LocationsMediaService();
+		Location l = new Location();
+		Location lUpdate = new Location();
 
 		System.out.println("id " + req.getParameter("id"));
 
@@ -51,15 +57,31 @@ public class ServletLocationUpdate extends HttpServlet {
 		String country 		= req.getParameter("country");
 		String countryCode 	= req.getParameter("countryCode");
 		String gps 			= req.getParameter("gps");
+		// Convierto el array de ids de las antiguas imagenes a una lista.
+		// https://mkyong.com/java/java-convert-array-to-arraylist/
+		List<String> oldImg  =  new ArrayList<>(Arrays.asList(req.getParameterValues("oldimg[]")));
 
+		// Se crea una lista para las imagenes
 		List<LocationsMedia> images = new ArrayList<>();
+		List<LocationsMedia> delImages = new ArrayList<>();
 
 		Country c = new Country(countryCode , country);
 		County co = new County(county);
 		City ci = new City(city);
 
-		Location l = new Location(id, active, name, description, email, gps, phone, postal_code, street, web, ci);
+		lUpdate = new Location(id, active, name, description, email, gps, phone, postal_code, street, web, ci); 
 
+		l = ls.find(id);
+
+		// Se añaden las imágenes ya exsitentes.
+		for (LocationsMedia img : l.getLocationsMedias()) {
+			// Se add a la lista si se encuentra en los datos recibidos.
+			if (oldImg.contains(String.valueOf(img.getId()))) {
+				images.add(img);
+			} else {
+				delImages.add(img);
+			}
+		}
 
 		// Subida de ficheros
 		String uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + UPLOAD_DIRECTORY;
@@ -79,14 +101,15 @@ public class ServletLocationUpdate extends HttpServlet {
 				// Se comprueba que no haya un fichero con el mismo nombre, si existiera, se le cambia el nombre para guardarlo.
 				fileName = lms.existsImage(fileName) ? img[0] + "-1." + img[1] : fileName;
 				System.out.println("Filename: " + fileName);
-				images.add(new LocationsMedia(fileName, l));
+				images.add(new LocationsMedia(fileName, lUpdate));
 				part.write(uploadPath + File.separator + fileName);
 			}
 		}
 
-		l.setLocationsMedias(images);
+		// Se add las imagenes a la localizacion
+		lUpdate.setLocationsMedias(images);
 
-		String result = ls.update(l,ci,co,c);
+		String result = ls.update(lUpdate,ci,co,c);
 		System.out.println(result);
 
 		// Se procesa la respuesta.
@@ -97,6 +120,13 @@ public class ServletLocationUpdate extends HttpServlet {
 				req.getRequestDispatcher("location-create.jsp").forward(req, resp);
 				break;
 			default:
+				for (LocationsMedia img : delImages) {
+					File file = new File(uploadPath + File.separator + img.getFilename());
+					if (file.exists()) {
+						file.delete();
+					}
+				}
+
 				req.setAttribute("msgType", "ok");
 				req.setAttribute("msg", "Elemento añadido correctamente");
 

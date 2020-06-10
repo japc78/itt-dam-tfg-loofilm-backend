@@ -140,13 +140,11 @@
 					</div>
 					<div class="card-body">
 						<div class="form-group">
-							<div>
-								<ul>
+							<ul>
 								<c:forEach items="${location.locationsMedias}" var="img">
-									<li><img src="${path}${img.filename}" alt=""></li>
+									<li><img class="image" src="${path}${img.filename}" data-id="${img.id}"></li>
 								</c:forEach>
-								</ul>
-							</div>
+							</ul>
 							<div class="input-images" data-maxfiles="5"></div>
 						</div>
 					</div>

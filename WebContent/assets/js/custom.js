@@ -186,13 +186,35 @@ $(document).ready(function () {
 		maxfiles = $('.input-images').data("maxfiles");
 		// console.log("Max files: " + maxfiles);
 
+		// Se recogen las imagenes en el dom
+		let images = $('.image');
+		// console.log(images);
+
+		// Se recoge el elemento padre.
+		const parent = images.closest('ul');
+		// console.log(parent);
+
+		//Se crea el array donde se ubicarana las imagenes para el script.
+		let preloaded = [];
+
+		// Se add las imagenes como objetos, con su id y la url
+		$.each(images, function(index, img) {
+			preloaded.push({id: img.getAttribute("data-id"), src: img.src})
+		});
+		// console.log(preloaded);
+
+		// Se elimina el ul para mostar solo el modo visualizacion del script.
+		parent.remove();
+
 		$('.input-images').imageUploader({
-				label: 'Arrstre y suelte los archivos aquí o haga clic para navegar',
-				maxFiles: maxfiles,
-				maxSize: 2097152, // 2Mb
-				mimes: ['image/jpeg'],
-				extensions: ['.jpg', '.jpeg']
-			}
-		);
+			label: 'Arrstre y suelte los archivos aquí o haga clic para navegar',
+			preloaded: preloaded,
+			maxFiles: maxfiles,
+			maxSize: 2097152, // 2Mb
+			mimes: ['image/jpeg'],
+			extensions: ['.jpg', '.jpeg'],
+			imagesInputName: 'img',
+			preloadedInputName: 'oldimg'
+		});
 	}
 });
