@@ -13,7 +13,7 @@ public class ServletHome extends HttpServlet{
 	private static final long serialVersionUID = -1696553553951560130L;
 
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setAttribute("withMaps", 0);
 		req.setAttribute("isForm", 0);
 		req.setAttribute("isList", 0);

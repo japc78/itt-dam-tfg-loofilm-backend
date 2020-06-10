@@ -72,7 +72,9 @@ public class ServletLoginAdmin extends HttpServlet {
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
 				break;
 			default:
-				req.getRequestDispatcher("home").forward(req, resp);
+				String url = req.getRequestURL().toString();				
+				req.setAttribute("url", url);
+				req.getRequestDispatcher("dashboard.jsp").forward(req, resp);
 				break;
 		}
 	}
