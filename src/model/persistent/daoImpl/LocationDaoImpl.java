@@ -123,6 +123,4 @@ public class LocationDaoImpl implements LocationDao {
 		}
 		return null;
 	}
-
-
 }

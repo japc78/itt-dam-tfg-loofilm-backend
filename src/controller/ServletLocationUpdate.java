@@ -19,6 +19,7 @@ import model.entities.County;
 import model.entities.Location;
 import model.entities.LocationsMedia;
 import model.services.LocationService;
+import model.services.LocationsMediaService;
 @WebServlet("/location-update")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
                  maxFileSize=1024*1024*10,      // 10MB
@@ -32,6 +33,7 @@ public class ServletLocationUpdate extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		// Se instancia las entidades y servicios necesarios.
 		LocationService ls = new LocationService();
+		LocationsMediaService lms = new LocationsMediaService();
 
 		System.out.println("id " + req.getParameter("id"));
 
@@ -69,6 +71,13 @@ public class ServletLocationUpdate extends HttpServlet {
 			String fileName = getFileName(part);
 
 			if (!fileName.isEmpty()) {
+				System.out.println("Filename: " + fileName);
+				String img[] = fileName.split("\\.");
+				for (String i : img) {
+					System.out.println("img:" + i);
+				}
+				// Se comprueba que no haya un fichero con el mismo nombre, si existiera, se le cambia el nombre para guardarlo.
+				fileName = lms.existsImage(fileName) ? img[0] + "-1." + img[1] : fileName;
 				System.out.println("Filename: " + fileName);
 				images.add(new LocationsMedia(fileName, l));
 				part.write(uploadPath + File.separator + fileName);

@@ -58,4 +58,5 @@ public interface LocationDao {
 	 * @return Devuelve el Localizacion.
 	 */
 	Location exists (Location location);
+
 }

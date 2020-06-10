@@ -19,6 +19,7 @@ import model.entities.County;
 import model.entities.Location;
 import model.entities.LocationsMedia;
 import model.services.LocationService;
+import model.services.LocationsMediaService;
 
 /**
  * Servlet implementation class ServletLocationCreate
@@ -47,6 +48,7 @@ public class ServletLocationCreate extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		// Se instancia las entidades y servicios necesarios.
 		LocationService ls = new LocationService();
+		LocationsMediaService lms = new LocationsMediaService();
 
 		String name 		= req.getParameter("name");
 		String description 	= req.getParameter("description");
@@ -81,35 +83,19 @@ public class ServletLocationCreate extends HttpServlet {
 
 			if (!fileName.isEmpty()) {
 				System.out.println("Filename: " + fileName);
+				String img[] = fileName.split("\\.");
+				for (String i : img) {
+					System.out.println("img:" + i);
+				}
+				// Se comprueba que no haya un fichero con el mismo nombre, si existiera, se le cambia el nombre para guardarlo.
+				fileName = lms.existsImage(fileName) ? img[0] + "-1." + img[1] : fileName;
+				System.out.println("Filename: " + fileName);
 				images.add(new LocationsMedia(fileName, l));
 				part.write(uploadPath + File.separator + fileName);
 			}
 		}
 
 		l.setLocationsMedias(images);
-
-
-		// l.setName(name);
-		// l.setDescription(description);
-		// l.setStreet(street);
-		// l.setPostalcode(postal_code);
-		// l.setWeb(web);
-		// l.setEmail(email);
-		// l.setPhone(phone);
-		// l.setGps(gps);
-
-		// System.out.println(l.toString());
-		// System.out.println(c.toString());
-		// System.out.println(co.toString());
-		// System.out.println(ci.toString());
-
-		// c = countryService.add(c);
-		// System.out.println("ServletLocation - Pais: " + c.getCountryCode() + " - " + c.getCountry());
-		// co = countyService.add(co, c);
-		// System.out.println("ServletLocation - Provincia: " + co.toString());
-		// System.out.println(co.getId());
-		// ci = cityService.add(ci, co);
-		// System.out.println(ci.getCity());
 
 		String result = ls.add(l,ci,co,c);
 		System.out.println(result);

@@ -38,7 +38,7 @@ public class LocationsMedia implements Serializable {
 		this.location = location;
 		this.filename = filename;
 	}
-	
+
 	/**
 	 * @param filename
 	*/
@@ -81,6 +81,43 @@ public class LocationsMedia implements Serializable {
 	/*
 	 * (non-Javadoc)
 	 *
+	 * @see java.lang.Object#hashCode()
+	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((filename == null) ? 0 : filename.hashCode());
+		return result;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		LocationsMedia other = (LocationsMedia) obj;
+		if (filename == null) {
+			if (other.filename != null)
+				return false;
+		} else if (!filename.equals(other.filename))
+			return false;
+		return true;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 *
 	 * @see java.lang.Object#toString()
 	 */
 
@@ -89,6 +126,4 @@ public class LocationsMedia implements Serializable {
 		return "LocationsMedia [createDate=" + createDate + ", filename=" + filename + ", id=" + id + ", location="
 				+ location + "]";
 	}
-
-
 }
