@@ -58,7 +58,7 @@
                     </div>
                    </td>
                   <td class="project-actions text-right">
-                    <a class="btn btn-primary btn-xs" href="location?id=${l[0].id}">Ver</a>
+                    <a class="btn btn-primary btn-xs" href="location?id=${l[0].id}&page=view">Ver</a>
                     <a class="btn btn-info btn-xs btnEdit" href="location?id=${l[0].id}">Editar</a>
                     <a id="del-${l[0].id}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
                   </td>
