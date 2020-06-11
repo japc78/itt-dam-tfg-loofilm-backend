@@ -34,6 +34,18 @@
 	<script src="assets/js/maps.js"></script>
 </c:if>
 
+<c:if test="${withBasicMaps ge 1}">
+	<!-- Googole maps -->
+	<script src="https://maps.googleapis.com/maps/api/js?v=weekly&key=AIzaSyAtE8CLC9umWj6xxhoQIdZ7kK-iKzcWZY0&language=es-ES&callback=basicMap" async defer></script>
+	<script src="assets/js/maps.js"></script>
+</c:if>
+
+
+<c:if test="${withFancyBox ge 1}">
+	<!-- Googole maps -->
+	<script src="assets/js/jquery.fancybox.min.js"></script>
+</c:if>
+
 <!-- AdminLTE App -->
 <script src="assets/js/adminlte.min.js"></script>
 <script src="assets/js/custom.js"></script>

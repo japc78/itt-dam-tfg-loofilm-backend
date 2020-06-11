@@ -21,5 +21,8 @@ La tecnologías `Java`, `Maven`, `JPA`, `Web`, `JDBC`, `Servlet`, `MVC`, `JSP`, 
 ## Listados
 [DataTables](https://datatables.net/)
 
+## Visualizacion de imagenes
+[Fancybox](http://fancyapps.com/fancybox/3/) -> [Github](https://github.com/fancyapps/fancybox)
+
 Juan Antonio Pavón Carmona.  
 ITT DAM 2018/20.

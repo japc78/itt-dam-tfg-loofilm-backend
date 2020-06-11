@@ -25,10 +25,16 @@ public class ServletLocation extends HttpServlet{
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		LocationService ls = new LocationService();
 
-		String page = req.getParameter("page");
+		String page = (!req.getParameter("page").isEmpty())? req.getParameter("page") : "edit";
 
-		req.setAttribute("withMaps", 1);
-		req.setAttribute("isList", 0);
+		if (req.getParameter("page").equals("view")) {
+			req.setAttribute("isList", 1);
+			req.setAttribute("withBasicMaps", 1);
+			req.setAttribute("withFancyBox", 1);
+		} else {
+			req.setAttribute("withMaps", 1);
+			req.setAttribute("isList", 0);
+		}
 		req.setAttribute("isForm", 1);
 		req.setAttribute("withSelect2", 0);
 
@@ -48,7 +54,7 @@ public class ServletLocation extends HttpServlet{
 
 		req.setAttribute("path", path);
 
-		if (page.equals(page)) {
+		if (page.equals("view")) {
 			req.getRequestDispatcher("location-view.jsp").forward(req, resp);
 		} else {
 			req.getRequestDispatcher("location.jsp").forward(req, resp);

@@ -6,7 +6,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1>Ver: ${location.id} - ${location.name} </h1>
+				<h1><span class="badge badge-primary">${location.id}</span> ${location.name} </h1>
 			</div>
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
@@ -23,16 +23,20 @@
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-4">
-				<div class="card card-primary card-outline">
+				<div class="card card-primary">
 					<div class="card-header">
-						<h3 class="mb-0">${location.name}</h3>
-						<p class="text-muted mb-0">${location.city.city}</p>
-	              	</div>
+						<h3 class="card-title">Informacion general</h3>
+					</div>
 					<div class="card-body box-profile">
+
+
 						<div id="map" class="map rounded mb-3"></div>
-
 						<p class="text-muted">${location.description}</p>
-
+						<div class="row">
+							<c:forEach items="${location.locationsMedias}" var="img">
+								<div class="col-md-4"><a data-fancybox="gallery" href="${path}${location.locationsMedias[0].filename}"><img class="img-fluid" src="${path}${location.locationsMedias[0].filename}"></a></div>
+							</c:forEach>
+						</div>
 						<hr>
 
 						<strong><i class="fas fa-map-marker-alt mr-1"></i> Ubicación</strong>
@@ -42,13 +46,62 @@
 						</p>
 						<p><a class="btn btn-primary btn-sm" href="http://maps.google.co.uk/maps?daddr={$location.gps}&amp;sll={$location.gps}&amp;vpsrc=6&amp;mra=mift&amp;z=7" target="_blank">¿Cómo llegar?</a>
 						</p>
+
+						<c:if test="${not empty location.web or not empty location.email or not empty location.phone }">
 						<hr>
-						<strong><i class="fas fa-address-card mr-1"></i> Información de contacto</strong>
-						<p class="text-muted">
-							<span>${location.web}</span>
-							<span>${location.email}</span>
-							<span>${location.phone}</span>
+						<strong><i class="fas fa-info-circle"></i> Información de contacto</strong>
+						<p>
+							<c:if test="${not empty location.web}"><span class="d-block"><b>Web: </b><a class="link" href="${location.web}">${location.web}</a></span></c:if>
+							<c:if test="${not empty location.email}"><span class="d-block"><b>Email: </b><a class="link" href="mailto:${location.email}">${location.email}</a></span></c:if>
+							<c:if test="${not empty location.phone}"><span class="d-block"><b>Teléfono: </b><a class="link" href="tel:${location.phone}">${location.phone}</a></span></c:if>
 						</p>
+						</c:if>
+					</div>
+					<!-- /.card-body -->
+				</div>
+			</div>
+
+			<div class="col-md-8">
+				<div class="card card-primary">
+					<div class="card-header">
+						<h3 class="card-title">Escenas rodadas</h3>
+					</div>
+					<div class="card-body">
+						<table id="list_object" data-type="scene" class="table table-bordered table-striped">
+						<thead>
+							<tr>
+							<th style="width: 1%;">id</th>
+							<th style="width: 5%;" class="no-sort">Imagen</th>
+							<th>Nombre</th>
+							<th style="width: 5%;">Produccion</th>
+							<th style="width: 5%;">Tipo</th>
+							<th style="width: 2%;" class="text-center">Estado</th>
+							<th style="max-width: 120px;" class="no-sort"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach items="${location.scenes}" var="s">
+							<tr id="production-${p[0]}">
+							<td>${s.id}</td>
+							<td><img src="images/scenes/${s.scenesMedias[0].filename != null ? s.scenesMedias[0].filename : 'default.png'}" height="50px"></td>
+							<td>${s.name}</td>
+							<td>${s.production.name}</td>
+							<td>${s.production.type eq 0 ? 'serie':'film'}</td>
+							<td class="text-center">
+								<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
+									<input type="checkbox" class="custom-control-input check" id="check-${s.id}" ${s.active eq 'false' ? '': 'checked'}>
+									<label class="custom-control-label" for="check-${s.id}"><span class="hidden">${s.active}</span></label>
+								</div>
+							</td>
+							<td class="project-actions text-right">
+								<a class="btn btn-primary btn-xs" href="#">Ver</a>
+								<a class="btn btn-info btn-xs" href="#">Editar</a>
+								<a id="del-${s.id}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
+							</td>
+							</tr>
+							</c:forEach>
+						</tbody>
+						</table>
 					</div>
 					<!-- /.card-body -->
 				</div>
@@ -56,147 +109,13 @@
 		</div>
 	</div>
 
-
-
-	<form id="form" action="location-update" method="post" enctype="multipart/form-data">
-		<div class="row">
-			<div class="col-md-6">
-				<!-- Card GPS -->
-				<div class="card card-info">
-					<div class="card-header">
-						<h3 class="card-title">Localización</h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-								<i class="fas fa-minus"></i></button>
-						</div>
-					</div>
-					<div class="card-body">
-						<div class="form-group">
-							<input id="pac-input" class="form-control mb-3" type="text" placeholder="Escribe la dirección de la localización" autocomplete="off">
-							<div id="map" class="map rounded"></div>
-						</div>
-						<div class="form-group">
-							<div class="">
-								<ul id="addressPreview" class="infoAddress alert-default-info list-unstyled rounded p-3">
-									<li class="small gps"><b>Coordenadas:</b> ${location.gps}</li>
-									<li class="small locality"><b>Ciudad:</b> ${location.city.city}</li>
-									<li class="small administrative_area_level_2"><b>Provincia:</b> ${location.city.county.county}</li>
-									<li class="small country"><b>Pais:</b> ${location.city.county.country.country}</li>
-									<li class="small postal_code"><b>Código Postal:</b> ${location.postalcode}</li>
-								</ul>
-							</div>
-
-							<!-- <textarea id="inputAddressPreview" class="form-control" rows="3" disabled="" name="inputAddressPreview"></textarea> -->
-							<input type="hidden" id="inputId" name="id" value="${location.id}">
-							<input type="hidden" id="inputId" name="active" value="${location.active}">
-							<input type="hidden" id="inputCity" name="locality" value="${location.city.city}">
-							<input type="hidden" id="inputPostalCode" name="postal_code" value="${location.postalcode}">
-							<input type="hidden" id="inputCounty" name="administrative_area_level_2" value="${location.city.county.county}">
-							<input type="hidden" id="inputCountry" name="country" value="${location.city.county.country.country}">
-							<input type="hidden" id="inputCountryCode" name="countryCode" value="${location.city.county.country.countryCode}">
-							<input type="hidden" id="inputGps" name="gps" value="${location.gps}">
-							<%-- <button type="submit" class="btn btn-primary mt-2">Corregir textos</button> --%>
-
-						</div>
-						<!-- <div class="form-group">
-							<label for="inputGPS">GPS <small>(coordenadas GPS: Latitud,Longitud)</small></label>
-							<input type="text" id="inputGPS" class="form-control" name="inputGPS" disabled>
-							<small>Haz Click para obtener Ciudad, Provincia o Estado, y País de la Localización.</small>
-							<button type="submit" class="btn btn-primary mt-2">Obtener</button>
-						</div> -->
-					</div>
-				</div>
-			</div>
-
-			<div class="col-md-6">
-				<div class="card card-info">
-					<div class="card-header">
-						<h3 class="card-title">General</h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-								<i class="fas fa-minus"></i></button>
-						</div>
-					</div>
-					<div class="card-body">
-						<div class="form-group">
-							<label for="inputName">Nombre <small>max. 180 caracteres</small></label>
-							<input type="text" id="inputName" class="form-control maxlength" name="name" maxlength="180" required value="${location.name}">
-						</div>
-						<div class="form-group">
-							<label for="inputDescription">Descripción <small>máx. 500 caracteres.</small></label>
-							<textarea id="inputDescription" class="form-control maxlength" rows="4" name="description" maxlength="500" required>${location.description}</textarea>
-						</div>
-					</div>
-					<!-- /.card-body -->
-				</div>
-				<!-- /.card -->
-
-				<div class="card card-info">
-					<div class="card-header">
-						<h3 class="card-title">Info</h3>
-
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-								<i class="fas fa-minus"></i></button>
-						</div>
-					</div>
-					<div class="card-body">
-						<div class="form-group">
-							<label for="inputStreet">Dirección <small>max. 320 caracteres.</small></label>
-							<input type="text" id="inputStreet" class="form-control maxlength mb-3" name="street" maxlength="320" required value="${location.street}">
-						</div>
-
-						<div class="form-group">
-							<label for="inputWeb">Web <small>max. 320 caracteres</small></label>
-							<input type="url" id="inputWeb" class="form-control maxlength" name="web" placeholder="Ej. https://www.alhambra.com" maxlength="320" value="${location.web}">
-						</div>
-						<div class="form-group">
-							<label for="inputEmail">Email</label>
-							<input type="email" name="email" class="form-control maxlength" id="inputEmail" placeholder="Ej. info@alhambra.com" maxlength="320" value="${location.email}">
-						</div>
-
-						<div class="form-group">
-							<label for="inputPhone">Teléfono</label>
-							<input type="text" name="phone" class="form-control maxlength" id="inputPhone" placeholder="Ej. 999777888" maxlength="12" value="${location.phone}">
-						</div>
-					</div>
-					<!-- /.card-body -->
-				</div>
-			</div>
+	<div class="row pb-3">
+		<div class="col-12 text-right">
+			<input type="hidden" id="inputGps" name="gps" value="${location.gps}">
+			<a href="location?id=${location.id}&page=edit" class="btn btn-info mr-2">Editar</a>
+			<a href="location-list" class="btn btn-primary mr-2">Ir al listado</a>
 		</div>
-
-		<div class="row">
-			<div class="col-12">
-
-				<div class="card card-info">
-					<div class="card-header">
-						<h3 class="card-title">Imagenes <small>(max. 5 imágenes)</small></h3>
-						<div class="card-tools">
-							<button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-								<i class="fas fa-minus"></i></button>
-						</div>
-					</div>
-					<div class="card-body">
-						<div class="form-group">
-							<ul>
-								<c:forEach items="${location.locationsMedias}" var="img">
-									<li><img class="image" src="${path}${img.filename}" data-id="${img.id}"></li>
-								</c:forEach>
-							</ul>
-							<div class="input-images" data-maxfiles="5"></div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="row pb-3">
-			<div class="col-12 text-right">
-				<a href="#" class="btn btn-secondary mr-2">Cancelar</a>
-				<input type="submit" value="Guardar" class="btn btn-success float-right">
-			</div>
-		</div>
-	</form>
+	</div>
 </section>
 <!-- /.content -->
 

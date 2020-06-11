@@ -94,7 +94,46 @@ function initMap() {
 		}
 	});
 
-	// Al hacer click en el maracdor, se realiza un zoom automatico
+	markerZoom(marker);
+}
+
+function basicMap() {
+	const gps = document.getElementById("inputGps").value;
+	// Se crea un objeto del tipo LatLng de maps con las coordenadas recibidas.accent-lightblue
+	const location = new google.maps.LatLng(parseFloat(gps.split(',')[0]), parseFloat(gps.split(',')[1]));
+
+	var map = new google.maps.Map(document.getElementById('map'), {
+		center: {
+			lat: 40.4231,
+			lng: -3.6881
+		},
+		zoom: 5,
+		mapTypeId: "roadmap",
+		streetViewControl: false,
+	});
+
+	// Se crea el marcador asociando al mapa.
+	let marker = new google.maps.Marker({
+		map: map
+	});
+
+	map.setCenter(location);
+	map.setZoom(15);
+	marker.setPosition(location);
+	map.setCenter(location);
+
+	map.addListener("click", function (e) {
+		// console.log(e.placeId);
+		//Se evita que salgan los globos de los elementos de interes del mapa.
+		if (e.placeId) {
+			e.stop();
+		}
+	});
+
+}
+
+// Al hacer click en el maracdor, se realiza un zoom automatico
+function markerZoom(marker) {
 	marker.addListener('click', function () {
 		map.setZoom(19);
 		map.setCenter(marker.getPosition());
