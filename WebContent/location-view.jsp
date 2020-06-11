@@ -6,7 +6,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1><span class="badge badge-primary">${location.id}</span> ${location.name} </h1>
+				<h1><span class="badge badge-success">Ver</span> <span class="badge badge-primary">${location.id}</span> ${location.name} </h1>
 			</div>
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">

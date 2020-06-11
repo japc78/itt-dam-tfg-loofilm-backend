@@ -9,7 +9,7 @@ public interface ProductionDao {
 	 * Metodo que devuelve el listado de Producciones
 	 * @return Retora un listado de producciones con los siguiente informacion id, imagen, nombre, año, tipo y el numero de escenas de la produccion.
 	 */
-	List<Object[]> list();
+	List<Production> list();
 
 	/**
 	 * Metodo que devuelve un listado de Producciones series o films activas.
@@ -22,14 +22,7 @@ public interface ProductionDao {
 	 * @param production Se le pasa por argumento un objeto de la clase Production
 	 * @return Devuelve el la Produccion añadida.
 	 */
-	Production create(Production production);
-
-	/**
-	 * Metodo para modificar una Produccion
-	 * @param production Se le pasa por argumento un objeto de la clase Productionn
-	 * @return Devuelve la Produccion modificada.
-	 */
-	Production update(Production production);
+	Production setProduction(Production production);
 
 	/**
 	 * Metodo para borrar una Produccion

@@ -13,20 +13,22 @@ public class ProducctionDaoImpl implements ProductionDao {
 	Conexion con = new Conexion();
 
 	@Override
-	public List<Object[]> list() {
+	public List<Production> list() {
 		if(!con.openConexion()) {
 			return null;
 		}
 		// Se crea la consulta
-		String jpql = "SELECT p.id, p.name, p.year, p.type, "
-				+ "(SELECT COUNT(s) FROM Scene s WHERE s.production = p), p.active, p.filename "
-				+ "FROM Production p "
-				+ "ORDER BY p.id DESC";
+		// String jpql = "SELECT p "
+		// 		+ "(SELECT COUNT(s) FROM Scene s WHERE s.production = p), p.active, p.filename "
+		// 		+ "FROM Production p "
+		// 		+ "ORDER BY p.id DESC";
 
-		TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
+		// TypedQuery<Object[]> query = con.getEm().createQuery(jpql, Object[].class);
+
+		TypedQuery<Production> query = con.getEm().createNamedQuery("Production.findAll", Production.class);
 
 		//Se recogen los valores de la consulta.
-		List<Object[]> list = query.getResultList();
+		List<Production> list = query.getResultList();
 		return list;
 	}
 
@@ -46,7 +48,7 @@ public class ProducctionDaoImpl implements ProductionDao {
 	}
 
 	@Override
-	public Production create(Production production) {
+	public Production setProduction(Production production) {
 		if(!con.openConexion()) {
 			return null;
 		}
@@ -58,11 +60,6 @@ public class ProducctionDaoImpl implements ProductionDao {
 
 		//Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
 		return production;
-	}
-
-	@Override
-	public Production update(Production production) {
-		return create(production);
 	}
 
 	@Override
@@ -97,8 +94,8 @@ public class ProducctionDaoImpl implements ProductionDao {
 		}
 		List<Production> list = con.getEm().createNamedQuery("Production.findAll", Production.class).getResultList();
 
-		for (Production l : list) {
-			if(l.equals(production)) return l;
+		for (Production p : list) {
+			if(p.equals(production)) return p;
 		}
 		return null;
 	}

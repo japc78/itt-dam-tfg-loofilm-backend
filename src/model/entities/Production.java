@@ -19,23 +19,14 @@ public class Production implements Serializable {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int id;
-
-	private boolean active;
-
-	private String cast;
-
 	private Timestamp createDate;
-
-	private String description;
-
+	private boolean active;
 	private String name;
-
+	private String description;
+	private String cast;
 	private int type;
-
-	private String web;
-
 	private int year;
-
+	private String web;
 	private String filename;
 
 	//bi-directional many-to-one association to Scene
@@ -44,6 +35,18 @@ public class Production implements Serializable {
 
 	// Constructores de la clase
 	public Production() {
+	}
+
+	public Production(int id, boolean active, String name, int year, int type, String description, String cast, String web, String filename) {
+		this.id = id;
+		this.active = active;
+		this.name = name;
+		this.year = year;
+		this.type = type;
+		this.description = description;
+		this.cast = cast;
+		this.web = web;
+		this.filename = filename;
 	}
 
 	public Production(String name, int year, int type, String description, String cast, String web, String filename) {

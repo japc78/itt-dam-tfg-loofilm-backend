@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@include file="../WEB-INF/template/top.jsp"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <div class="container-fluid">
@@ -42,23 +43,23 @@
               </thead>
               <tbody>
                 <c:forEach items="${productions}" var="p">
-                <tr id="production-${p[0]}">
-                  <td>${p[0]}</td>
-                  <td><img src="images/productions/${p[6]}" height="50px"></td>
-                  <td>${p[1]}</td>
-                  <td>${p[2]}</td>
-                  <td>${p[3] eq 0 ? 'serie':'film'}</td>
-                  <td>${p[4]}</td>
+                <tr id="production-${p.id}">
+                  <td>${p.id}</td>
+                  <td><img src="images/productions/${(p.filename != '') ? p.filename : 'default.png'}" height="50px"></td>
+                  <td>${p.name}</td>
+                  <td>${p.year}</td>
+                  <td>${p.type eq 0 ? 'serie':'film'}</td>
+                  <td>${fn:length(p.scenes)}</td>
 					<td class="text-center">
 						<div class="custom-control custom-switch custom-switch-off-danger custom-switch-on-success">
-							<input type="checkbox" class="custom-control-input check" id="check-${p[0]}" ${p[5] eq 'false' ? '': 'checked'}>
-							<label class="custom-control-label" for="check-${p[0]}"><span class="hidden">${p[5]}</span></label>
+							<input type="checkbox" class="custom-control-input check" id="check-${p.id}" ${p.active eq 'false' ? '': 'checked'}>
+							<label class="custom-control-label" for="check-${p.id}"><span class="hidden">${p.active}</span></label>
 						</div>
 					</td>
                   <td class="project-actions text-right">
-                    <a class="btn btn-primary btn-xs" href="#">Ver</a>
-                    <a class="btn btn-info btn-xs" href="#">Editar</a>
-                    <a id="del-${p[0]}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
+                    <a class="btn btn-primary btn-xs" href="production?id=${p.id}&page=view">Ver</a>
+                    <a class="btn btn-info btn-xs" href="production?id=${p.id}&page=edit">Editar</a>
+                    <a id="del-${p.id}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
                   </td>
                 </tr>
                 </c:forEach>

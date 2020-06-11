@@ -72,22 +72,16 @@ public class LocationService {
 	 * @return
 	 */
 	public String update(Location l, City city, County county, Country country) {
-		// Se comprueba si la localizacion existe.
-		if (exists(l)) {
-			if (countryDao.exists(country) != null) country = countryDao.exists(country);
-			county.setCountry(country);
-			if (countyDao.exists(county) != null) county = countyDao.exists(county);
-			city.setCounty(county);
-			if (cityDao.exists(city) != null) {
-				city = cityDao.exists(city);
-				l.setCity(city);
-			};
-			loDao.setLocation(l,city,county, country);
-			return "OK-L01";
-		} else {
-			// Tanto la Address como la Localizacion existen.
-			return "ER-L01";
-		}
+		if (countryDao.exists(country) != null) country = countryDao.exists(country);
+		county.setCountry(country);
+		if (countyDao.exists(county) != null) county = countyDao.exists(county);
+		city.setCounty(county);
+		if (cityDao.exists(city) != null) {
+			city = cityDao.exists(city);
+			l.setCity(city);
+		};
+		l = loDao.setLocation(l,city,county, country);		
+		return (l != null)?"OK-LU1": "ER-LU1";
 	}
 
 	/**

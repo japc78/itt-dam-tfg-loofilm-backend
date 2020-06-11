@@ -12,7 +12,7 @@ public class ProductionService {
 	 * Metodo que devuelve el listado de Producciones
 	 * @return Retora un listado de producciones con los siguiente informacion id, imagen, nombre, año, tipo y el numero de escenas de la produccion.
 	 */
-	public List<Object[]> list() {
+	public List<Production> list() {
 		return pDao.list();
 	}
 
@@ -25,18 +25,29 @@ public class ProductionService {
 	}
 
 	/**
-	 * Metodo que para el alta de de una produccion
+	 * Metodo que para el alta una produccion
 	 * @param p Del tipo Production.
 	 * @return Retorna ER-P01 si ya hay un elmento igual en la BD y OK-P01 si el producto se
 	 *         ha dado de alta correctamente.
 	 */
 	public String add(Production p) {
 		if (!exists(p)) {
-			pDao.create(p);
+			pDao.setProduction(p);
 			return "OK-P00";
 		} else {
 			return "ER-P01";
 		}
+	}
+
+	/**
+	 * Metodo que para el actualizar una produccion
+	 * @param p Del tipo Production.
+	 * @return Retorna ER-PU1 si ya hay un elmento igual en la BD y OK-P01 si el producto se
+	 *         ha dado de alta correctamente.
+	 */
+	public String update(Production p) {
+		p = pDao.setProduction(p);
+		return (p != null)?"OK-PU0":"ER-PU1";
 	}
 
 	public String toggleCheck(int id, boolean active) {
@@ -44,7 +55,7 @@ public class ProductionService {
 			Production p = new Production();
 			p = pDao.find(id);
 			p.setActive(active);
-			pDao.update(p);
+			pDao.setProduction(p);
 			return "OK-TC01";
 		} else {
 			return "ER-TC01";

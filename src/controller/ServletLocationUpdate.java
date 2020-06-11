@@ -59,7 +59,7 @@ public class ServletLocationUpdate extends HttpServlet {
 		String gps 			= req.getParameter("gps");
 		// Convierto el array de ids de las antiguas imagenes a una lista.
 		// https://mkyong.com/java/java-convert-array-to-arraylist/
-		List<String> oldImg  =  new ArrayList<>(Arrays.asList(req.getParameterValues("oldimg[]")));
+		List<String> oldImg  = (req.getParameterValues("oldimg[]") != null) ? new ArrayList<>(Arrays.asList(req.getParameterValues("oldimg[]"))) : null;
 
 		// Se crea una lista para las imagenes
 		List<LocationsMedia> images = new ArrayList<>();
@@ -72,14 +72,16 @@ public class ServletLocationUpdate extends HttpServlet {
 		lUpdate = new Location(id, active, name, description, email, gps, phone, postal_code, street, web, ci); 
 
 		l = ls.find(id);
-
+		
 		// Se añaden las imágenes ya exsitentes.
-		for (LocationsMedia img : l.getLocationsMedias()) {
-			// Se add a la lista si se encuentra en los datos recibidos.
-			if (oldImg.contains(String.valueOf(img.getId()))) {
-				images.add(img);
-			} else {
-				delImages.add(img);
+		if (oldImg != null) {
+			for (LocationsMedia img : l.getLocationsMedias()) {
+				// Se add a la lista si se encuentra en los datos recibidos.
+				if (oldImg.contains(String.valueOf(img.getId()))) {
+					images.add(img);
+				} else {
+					delImages.add(img);
+				}
 			}
 		}
 
@@ -114,10 +116,16 @@ public class ServletLocationUpdate extends HttpServlet {
 
 		// Se procesa la respuesta.
 		switch (result) {
-			case "ER-L00":
+			case "ER-LU1":
+				req.setAttribute("withMaps", 1);
+				req.setAttribute("isList", 0);
+				req.setAttribute("isForm", 1);
+
+				req.setAttribute("locations", lUpdate);
+				
 				req.setAttribute("msgType", "error");
 				req.setAttribute("msg", "Error: La localizacion ya se encuentra en la BD");
-				req.getRequestDispatcher("location-create.jsp").forward(req, resp);
+				req.getRequestDispatcher("location.jsp").forward(req, resp);
 				break;
 			default:
 				for (LocationsMedia img : delImages) {
