@@ -42,8 +42,8 @@
 				<span>Inicio</span>
 			</a>
 			</li>
-			<li class="nav-item has-treeview ${fn:split(page[1], '-')[0] eq 'location' ? 'menu-open': ''}">
-				<a href="#" class="nav-link ${fn:split(page[1], '-')[0] eq 'location' ? 'active': ''}">
+			<li class="nav-item has-treeview ${fn:split(page[1], '-')[0] eq 'location' or fn:split(page[1], '.')[0] eq 'location' ? 'menu-open': ''}">
+				<a href="#" class="nav-link ${fn:split(page[1], '-')[0] eq 'location' or fn:split(page[1], '.')[0] eq 'location' ? 'active': ''}">
 					<i class="nav-icon fas fa-map-marker-alt"></i>
 					<p>
 						Localización
@@ -65,8 +65,8 @@
 					</li>
 				</ul>
 			</li>
-			<li class="nav-item has-treeview ${fn:split(page[1], '-')[0] eq 'production' ? 'menu-open': ''}">
-			<a href="#" class="nav-link ${fn:split(page[1], '-')[0] eq 'production' ? 'active': ''}">
+			<li class="nav-item has-treeview   ${fn:split(page[1], '-')[0] eq 'production' or fn:split(page[1], '.')[0] eq 'production'  ? 'menu-open': ''}">
+			<a href="#" class="nav-link ${fn:split(page[1], '-')[0] eq 'production' or fn:split(page[1], '.')[0] eq 'production' ? 'active': ''}">
 				<i class="nav-icon fas fa-video"></i>
 				<p>
 				Producción
@@ -88,8 +88,8 @@
 				</li>
 			</ul>
 			</li>
-			<li class="nav-item has-treeview ${fn:split(page[1], '-')[0] eq 'scene' ? 'menu-open': ''}">
-			<a href="#" class="nav-link ${fn:split(page[1], '-')[0] eq 'scene' ? 'active': ''}">
+			<li class="nav-item has-treeview ${fn:split(page[1], '-')[0] eq 'scene' or fn:split(page[1], '.')[0] eq 'scene' ? 'menu-open': ''}">
+			<a href="#" class="nav-link ${fn:split(page[1], '-')[0] eq 'scene' or fn:split(page[1], '.')[0] eq 'scene' ? 'active': ''}">
 				<i class="nav-icon fas fa-film"></i>
 				<p>
 				Escenas
