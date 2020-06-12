@@ -41,8 +41,9 @@
 						<p class="text-muted">
 							${location.street}, ${location.city.city} ${location.postalcode} <br>
 							${location.city.county.county}, ${location.city.county.country.country}
-						</p>
-						<p><a class="btn btn-primary btn-sm" href="http://maps.google.co.uk/maps?daddr={$location.gps}&amp;sll={$location.gps}&amp;vpsrc=6&amp;mra=mift&amp;z=7" target="_blank">¿Cómo llegar?</a>
+
+						
+						<p><a class="btn btn-primary btn-sm" href="https://www.google.es/maps/dir//${location.gps}/@${location.gps},12z" target="_blank">¿Cómo llegar?</a>
 						</p>
 
 						<c:if test="${not empty location.web or not empty location.email or not empty location.phone }">

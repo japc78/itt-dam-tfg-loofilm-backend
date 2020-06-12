@@ -94,7 +94,7 @@
 								${scene.location.street}, ${scene.location.city.city} ${scene.location.postalcode} <br>
 								${scene.location.city.county.county}, ${scene.location.city.county.country.country}
 							</p>
-							<p><a class="btn btn-primary btn-sm" href="http://maps.google.co.uk/maps?daddr={$location.gps}&amp;sll={$location.gps}&amp;vpsrc=6&amp;mra=mift&amp;z=7" target="_blank">¿Cómo llegar?</a>
+							<p><a class="btn btn-primary btn-sm" href="https://www.google.es/maps/dir//${scene.location.gps}/@${scene.location.gps},12z" target="_blank">¿Cómo llegar?</a>
 							</p>
 
 							<c:if test="${not empty scene.location.web or not empty scene.location.email or not empty scene.location.phone }">
