@@ -60,10 +60,4 @@ public class ServletLocation extends HttpServlet{
 			req.getRequestDispatcher("location.jsp").forward(req, resp);
 		}
 	}
-
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		super.doPost(req, resp);
-	}
 }
