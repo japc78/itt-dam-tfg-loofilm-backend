@@ -32,7 +32,7 @@
 						<p class="text-muted">${location.description}</p>
 						<div class="row">
 							<c:forEach items="${location.locationsMedias}" var="img">
-								<div class="col-md-4"><a data-fancybox="gallery" href="${path}${location.locationsMedias[0].filename}"><img class="img-fluid" src="${path}${location.locationsMedias[0].filename}"></a></div>
+								<div class="col-md-4"><a data-fancybox="gallery" href="${path}${img.filename}"><img class="img-fluid" src="${path}${img.filename}"></a></div>
 							</c:forEach>
 						</div>
 						<hr>

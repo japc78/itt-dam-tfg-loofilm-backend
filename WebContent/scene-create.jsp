@@ -86,7 +86,7 @@
 
 			<div class="row pb-3">
 				<div class="col-12 text-right">
-					<a href="#" class="btn btn-secondary mr-2">Cancelar</a>
+					<a href="scene-list" class="btn btn-secondary mr-2">Cancelar</a>
 					<input type="submit" value="Guardar" class="btn btn-success float-right" />
 				</div>
 			</div>

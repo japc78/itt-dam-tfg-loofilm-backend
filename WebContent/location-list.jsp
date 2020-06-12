@@ -37,7 +37,7 @@
                   <th>Provincia</th>
                   <th>País</th>
                   <th class="text-center">Produc.</th>
-                  <th class="text-center">Estado</th>
+                  <th style="width: 5%;" class="text-center">Estado</th>
                   <th style="width: 150px; "class="no-sort text-center"></th>
                 </tr>
               </thead>

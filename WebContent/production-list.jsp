@@ -38,7 +38,7 @@
                   <th style="width: 5%;">Tipo</th>
                   <th style="width: 5%;">Escenas</th>
  				  <th style="width: 2%;" class="text-center">Estado</th>
-                  <th style="max-width: 120px;" class="no-sort"></th>
+                  <th style="width: 120px;" class="no-sort"></th>
                 </tr>
               </thead>
               <tbody>
