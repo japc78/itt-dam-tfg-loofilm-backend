@@ -25,7 +25,7 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 	<!-- Brand Logo -->
 	<a href="home" class="brand-link">
-		<img src="assets/img/loofilm_icon.svg" alt="Loofilm" class="brand-image img-circle elevation-3">
+		<img src="assets/img/loofilm-icon.png" alt="Loofilm" class="brand-image img-circle">
 		<span class="brand-text font-weight-light">LOOFILM</span>
 	</a>
 
