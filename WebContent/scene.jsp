@@ -23,7 +23,7 @@
 
 	<!-- Main content -->
 	<section class="content">
-		<form id="form" action="scene-create" method="post" enctype="multipart/form-data">
+		<form id="form" action="scene-update" method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card card-primary">
@@ -61,20 +61,27 @@
 							<div class="form-group">
 								<label for="inputName">Nombre de la escena <small>max. 180 caracteres</small></label>
 								<input type="text" id="inputName" class="form-control maxlength" name="name" maxlength="180" required value="${scene.name}"/>
+								<input type="hidden" id="inputId" name="id" value="${scene.id}">
+								<input type="hidden" id="inputId" name="active" value="${scene.active}">
 							</div>
 
 							<div class="form-group">
 								<label for="inputDescription">Descripción <small>máx. 320 caracteres.</small></label>
-								<textarea id="inputDescription" class="form-control maxlength" rows="4" name="inputDescription" maxlength="320" required >${scene.description}</textarea>
+								<textarea id="inputDescription" class="form-control maxlength" rows="4" name="description" maxlength="320" required >${scene.description}</textarea>
 							</div>
 
 							<div class="form-group mb-3">
 								<label for="inputName">Añadir video  <small>Link Youtube</small></label>
-								<input id="inputVideo" type="text" class="form-control maxlength" placeholder="https://youtu.be/yST45Y1y5zU" value="${scene.video}" maxlength="320">
+								<input id="inputVideo" type="text" class="form-control maxlength" placeholder="https://youtu.be/yST45Y1y5zU" name="video" value="${scene.video}" maxlength="320">
 							</div>
 
 							<div class="form-group">
 								<label for="inputName">Imágenes <small>(max. 5 imágenes)</small></label>
+								<ul>
+									<c:forEach items="${scene.scenesMedias}" var="img">
+										<li><img class="image" src="${path}${img.filename}" data-id="${img.id}"></li>
+									</c:forEach>
+								</ul>
 								<div class="input-images" data-maxfiles="5"></div>
 							</div>
 						</div>
@@ -86,7 +93,7 @@
 
 			<div class="row pb-3">
 				<div class="col-12 text-right">
-					<a href="#" class="btn btn-secondary mr-2">Cancelar</a>
+					<a href="scene-list" class="btn btn-secondary mr-2">Cancelar</a>
 					<input type="submit" value="Guardar" class="btn btn-success float-right" />
 				</div>
 			</div>

@@ -65,12 +65,12 @@
 
 							<div class="form-group">
 								<label for="inputDescription">Descripción <small>máx. 320 caracteres.</small></label>
-								<textarea id="inputDescription" class="form-control maxlength" rows="4" name="inputDescription" maxlength="320" required ></textarea>
+								<textarea id="inputDescription" class="form-control maxlength" rows="4" name="description" maxlength="320" required ></textarea>
 							</div>
 
 							<div class="form-group mb-3">
 								<label for="inputName">Añadir video  <small>Link Youtube</small></label>
-								<input id="inputVideo" type="text" class="form-control maxlength" placeholder="https://youtu.be/yST45Y1y5zU" value="" maxlength="320">
+								<input id="inputVideo" type="text" class="form-control maxlength" placeholder="https://youtu.be/yST45Y1y5zU" name="video" value="" maxlength="320">
 							</div>
 
 							<div class="form-group">

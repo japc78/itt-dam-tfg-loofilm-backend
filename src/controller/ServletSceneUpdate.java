@@ -5,9 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.MultipartConfig;
@@ -17,65 +14,63 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-import model.entities.City;
-import model.entities.Country;
-import model.entities.County;
 import model.entities.Location;
-import model.entities.LocationsMedia;
+import model.entities.Production;
+import model.entities.Scene;
+import model.entities.ScenesMedia;
 import model.services.LocationService;
-import model.services.LocationsMediaService;
-@WebServlet("/location-update")
+import model.services.ProductionService;
+import model.services.SceneService;
+import model.services.ScenesMediaService;
+
+@WebServlet("/scene-update")
 @MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
                  maxFileSize=1024*1024*10,      // 10MB
-                 maxRequestSize=1024*1024*50)   // 50MB
-public class ServletLocationUpdate extends HttpServlet {
-	private static final long serialVersionUID = -1952783503110422356L;
-	private static final String UPLOAD_DIRECTORY = "locations";
+                 maxRequestSize=1024*1024*50)
+public class ServletSceneUpdate extends HttpServlet {
+	private static final long serialVersionUID = 2964130612854455678L;
+	private static final String UPLOAD_DIRECTORY = "scenes";
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
-		// Se instancia las entidades y servicios necesarios.
+
+		// Servicios necesarios
+		SceneService ss = new SceneService();
+		ScenesMediaService sms = new ScenesMediaService();
 		LocationService ls = new LocationService();
-		LocationsMediaService lms = new LocationsMediaService();
-		Location l = new Location();
-		Location lUpdate = new Location();
+		ProductionService ps = new ProductionService();
 
-		System.out.println("id " + req.getParameter("id"));
+		// Objetos necesarios
+		Location location = new Location();
+		Production production = new Production();
+		Scene s;
+		Scene sUpdate = new Scene();
 
+		// Se regocen los valores de los campos recibidos.
 		int id 				= Integer.parseInt(req.getParameter("id"));
 		boolean active 		= Boolean.parseBoolean(req.getParameter("active"));
-		String name 		= req.getParameter("name");
-		String description 	= req.getParameter("description");
-		String street 		= req.getParameter("street");
-		String web			= req.getParameter("web");
-		String email		= req.getParameter("email");
-		String phone		= req.getParameter("phone");
-		String city			= req.getParameter("locality");
-		String postal_code 	= req.getParameter("postal_code");
-		String county 		= req.getParameter("administrative_area_level_2");
-		String country 		= req.getParameter("country");
-		String countryCode 	= req.getParameter("countryCode");
-		String gps 			= req.getParameter("gps");
-		// Convierto el array de ids de las antiguas imagenes a una lista.
-		// https://mkyong.com/java/java-convert-array-to-arraylist/
+		int idLocation 				= Integer.parseInt(req.getParameter("location"));
+		int idProduction 			= Integer.parseInt(req.getParameter("production"));
+		String name 				= req.getParameter("name");
+		String description 			= req.getParameter("description");
+		String video				= req.getParameter("video");
 		List<String> oldImg  = (req.getParameterValues("oldimg[]") != null) ? new ArrayList<>(Arrays.asList(req.getParameterValues("oldimg[]"))) : null;
 
 		// Se crea una lista para las imagenes y otra paras las que se van a borrar del servidor.
-		List<LocationsMedia> images = new ArrayList<>();
-		List<LocationsMedia> delImages = new ArrayList<>();
+		List<ScenesMedia> images 	= new ArrayList<>();
+		List<ScenesMedia> delImages = new ArrayList<>();
 
-		Country c = new Country(countryCode , country);
-		County co = new County(county);
-		City ci = new City(city);
+		location = ls.find(idLocation);
+		production = ps.find(idProduction);
 
-		lUpdate = new Location(id, active, name, description, email, gps, phone, postal_code, street, web, ci);
+		sUpdate = new Scene(id, active, location, production, name, description, video);
 
-		l = ls.find(id);
+		s = ss.find(id);
 
 		// Se añaden las imágenes ya exsitentes.
 		if (oldImg != null) {
-			for (LocationsMedia img : l.getLocationsMedias()) {
+			for (ScenesMedia img : s.getScenesMedias()) {
 				// Se add a la lista si se encuentra en los datos recibidos.
 				if (oldImg.contains(String.valueOf(img.getId()))) {
 					images.add(img);
@@ -101,34 +96,30 @@ public class ServletLocationUpdate extends HttpServlet {
 					System.out.println("img:" + i);
 				}
 				// Se comprueba que no haya un fichero con el mismo nombre, si existiera, se le cambia el nombre para guardarlo.
-				fileName = lms.existsImage(fileName) ? img[0] + "-1." + img[1] : fileName;
+				fileName = sms.existsImage(fileName) ? img[0] + "-1." + img[1] : fileName;
 				System.out.println("Filename: " + fileName);
-				images.add(new LocationsMedia(fileName, lUpdate));
+				images.add(new ScenesMedia(fileName, s));
 				part.write(uploadPath + File.separator + fileName);
 			}
 		}
 
-		// Se add las imagenes a la localizacion
-		lUpdate.setLocationsMedias(images);
+		sUpdate.setScenesMedias(images);
 
-		String result = ls.update(lUpdate,ci,co,c);
-		System.out.println(result);
-
-		// Se procesa la respuesta.
-		switch (result) {
-			case "ER-LU1":
+		// Se añade y se procesa la respuesta.
+		switch (ss.update(sUpdate)) {
+			case "ER-SU1":
 				req.setAttribute("withMaps", 1);
-				req.setAttribute("isList", 0);
 				req.setAttribute("isForm", 1);
+				req.setAttribute("withSelect2", 1);
 
-				req.setAttribute("locations", lUpdate);
+				req.setAttribute("locations", sUpdate);
 
 				req.setAttribute("msgType", "error");
-				req.setAttribute("msg", "Ha habido un problema con la aplicación, vuelve a intentarlo");
+				req.setAttribute("msg", "Error: Ha habido un problema con la aplicación, vuelve a intentarlo");
 				req.getRequestDispatcher("location.jsp").forward(req, resp);
 				break;
 			default:
-				for (LocationsMedia img : delImages) {
+				for (ScenesMedia img : delImages) {
 					File file = new File(uploadPath + File.separator + img.getFilename());
 					if (file.exists()) {
 						file.delete();
@@ -137,19 +128,11 @@ public class ServletLocationUpdate extends HttpServlet {
 
 				req.setAttribute("msgType", "ok");
 				req.setAttribute("msg", "Elemento añadido correctamente");
-
-				req.setAttribute("withMaps", 0);
 				req.setAttribute("isList", 1);
-				req.setAttribute("isForm", 0);
-				req.setAttribute("withSelect2", 0);
-
-				req.setAttribute("locations", ls.list());
-				req.getRequestDispatcher("location-list.jsp").forward(req, resp);
+				req.setAttribute("scenes", ss.list());
+				req.getRequestDispatcher("scene-list.jsp").forward(req, resp);
 				break;
 		}
-
-		// Modo pruebas
-		// request.getRequestDispatcher("location-create.jsp").forward(request, response);
 	}
 
 	/**

@@ -63,6 +63,26 @@ public class Scene implements Serializable {
 		active = true;
 	}
 
+	/**
+	 *
+	 * @param id
+	 * @param active
+	 * @param location
+	 * @param production
+	 * @param name
+	 * @param description
+	 * @param video
+	 */
+	public Scene(int id, boolean active, Location location, Production production, String name, String description, String video) {
+		this.id = id;
+		this.active = active;
+		this.description = description;
+		this.name = name;
+		this.location = location;
+		this.production = production;
+		this.video = video;
+	}
+
 	public int getId() {
 		return this.id;
 	}
@@ -102,14 +122,14 @@ public class Scene implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
+
 	public String getVideo() {
 		return video;
 	}
 
 	public void setVideo(String video) {
 		this.video = video;
-	}	
+	}
 
 	public Location getLocation() {
 		return this.location;

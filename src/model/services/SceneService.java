@@ -33,6 +33,18 @@ public class SceneService {
 		}
 	}
 
+	/**
+	 * Metodo que para actualizar una escena
+	 * @param s Del tipo Scene.
+	 * @return 	Retorna ER-EU1 si ya hay ha habido algun problema al modificar el elemento.
+	 *  		OK-EU1 si el producto se ha dado de alta correctamente.
+	 */
+
+	public String update(Scene s) {
+		s = sDao.setScene(s);
+		return (s != null)?"OK-SU1": "ER-SU1";
+	}
+
 
 	public String toggleCheck(int id, boolean active) {
 		if(sDao.find(id) != null) {
