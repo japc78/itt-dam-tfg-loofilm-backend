@@ -3,15 +3,14 @@ package test;
 import model.entities.Location;
 import model.entities.LocationsMedia;
 import model.services.LocationService;
-import model.services.ProductionService;
-import model.services.SceneService;
+
 
 public class testQueryJPQ {
 
 	public static void main(String[] args) {
 		LocationService ls = new LocationService();
-		ProductionService ps = new ProductionService();
-		SceneService ss = new SceneService();
+		// ProductionService ps = new ProductionService();
+		// SceneService ss = new SceneService();
 
 		Location l = new Location();
 

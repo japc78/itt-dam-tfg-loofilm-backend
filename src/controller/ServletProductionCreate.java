@@ -21,7 +21,6 @@ maxRequestSize = 1024 * 1024 * 5 * 5)   // 50MB
 public class ServletProductionCreate extends HttpServlet{
 	private static final long serialVersionUID = -6147400358347687716L;
 	private static final String UPLOAD_DIRECTORY = "productions";
-	private static final String DEFAULT_FILENAME = "loofilm";
 
 
 	@Override

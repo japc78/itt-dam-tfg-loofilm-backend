@@ -10,7 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import model.entities.Scene;
-import model.entities.ScenesMedia;
 import model.services.LocationService;
 import model.services.ProductionService;
 import model.services.SceneService;
