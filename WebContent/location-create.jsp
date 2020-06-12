@@ -5,7 +5,7 @@
 	<div class="container-fluid">
 		<div class="row mb-2">
 			<div class="col-sm-6">
-				<h1>Añadir</h1>
+				<h1><span class="badge badge-success">Nueva</span> <span class="badge badge-primary">Localización</span></h1>
 			</div>
 			<div class="col-sm-6">
 				<ol class="breadcrumb float-sm-right">
