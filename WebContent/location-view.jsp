@@ -28,8 +28,6 @@
 						<h3 class="card-title">Informacion general</h3>
 					</div>
 					<div class="card-body box-profile">
-
-
 						<div id="map" class="map rounded mb-3"></div>
 						<p class="text-muted">${location.description}</p>
 						<div class="row">

@@ -25,34 +25,34 @@ public class ServletScene extends HttpServlet{
 		SceneService ss = new SceneService();
 		LocationService ls = new LocationService();
 		ProductionService ps = new ProductionService();
+		String path;
 
 		String page = (!req.getParameter("page").isEmpty())? req.getParameter("page") : "edit";
+
 
 		if (req.getParameter("page").equals("view")) {
 			req.setAttribute("isList", 1);
 			req.setAttribute("withFancyBox", 1);
+			req.setAttribute("withBasicMaps", 1);
+			path = getServletContext().getContextPath() + File.separator + "images" + File.separator;
+
 		} else {
 			req.setAttribute("isForm", 1);
 			req.setAttribute("withSelect2", 1);
+
+			// Se pasan los datos por parametros a los Selects
+			req.setAttribute("locations", ls.listSelect2());
+			req.setAttribute("productions", ps.listSelect2());
+			path = getServletContext().getContextPath() + File.separator + "images" + File.separator + UPLOAD_DIRECTORY + File.separator;
 		}
 
-
 		int id = Integer.parseInt(req.getParameter("id"));
-
 		Scene s = new Scene();
 		s = ss.find(id);
 
+		// Pasmos el id del video.
+		req.setAttribute("video", idVideo(s.getVideo()));
 		req.setAttribute("scene", s);
-
-		// Se pasan los datos por parametros a los Selects
-		req.setAttribute("locations", ls.listSelect2());
-		req.setAttribute("productions", ps.listSelect2());
-
-		for (ScenesMedia img : s.getScenesMedias()) {
-			System.out.println(img.getFilename());
-		}
-
-		String path = getServletContext().getContextPath() + File.separator + "images" + File.separator + UPLOAD_DIRECTORY + File.separator;
 
 		req.setAttribute("path", path);
 
@@ -61,5 +61,10 @@ public class ServletScene extends HttpServlet{
 		} else {
 			req.getRequestDispatcher("scene.jsp").forward(req, resp);
 		}
+	}
+
+	private String idVideo (String video) {
+		String v[] = video.split("/");
+		return video = v[video.split("/").length - 1];
 	}
 }
