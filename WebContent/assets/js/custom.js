@@ -70,8 +70,8 @@ $(document).ready(function () {
 	// Tabla
 	if ($("#list_object").length){
 		$("#list_object").DataTable({
-			responsive: true,
-			autoWidth: true,
+			responsive: false,
+			autoWidth: false,
 			ordering: true,
 			paging: true,
 			info: true,
