@@ -23,7 +23,7 @@
 
 	<!-- Main content -->
 	<section class="content">
-		<form action="scene-create" method="post">
+		<form id="form" action="scene-create" method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-md-12">
 					<div class="card card-primary">
@@ -70,18 +70,8 @@
 
 							<div class="form-group mb-3">
 								<label for="inputName">Añadir video  <small>Link Youtube</small></label>
-								<div class="input-group input-group">
-									<input id="inputVideo" type="text" class="form-control maxlength" placeholder="https://youtu.be/yST45Y1y5zU" value="" maxlength="320">
-									<span class="input-group-append">
-										<button type="button" class="btn btn-info btn-flat rounded-right">Añadir vídeo</button>
-									</span>
-								</div>
+								<input id="inputVideo" type="text" class="form-control maxlength" placeholder="https://youtu.be/yST45Y1y5zU" value="" maxlength="320">
 							</div>
-
-							<%-- <div class="form-group">
-								<label for="inputDescription">Vídeos (Youtube) <small>enlaces de los vídeos separados por ; . max 5</small></label>
-								<textarea id="inputDescription" class="form-control" rows="4" name="inputDescription" placeholder="Ej. https://youtu.be/iAqhy1E9i3E, https://youtu.be/iAqhy1E9i3E"></textarea>
-							</div> --%>
 
 							<div class="form-group">
 								<label for="inputName">Imágenes <small>(max. 5 imágenes)</small></label>

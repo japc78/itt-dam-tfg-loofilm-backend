@@ -12,18 +12,11 @@ public interface SceneDao {
 	List<Scene> list();
 
 	/**
-	 * Metodo para dar de alta una Escena
+	 * Metodo para dar de alta y actualizar una Escena
 	 * @param scene Se le pasa por argumento un objeto de la clase Scene
 	 * @return Devuelve el id de la Escena añadida.
 	 */
-	Scene create(Scene scene);
-
-	/**
-	 * Metodo para modificar una Escena
-	 * @param scene Se le pasa por argumento un objeto de la clase Scenen
-	 * @return Devuelve la Escena modificada.
-	 */
-	Scene update(Scene scene);
+	Scene setScene(Scene scene);
 
 	/**
 	 * Metodo para borrar una Escena

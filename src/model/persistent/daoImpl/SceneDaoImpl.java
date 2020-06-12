@@ -25,7 +25,7 @@ public class SceneDaoImpl implements SceneDao {
 	}
 
 	@Override
-	public Scene create(Scene scene) {
+	public Scene setScene(Scene scene) {
 		if(!con.openConexion()) {
 			return null;
 		}
@@ -37,11 +37,6 @@ public class SceneDaoImpl implements SceneDao {
 
 		//Una vez persistido se me actualiza el objeto con su id, y podemos devolverlo
 		return scene;
-	}
-
-	@Override
-	public Scene update(Scene scene) {
-		return create(scene);
 	}
 
 	@Override

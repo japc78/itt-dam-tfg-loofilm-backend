@@ -24,7 +24,7 @@ public class SceneService {
 	 */
 	public String add(Scene s) {
 		if (!exists(s)) {
-			sDao.create(s);
+			sDao.setScene(s);
 			return "OK-S00";
 		} else if (exists(s)) {
 			return "ER-S01";
@@ -39,7 +39,7 @@ public class SceneService {
 			Scene s = new Scene();
 			s = sDao.find(id);
 			s.setActive(active);
-			sDao.update(s);
+			sDao.setScene(s);
 			return "OK-TC01";
 		} else {
 			return "ER-TC01";

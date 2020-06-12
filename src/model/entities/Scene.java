@@ -24,9 +24,11 @@ public class Scene implements Serializable {
 
 	private Timestamp createDate;
 
+	private String name;
+
 	private String description;
 
-	private String name;
+	private String video;
 
 	//bi-directional many-to-one association to Location
 	@ManyToOne
@@ -52,11 +54,12 @@ public class Scene implements Serializable {
 	 * @param name
 	 * @param description
 	 */
-	public Scene(Location location, Production production, String name, String description) {
+	public Scene(Location location, Production production, String name, String description, String video) {
 		this.description = description;
 		this.name = name;
 		this.location = location;
 		this.production = production;
+		this.video = video;
 		active = true;
 	}
 
@@ -99,6 +102,14 @@ public class Scene implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+	
+	public String getVideo() {
+		return video;
+	}
+
+	public void setVideo(String video) {
+		this.video = video;
+	}	
 
 	public Location getLocation() {
 		return this.location;
@@ -137,6 +148,7 @@ public class Scene implements Serializable {
 
 		return scenesMedia;
 	}
+
 
 	/*
 	 * (non-Javadoc)
@@ -199,5 +211,4 @@ public class Scene implements Serializable {
 				+ ", location=" + location + ", name=" + name + ", production=" + production + ", scenesMedias="
 				+ scenesMedias + "]";
 	}
-
 }

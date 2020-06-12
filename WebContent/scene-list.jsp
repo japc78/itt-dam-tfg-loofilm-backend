@@ -45,10 +45,10 @@
 						 	<c:forEach items="${scenes}" var="s">
 							<tr id="scene-${s.id}">
 								<td>${s.id}</td>
-								<td><img src="images/scenes/${s.scenesMedias[0].filename != null ? s.scenesMedias[0].filename : 'default.png'}" width="50px"></td> 
+								<td><img src="images/scenes/${s.scenesMedias[0].filename != null ? s.scenesMedias[0].filename : 'default.png'}" width="50px"></td>
 								<td>${s.name}</td>
 								<td>${s.production.name}</td>
-								<td>${s.production.type eq 0 ? 'serie':'film'}</td> 
+								<td>${s.production.type eq 0 ? 'serie':'film'}</td>
 								<td>${s.location.name}</td>
 								<td>${s.location.city.city}</td>
 								<td class="text-center">
@@ -58,9 +58,9 @@
 									</div>
 								</td>
 								<td class="project-actions text-right">
-									<a class="btn btn-primary btn-xs" href="#">Ver</a>
-									<a class="btn btn-info btn-xs" href="#">Editar</a>
-				                    <a id="del-${s.id}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a> 
+									<a class="btn btn-primary btn-xs" href="scene?id=${s.id}&page=view">Ver</a>
+									<a class="btn btn-info btn-xs btnEdit" href="scene?id=${s.id}&page=edit">Editar</a>
+				                    <a id="del-${s.id}" class="btn btn-danger btn-xs btnDel" href="#">Borrar</a>
 								</td>
 							</tr>
 							</c:forEach>

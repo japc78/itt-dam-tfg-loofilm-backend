@@ -31,6 +31,21 @@ public class ScenesMedia implements Serializable {
 	public ScenesMedia() {
 	}
 
+	/**
+	 * @param filename
+	*/
+	public ScenesMedia(String filename, Scene scene) {
+		this.scene = scene;
+		this.filename = filename;
+	}
+
+	/**
+	 * @param filename
+	*/
+	public ScenesMedia(String filename) {
+		this.filename = filename;
+	}
+
 	public int getId() {
 		return this.id;
 	}

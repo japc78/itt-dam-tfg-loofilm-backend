@@ -7,12 +7,12 @@
 		<class>model.entities.Location</class>
 		<class>model.entities.LocationsMedia</class>
 		<class>model.entities.Production</class>
-		<class>model.entities.Scene</class>
 		<class>model.entities.ScenesMedia</class>
 		<class>model.entities.Visited</class>
 		<class>model.entities.VisitedPK</class>
 		<class>model.entities.User</class>
 		<class>model.entities.UsersAdmin</class>
+		<class>model.entities.Scene</class>
 		<properties>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3360/loofilm?useSSL=false"/>
 			<property name="javax.persistence.jdbc.user" value="itt.dam"/>

@@ -1,23 +1,34 @@
 package controller;
 
+import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.Part;
 
 import model.entities.Location;
 import model.entities.Production;
 import model.entities.Scene;
+import model.entities.ScenesMedia;
 import model.services.LocationService;
 import model.services.ProductionService;
 import model.services.SceneService;
+import model.services.ScenesMediaService;
 
 @WebServlet("/scene-create")
+@MultipartConfig(fileSizeThreshold=1024*1024*2, // 2MB
+                 maxFileSize=1024*1024*10,      // 10MB
+                 maxRequestSize=1024*1024*50)
 public class ServletSceneCreate extends HttpServlet {
 	private static final long serialVersionUID = 4000751667389489942L;
+	private static final String UPLOAD_DIRECTORY = "scenes";
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -42,6 +53,7 @@ public class ServletSceneCreate extends HttpServlet {
 
 		// Servicios necesarios
 		SceneService ss = new SceneService();
+		ScenesMediaService sms = new ScenesMediaService();
 		LocationService ls = new LocationService();
 		ProductionService ps = new ProductionService();
 
@@ -51,10 +63,12 @@ public class ServletSceneCreate extends HttpServlet {
 		Scene s;
 
 		// Se regocen los valores de los campos recibidos.
-		int idLocation 		= Integer.parseInt(req.getParameter("location"));
-		int idProduction 		= Integer.parseInt(req.getParameter("production"));
-		String name 		= req.getParameter("name");
-		String description 	= req.getParameter("description");
+		int idLocation 				= Integer.parseInt(req.getParameter("location"));
+		int idProduction 			= Integer.parseInt(req.getParameter("production"));
+		String name 				= req.getParameter("name");
+		String description 			= req.getParameter("description");
+		String video				= req.getParameter("video");
+		List<ScenesMedia> images 	= new ArrayList<>();
 
 		// System.out.println("Localizacion Id: " +  idLocation);
 		// System.out.println("Produccion Id: " +  idProduction);
@@ -62,7 +76,32 @@ public class ServletSceneCreate extends HttpServlet {
 		location = ls.find(idLocation);
 		production = ps.find(idProduction);
 
-		s = new Scene(location, production, name, description);
+		s = new Scene(location, production, name, description, video);
+
+		// Subida de ficheros
+		String uploadPath = getServletContext().getRealPath("") + File.separator + "images" + File.separator + UPLOAD_DIRECTORY;
+		File uploadDir = new File(uploadPath);
+		if (!uploadDir.exists()) uploadDir.mkdir();
+
+		for (Part part : req.getParts()) {
+			// Se optiene el nombre del fichero.
+			String fileName = getFileName(part);
+
+			if (!fileName.isEmpty()) {
+				System.out.println("Filename: " + fileName);
+				String img[] = fileName.split("\\.");
+				for (String i : img) {
+					System.out.println("img:" + i);
+				}
+				// Se comprueba que no haya un fichero con el mismo nombre, si existiera, se le cambia el nombre para guardarlo.
+				fileName = sms.existsImage(fileName) ? img[0] + "-1." + img[1] : fileName;
+				System.out.println("Filename: " + fileName);
+				images.add(new ScenesMedia(fileName, s));
+				part.write(uploadPath + File.separator + fileName);
+			}
+		}
+
+		s.setScenesMedias(images);
 
 		// Se añade y se procesa la respuesta.
 		switch (ss.add(s)) {
@@ -86,8 +125,19 @@ public class ServletSceneCreate extends HttpServlet {
 				req.setAttribute("withSelect2", 0);
 
 				req.setAttribute("scenes", ss.list());
-				req.getRequestDispatcher("scene-list.jsp").forward(req, resp); 
+				req.getRequestDispatcher("scene-list.jsp").forward(req, resp);
 				break;
 		}
+	}
+
+	/**
+     * Metodo que extrae del HTTP header el nombre del fichero.
+    */
+	private String getFileName(Part part) {
+	    for (String content : part.getHeader("content-disposition").split(";")) {
+	        if (content.trim().startsWith("filename"))
+	            return content.substring(content.indexOf("=") + 2, content.length() - 1);
+	        }
+	    return "";
 	}
 }
