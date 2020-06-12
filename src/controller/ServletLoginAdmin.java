@@ -72,15 +72,16 @@ public class ServletLoginAdmin extends HttpServlet {
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
 				break;
 			case "ER-U01":
+				req.setAttribute("email", email);
 				req.setAttribute("msgType", "error");
 				req.setAttribute("msg", "El email no es correcto");
-				req.setAttribute("email", user);
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
 				break;
 			case "ER-U02":
+				req.setAttribute("email", email);
+				req.setAttribute("pass", pass);
 				req.setAttribute("msgType", "error");
 				req.setAttribute("msg", "La contraseña no es correcta");
-				req.setAttribute("email", user);
 				req.getRequestDispatcher("index.jsp").forward(req, resp);
 				break;
 			default:
