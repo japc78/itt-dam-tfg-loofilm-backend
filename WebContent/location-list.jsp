@@ -6,7 +6,7 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Listado</h1>
+          <h1><span class="badge badge-success">Listado</span> <span class="badge badge-primary">Localizaciones</span></h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
@@ -36,9 +36,9 @@
                   <th>Ciudad</th>
                   <th>Provincia</th>
                   <th>País</th>
-                  <th style="width: 5%;" class="text-center">Produc.</th>
-                  <th style="width: 2%;" class="text-center">Estado</th>
-                  <th style="min-width: 130px;"class="no-sort text-center"></th>
+                  <th class="text-center">Produc.</th>
+                  <th class="text-center">Estado</th>
+                  <th style="width: 150px; "class="no-sort text-center"></th>
                 </tr>
               </thead>
               <tbody>
@@ -56,7 +56,7 @@
                       <input type="checkbox" class="custom-control-input check" id="check-${l[0].id}" ${l[0].active eq 'false' ? '': 'checked'}>
                       <label class="custom-control-label" for="check-${l[0].id}"><span class="hidden">${l[0].active}</span></label>
                     </div>
-                   </td>
+                  </td>
                   <td class="project-actions text-right">
                     <a class="btn btn-primary btn-xs" href="location?id=${l[0].id}&page=view">Ver</a>
                     <a class="btn btn-info btn-xs btnEdit" href="location?id=${l[0].id}&page=edit">Editar</a>
